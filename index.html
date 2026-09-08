@@ -1144,45 +1144,127 @@ body {
 
 </div>
 
-    <style>
-.rating-calculator {
-    max-width: 500px;
-    margin: 30px auto;
+<!-- FOOTBALL RATING CALCULATOR -->
+
+<div id="footballRatingCalculator">
+
+    <h2>⚽ Rating Calculator</h2>
+
+    <input id="frcName" type="text" placeholder="Player name">
+
+    <select id="frcPosition">
+        <option value="FW">Forward</option>
+        <option value="MID">Midfielder</option>
+        <option value="DEF">Defender</option>
+        <option value="GK">Goalkeeper</option>
+    </select>
+
+    <div class="frc-grid">
+
+        <div>
+            <label>Goals</label>
+            <input id="frcGoals" type="number" min="0" value="0">
+        </div>
+
+        <div>
+            <label>Assists</label>
+            <input id="frcAssists" type="number" min="0" value="0">
+        </div>
+
+        <div>
+            <label>Tackles</label>
+            <input id="frcTackles" type="number" min="0" value="0">
+        </div>
+
+        <div>
+            <label>Saves</label>
+            <input id="frcSaves" type="number" min="0" value="0">
+        </div>
+
+        <div>
+            <label>MOTM</label>
+            <input id="frcMotm" type="number" min="0" value="0">
+        </div>
+
+        <div>
+            <label>Clean Sheets</label>
+            <input id="frcClean" type="number" min="0" value="0">
+        </div>
+
+    </div>
+
+    <button type="button" id="frcCalculate">
+        Calculate Rating
+    </button>
+
+    <div id="frcResult">
+
+        <div id="frcPlayer"></div>
+
+        <div id="frcRating">0</div>
+
+        <div id="frcLabel">OVERALL</div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+#footballRatingCalculator {
+    max-width: 520px;
+    margin: 40px auto;
     padding: 25px;
-    background: #171717;
+    background: #151515;
+    color: white;
     border: 1px solid #333;
     border-radius: 18px;
-    color: white;
     font-family: Arial, sans-serif;
 }
 
-.rating-calculator h2 {
+#footballRatingCalculator h2 {
     text-align: center;
-    color: #b88ae8;
-    margin-bottom: 20px;
+    margin-top: 0;
+    margin-bottom: 22px;
+    color: #b98be8;
 }
 
-.rating-calculator label {
-    display: block;
-    margin: 12px 0 6px;
-    font-weight: bold;
-}
-
-.rating-calculator input,
-.rating-calculator select {
+#footballRatingCalculator input,
+#footballRatingCalculator select {
     width: 100%;
     padding: 11px;
-    border-radius: 8px;
-    border: 1px solid #444;
-    background: #242424;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    background: #222;
     color: white;
-    font-size: 15px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    outline: none;
 }
 
-.rating-calculator button {
+#footballRatingCalculator input:focus,
+#footballRatingCalculator select:focus {
+    border-color: #a66ed5;
+}
+
+#footballRatingCalculator label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.frc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+#frcCalculate {
     width: 100%;
-    margin-top: 20px;
     padding: 13px;
+    margin-top: 8px;
     border: none;
     border-radius: 9px;
     background: #9b6bd3;
@@ -1190,115 +1272,76 @@ body {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.2s;
 }
 
-.rating-calculator button:hover {
+#frcCalculate:hover {
     transform: translateY(-2px);
+    background: #a978df;
 }
 
-.rating-result {
+#frcResult {
     display: none;
     text-align: center;
     margin-top: 25px;
     padding: 20px;
-    background: #222;
     border-radius: 14px;
+    background: #202020;
 }
 
-.rating-number {
-    font-size: 60px;
+#frcPlayer {
+    font-size: 18px;
     font-weight: bold;
-    color: #c49bea;
 }
 
-.rating-result p {
-    margin: 5px;
+#frcRating {
+    margin-top: 5px;
+    font-size: 65px;
+    font-weight: bold;
+    color: #c39bea;
 }
+
+#frcLabel {
+    font-size: 13px;
+    color: #aaa;
+    letter-spacing: 2px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    #footballRatingCalculator {
+        margin: 20px 10px;
+        padding: 18px;
+    }
+
+    .frc-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
 </style>
-
-
-<div class="rating-calculator">
-
-    <h2>⚽ Player Rating Calculator</h2>
-
-    <label>Player Name</label>
-    <input type="text" id="rcName" placeholder="Enter player name">
-
-    <label>Position</label>
-    <select id="rcPosition">
-        <option value="FW">Forward</option>
-        <option value="MID">Midfielder</option>
-        <option value="DEF">Defender</option>
-        <option value="GK">Goalkeeper</option>
-    </select>
-
-    <label>Goals</label>
-    <input type="number" id="rcGoals" min="0" value="0">
-
-    <label>Assists</label>
-    <input type="number" id="rcAssists" min="0" value="0">
-
-    <label>Tackles</label>
-    <input type="number" id="rcTackles" min="0" value="0">
-
-    <label>Saves</label>
-    <input type="number" id="rcSaves" min="0" value="0">
-
-    <label>MOTM</label>
-    <input type="number" id="rcMotm" min="0" value="0">
-
-    <label>Clean Sheets</label>
-    <input type="number" id="rcCleanSheets" min="0" value="0">
-
-    <button onclick="calculatePlayerRating()">
-        Calculate Rating
-    </button>
-
-    <div class="rating-result" id="rcResult">
-
-        <p id="rcPlayerName"></p>
-
-        <div class="rating-number" id="rcRating">
-            0
-        </div>
-
-        <p>OVERALL RATING</p>
-
-    </div>
-
-</div>
 
 
 <script>
 
-function calculatePlayerRating() {
+document.getElementById("frcCalculate").addEventListener("click", function () {
 
-    const name =
-        document.getElementById("rcName").value || "Player";
+    const name = document.getElementById("frcName").value.trim() || "Player";
 
-    const position =
-        document.getElementById("rcPosition").value;
+    const position = document.getElementById("frcPosition").value;
 
-    const goals =
-        Number(document.getElementById("rcGoals").value);
+    const goals = Math.max(0, Number(document.getElementById("frcGoals").value) || 0);
+    const assists = Math.max(0, Number(document.getElementById("frcAssists").value) || 0);
+    const tackles = Math.max(0, Number(document.getElementById("frcTackles").value) || 0);
+    const saves = Math.max(0, Number(document.getElementById("frcSaves").value) || 0);
+    const motm = Math.max(0, Number(document.getElementById("frcMotm").value) || 0);
+    const clean = Math.max(0, Number(document.getElementById("frcClean").value) || 0);
 
-    const assists =
-        Number(document.getElementById("rcAssists").value);
-
-    const tackles =
-        Number(document.getElementById("rcTackles").value);
-
-    const saves =
-        Number(document.getElementById("rcSaves").value);
-
-    const motm =
-        Number(document.getElementById("rcMotm").value);
-
-    const cleanSheets =
-        Number(document.getElementById("rcCleanSheets").value);
-
-
-    let rating;
+    let rating = 60;
 
 
     /* FORWARD */
@@ -1307,72 +1350,79 @@ function calculatePlayerRating() {
 
         rating =
             60 +
-            (goals * 4) +
-            (assists * 2.5) +
-            (motm * 3) +
-            (tackles * 0.3);
+            goals * 4 +
+            assists * 2.5 +
+            motm * 3 +
+            tackles * 0.3;
 
     }
 
 
     /* MIDFIELDER */
 
-    else if (position === "MID") {
+    if (position === "MID") {
 
         rating =
             60 +
-            (goals * 3) +
-            (assists * 3) +
-            (tackles * 1) +
-            (motm * 3);
+            goals * 3 +
+            assists * 3 +
+            tackles * 1 +
+            motm * 3;
 
     }
 
 
     /* DEFENDER */
 
-    else if (position === "DEF") {
+    if (position === "DEF") {
 
         rating =
             60 +
-            (goals * 2.5) +
-            (assists * 1.5) +
-            (tackles * 2) +
-            (cleanSheets * 2) +
-            (motm * 3);
+            goals * 2.5 +
+            assists * 1.5 +
+            tackles * 2 +
+            clean * 2 +
+            motm * 3;
 
     }
 
 
     /* GOALKEEPER */
 
-    else if (position === "GK") {
+    if (position === "GK") {
 
         rating =
             60 +
-            (saves * 1.2) +
-            (cleanSheets * 3) +
-            (motm * 3);
+            saves * 1.2 +
+            clean * 3 +
+            motm * 3;
 
     }
 
 
-    /* LIMIT BETWEEN 1 AND 99 */
+    /* ROUND */
 
-    rating = Math.round(
-        Math.min(99, Math.max(1, rating))
-    );
+    rating = Math.round(rating);
 
 
-    document.getElementById("rcPlayerName").innerText =
+    /* LIMIT */
+
+    if (rating > 99) rating = 99;
+    if (rating < 1) rating = 1;
+
+
+    /* SHOW RESULT */
+
+    document.getElementById("frcPlayer").textContent =
         name + " • " + position;
 
-    document.getElementById("rcRating").innerText =
+    document.getElementById("frcRating").textContent =
         rating;
 
-    document.getElementById("rcResult").style.display =
+    document.getElementById("frcResult").style.display =
         "block";
-}
+
+});
 
 </script>
 
