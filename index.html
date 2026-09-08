@@ -1144,201 +1144,141 @@ body {
 
 </div>
 
-<!-- FOOTBALL RATING CALCULATOR -->
+<!-- ================================
+     FOOTBALL RATING CALCULATOR
+================================ -->
 
-<div id="footballRatingCalculator">
+<div class="rex-rating">
 
-    <h2>⚽ Rating Calculator</h2>
-
-    <input id="frcName" type="text" placeholder="Player name">
-
-    <select id="frcPosition">
-        <option value="FW">Forward</option>
-        <option value="MID">Midfielder</option>
-        <option value="DEF">Defender</option>
-        <option value="GK">Goalkeeper</option>
-    </select>
-
-    <div class="frc-grid">
-
+    <div class="rex-rating-header">
+        <span class="rex-rating-icon">⚽</span>
         <div>
-            <label>Goals</label>
-            <input id="frcGoals" type="number" min="0" value="0">
+            <h2>Player Rating Calculator</h2>
+            <p>Calculate a realistic match-based rating</p>
         </div>
-
-        <div>
-            <label>Assists</label>
-            <input id="frcAssists" type="number" min="0" value="0">
-        </div>
-
-        <div>
-            <label>Tackles</label>
-            <input id="frcTackles" type="number" min="0" value="0">
-        </div>
-
-        <div>
-            <label>Saves</label>
-            <input id="frcSaves" type="number" min="0" value="0">
-        </div>
-
-        <div>
-            <label>MOTM</label>
-            <input id="frcMotm" type="number" min="0" value="0">
-        </div>
-
-        <div>
-            <label>Clean Sheets</label>
-            <input id="frcClean" type="number" min="0" value="0">
-        </div>
-
     </div>
 
-    <button type="button" id="frcCalculate">
-        Calculate Rating
-    </button>
+    <div class="rex-form">
 
-    <div id="frcResult">
+        <div class="rex-field">
+            <label>Player Name</label>
+            <input type="text" id="rexPlayerName" placeholder="e.g. Harkabir">
+        </div>
 
-        <div id="frcPlayer"></div>
+        <div class="rex-field">
+            <label>Position</label>
+            <select id="rexPosition">
+                <option value="FW">⚡ Forward</option>
+                <option value="MID">🎯 Midfielder</option>
+                <option value="DEF">🛡 Defender</option>
+                <option value="GK">🧤 Goalkeeper</option>
+            </select>
+        </div>
 
-        <div id="frcRating">0</div>
+        <div class="rex-stats">
 
-        <div id="frcLabel">OVERALL</div>
+            <div class="rex-field">
+                <label>Matches</label>
+                <input type="number" id="rexMatches" min="1" value="1">
+            </div>
+
+            <div class="rex-field">
+                <label>Goals</label>
+                <input type="number" id="rexGoals" min="0" value="0">
+            </div>
+
+            <div class="rex-field">
+                <label>Assists</label>
+                <input type="number" id="rexAssists" min="0" value="0">
+            </div>
+
+            <div class="rex-field">
+                <label>Tackles</label>
+                <input type="number" id="rexTackles" min="0" value="0">
+            </div>
+
+            <div class="rex-field">
+                <label>Saves</label>
+                <input type="number" id="rexSaves" min="0" value="0">
+            </div>
+
+            <div class="rex-field">
+                <label>MOTM</label>
+                <input type="number" id="rexMOTM" min="0" value="0">
+            </div>
+
+            <div class="rex-field">
+                <label>Clean Sheets</label>
+                <input type="number" id="rexClean" min="0" value="0">
+            </div>
+
+        </div>
+
+        <button type="button" id="rexCalculate">
+            Calculate Rating
+        </button>
 
     </div>
-
-</div>
-
-<!-- ============================= -->
-<!-- FOOTBALL PLAYER RATING CALCULATOR -->
-<!-- ============================= -->
-
-<div id="footballRatingCalculator">
-
-    <h2>⚽ Player Rating Calculator</h2>
-
-    <p class="frc-subtitle">
-        Calculate a realistic overall rating based on performance and matches played.
-    </p>
-
-    <!-- PLAYER NAME -->
-    <label>Player Name</label>
-    <input
-        type="text"
-        id="frcName"
-        placeholder="Enter player name"
-    >
-
-    <!-- POSITION -->
-    <label>Position</label>
-    <select id="frcPosition">
-        <option value="FW">Forward</option>
-        <option value="MID">Midfielder</option>
-        <option value="DEF">Defender</option>
-        <option value="GK">Goalkeeper</option>
-    </select>
-
-    <!-- STATS -->
-    <div class="frc-grid">
-
-        <div>
-            <label>Matches Played</label>
-            <input
-                type="number"
-                id="frcMatches"
-                min="1"
-                value="1"
-            >
-        </div>
-
-        <div>
-            <label>Goals</label>
-            <input
-                type="number"
-                id="frcGoals"
-                min="0"
-                value="0"
-            >
-        </div>
-
-        <div>
-            <label>Assists</label>
-            <input
-                type="number"
-                id="frcAssists"
-                min="0"
-                value="0"
-            >
-        </div>
-
-        <div>
-            <label>Tackles</label>
-            <input
-                type="number"
-                id="frcTackles"
-                min="0"
-                value="0"
-            >
-        </div>
-
-        <div>
-            <label>Saves</label>
-            <input
-                type="number"
-                id="frcSaves"
-                min="0"
-                value="0"
-            >
-        </div>
-
-        <div>
-            <label>MOTM</label>
-            <input
-                type="number"
-                id="frcMotm"
-                min="0"
-                value="0"
-            >
-        </div>
-
-        <div>
-            <label>Clean Sheets</label>
-            <input
-                type="number"
-                id="frcClean"
-                min="0"
-                value="0"
-            >
-        </div>
-
-    </div>
-
-    <!-- BUTTON -->
-    <button
-        type="button"
-        id="frcCalculate"
-    >
-        Calculate Rating
-    </button>
 
 
     <!-- RESULT -->
-    <div id="frcResult">
 
-        <div class="frc-player" id="frcPlayer">
-            Player
+    <div class="rex-result" id="rexResult">
+
+        <div class="rex-result-top">
+
+            <div>
+                <span class="rex-result-label">PLAYER</span>
+                <h3 id="rexResultName">Player</h3>
+                <span id="rexResultPosition">Forward</span>
+            </div>
+
+            <div class="rex-rating-number" id="rexRating">
+                0
+            </div>
+
         </div>
 
-        <div class="frc-rating" id="frcRating">
-            0
-        </div>
-
-        <div class="frc-overall">
-            OVERALL RATING
-        </div>
-
-        <div class="frc-level" id="frcLevel">
+        <div class="rex-rating-status" id="rexStatus">
             -
+        </div>
+
+
+        <div class="rex-breakdown">
+
+            <div>
+                <span>Matches</span>
+                <strong id="rexBMatches">0</strong>
+            </div>
+
+            <div>
+                <span>G/M</span>
+                <strong id="rexBGoals">0</strong>
+            </div>
+
+            <div>
+                <span>A/M</span>
+                <strong id="rexBAssists">0</strong>
+            </div>
+
+            <div>
+                <span>MOTM</span>
+                <strong id="rexBMOTM">0</strong>
+            </div>
+
+        </div>
+
+        <div class="rex-bar">
+
+            <div class="rex-bar-title">
+                <span>Overall Performance</span>
+                <span id="rexBarNumber">0</span>
+            </div>
+
+            <div class="rex-bar-background">
+                <div class="rex-bar-fill" id="rexBarFill"></div>
+            </div>
+
         </div>
 
     </div>
@@ -1348,157 +1288,190 @@ body {
 
 <style>
 
-/* ============================= */
-/* MAIN CONTAINER */
-/* ============================= */
+/* ================================
+   CONTAINER
+================================ */
 
-#footballRatingCalculator {
+.rex-rating {
 
     width: 100%;
-    max-width: 560px;
+    max-width: 620px;
 
     margin: 40px auto;
 
-    padding: 28px;
+    padding: 26px;
 
     box-sizing: border-box;
 
-    background: #151515;
+    background: #111111;
 
     color: #ffffff;
 
-    border: 1px solid #333333;
+    border: 1px solid #292929;
 
-    border-radius: 20px;
+    border-radius: 22px;
 
     font-family: Arial, sans-serif;
 
 }
 
 
-/* ============================= */
-/* TITLE */
-/* ============================= */
+/* ================================
+   HEADER
+================================ */
 
-#footballRatingCalculator h2 {
+.rex-rating-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.rex-rating-icon {
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #211a29;
+
+    border: 1px solid #443451;
+
+    border-radius: 14px;
+
+    font-size: 25px;
+
+}
+
+
+.rex-rating-header h2 {
 
     margin: 0;
 
-    text-align: center;
-
-    font-size: 27px;
-
-    color: #b98be8;
+    font-size: 23px;
 
 }
 
 
-.frc-subtitle {
+.rex-rating-header p {
 
-    text-align: center;
+    margin: 5px 0 0;
 
-    color: #999999;
+    color: #8f8f8f;
 
-    font-size: 14px;
-
-    margin: 8px 0 25px;
+    font-size: 13px;
 
 }
 
 
-/* ============================= */
-/* LABELS */
-/* ============================= */
+/* ================================
+   FORM
+================================ */
 
-#footballRatingCalculator label {
+.rex-field {
+
+    margin-bottom: 15px;
+
+}
+
+
+.rex-field label {
 
     display: block;
 
-    margin: 13px 0 6px;
+    margin-bottom: 7px;
 
-    font-size: 14px;
+    color: #cfcfcf;
 
-    font-weight: bold;
+    font-size: 13px;
 
-    color: #dddddd;
+    font-weight: 600;
 
 }
 
 
-/* ============================= */
-/* INPUTS */
-/* ============================= */
-
-#footballRatingCalculator input,
-#footballRatingCalculator select {
+.rex-field input,
+.rex-field select {
 
     width: 100%;
 
-    padding: 12px;
+    height: 44px;
+
+    padding: 0 13px;
 
     box-sizing: border-box;
 
-    background: #222222;
+    background: #1c1c1c;
 
-    color: #ffffff;
-
-    border: 1px solid #444444;
+    border: 1px solid #343434;
 
     border-radius: 9px;
 
-    font-size: 15px;
+    color: white;
 
     outline: none;
 
-}
-
-
-#footballRatingCalculator input:focus,
-#footballRatingCalculator select:focus {
-
-    border-color: #a66ed5;
+    font-size: 14px;
 
 }
 
 
-/* ============================= */
-/* STATS GRID */
-/* ============================= */
+.rex-field input:focus,
+.rex-field select:focus {
 
-.frc-grid {
+    border-color: #a66bd3;
+
+}
+
+
+/* ================================
+   STATS
+================================ */
+
+.rex-stats {
 
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
 
-    gap: 10px;
+    gap: 0 12px;
 
 }
 
 
-/* ============================= */
-/* BUTTON */
-/* ============================= */
+/* ================================
+   BUTTON
+================================ */
 
-#frcCalculate {
+#rexCalculate {
 
     width: 100%;
 
-    margin-top: 24px;
+    height: 47px;
 
-    padding: 14px;
+    margin-top: 8px;
 
     border: none;
 
     border-radius: 10px;
 
-    background: #9b6bd3;
+    background: #9562c9;
 
     color: white;
 
-    font-size: 16px;
+    font-size: 15px;
 
-    font-weight: bold;
+    font-weight: 700;
 
     cursor: pointer;
 
@@ -1507,120 +1480,268 @@ body {
 }
 
 
-#frcCalculate:hover {
+#rexCalculate:hover {
 
-    background: #aa7ce0;
+    background: #a875dc;
 
     transform: translateY(-2px);
 
 }
 
 
-/* ============================= */
-/* RESULT */
-/* ============================= */
+#rexCalculate:active {
 
-#frcResult {
+    transform: translateY(0);
+
+}
+
+
+/* ================================
+   RESULT
+================================ */
+
+.rex-result {
 
     display: none;
 
     margin-top: 25px;
 
-    padding: 24px;
+    padding: 22px;
+
+    background: #181818;
+
+    border: 1px solid #303030;
+
+    border-radius: 17px;
+
+}
+
+
+.rex-result-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.rex-result-label {
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color: #777;
+
+}
+
+
+.rex-result h3 {
+
+    margin: 5px 0 4px;
+
+    font-size: 21px;
+
+}
+
+
+#rexResultPosition {
+
+    color: #9b9b9b;
+
+    font-size: 13px;
+
+}
+
+
+.rex-rating-number {
+
+    font-size: 65px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    color: #bf91e8;
+
+}
+
+
+.rex-rating-status {
+
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 6px 11px;
+
+    background: #261c30;
+
+    border-radius: 20px;
+
+    color: #c59ae9;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* ================================
+   BREAKDOWN
+================================ */
+
+.rex-breakdown {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 8px;
+
+    margin-top: 20px;
+
+}
+
+
+.rex-breakdown div {
+
+    padding: 12px 5px;
 
     text-align: center;
 
     background: #202020;
 
-    border-radius: 16px;
-
-    border: 1px solid #333333;
+    border-radius: 9px;
 
 }
 
 
-.frc-player {
+.rex-breakdown span {
 
-    font-size: 19px;
+    display: block;
 
-    font-weight: bold;
+    color: #777;
 
-}
-
-
-.frc-rating {
-
-    margin-top: 4px;
-
-    font-size: 72px;
-
-    line-height: 1;
-
-    font-weight: bold;
-
-    color: #c39bea;
+    font-size: 10px;
 
 }
 
 
-.frc-overall {
+.rex-breakdown strong {
 
-    margin-top: 8px;
+    display: block;
 
-    font-size: 12px;
-
-    letter-spacing: 3px;
-
-    color: #999999;
-
-}
-
-
-.frc-level {
-
-    margin-top: 12px;
+    margin-top: 5px;
 
     font-size: 15px;
 
-    font-weight: bold;
+}
 
-    color: #b98be8;
+
+/* ================================
+   BAR
+================================ */
+
+.rex-bar {
+
+    margin-top: 20px;
 
 }
 
 
-/* ============================= */
-/* MOBILE */
-/* ============================= */
+.rex-bar-title {
 
-@media (max-width: 500px) {
+    display: flex;
 
-    #footballRatingCalculator {
+    justify-content: space-between;
+
+    margin-bottom: 7px;
+
+    color: #aaa;
+
+    font-size: 12px;
+
+}
+
+
+.rex-bar-background {
+
+    width: 100%;
+
+    height: 7px;
+
+    background: #292929;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+}
+
+
+.rex-bar-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #a56ed2;
+
+    border-radius: 10px;
+
+    transition: width 0.7s ease;
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 520px) {
+
+    .rex-rating {
 
         margin: 25px 10px;
 
-        padding: 20px;
+        padding: 19px;
+
+        width: calc(100% - 20px);
 
     }
 
 
-    .frc-grid {
+    .rex-rating-header h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .rex-stats {
 
         grid-template-columns: 1fr;
 
     }
 
 
-    #footballRatingCalculator h2 {
+    .rex-breakdown {
 
-        font-size: 23px;
+        grid-template-columns: repeat(2, 1fr);
 
     }
 
 
-    .frc-rating {
+    .rex-rating-number {
 
-        font-size: 60px;
+        font-size: 52px;
 
     }
 
@@ -1631,401 +1752,420 @@ body {
 
 <script>
 
-/* ========================================= */
-/* FOOTBALL RATING CALCULATOR */
-/* ========================================= */
+/* ==========================================
+   REXOLE FOOTBALL RATING CALCULATOR
+========================================== */
 
-document
-    .getElementById("frcCalculate")
-    .addEventListener("click", function () {
+(function () {
+
+    "use strict";
 
 
-    /* ============================= */
-    /* GET VALUES */
-    /* ============================= */
+    const button =
+        document.getElementById("rexCalculate");
 
-    const name =
+
+    button.addEventListener("click", function () {
+
+
+        /* ------------------------------
+           GET INPUTS
+        ------------------------------ */
+
+        const name =
+            document
+            .getElementById("rexPlayerName")
+            .value
+            .trim() || "Player";
+
+
+        const position =
+            document
+            .getElementById("rexPosition")
+            .value;
+
+
+        const matches =
+            Math.max(
+                1,
+                parseFloat(
+                    document
+                    .getElementById("rexMatches")
+                    .value
+                ) || 1
+            );
+
+
+        const goals =
+            Math.max(
+                0,
+                parseFloat(
+                    document
+                    .getElementById("rexGoals")
+                    .value
+                ) || 0
+            );
+
+
+        const assists =
+            Math.max(
+                0,
+                parseFloat(
+                    document
+                    .getElementById("rexAssists")
+                    .value
+                ) || 0
+            );
+
+
+        const tackles =
+            Math.max(
+                0,
+                parseFloat(
+                    document
+                    .getElementById("rexTackles")
+                    .value
+                ) || 0
+            );
+
+
+        const saves =
+            Math.max(
+                0,
+                parseFloat(
+                    document
+                    .getElementById("rexSaves")
+                    .value
+                ) || 0
+            );
+
+
+        const motm =
+            Math.max(
+                0,
+                parseFloat(
+                    document
+                    .getElementById("rexMOTM")
+                    .value
+                ) || 0
+            );
+
+
+        const clean =
+            Math.max(
+                0,
+                parseFloat(
+                    document
+                    .getElementById("rexClean")
+                    .value
+                ) || 0
+            );
+
+
+        /* ------------------------------
+           PER MATCH
+        ------------------------------ */
+
+        const gpm = goals / matches;
+        const apm = assists / matches;
+        const tpm = tackles / matches;
+        const spm = saves / matches;
+        const mpm = motm / matches;
+        const cpm = clean / matches;
+
+
+        let rating = 70;
+
+
+        /* ------------------------------
+           POSITION FORMULA
+
+           The formula is deliberately
+           conservative so 99 is rare.
+        ------------------------------ */
+
+        if (position === "FW") {
+
+            rating =
+                72
+                + Math.min(gpm * 12, 13)
+                + Math.min(apm * 8, 7)
+                + Math.min(mpm * 10, 5)
+                + Math.min(tpm * 0.5, 2);
+
+        }
+
+
+        else if (position === "MID") {
+
+            rating =
+                72
+                + Math.min(gpm * 9, 9)
+                + Math.min(apm * 10, 9)
+                + Math.min(tpm * 1.5, 6)
+                + Math.min(mpm * 10, 5);
+
+        }
+
+
+        else if (position === "DEF") {
+
+            rating =
+                72
+                + Math.min(gpm * 7, 5)
+                + Math.min(apm * 5, 4)
+                + Math.min(tpm * 2, 10)
+                + Math.min(cpm * 8, 7)
+                + Math.min(mpm * 10, 5);
+
+        }
+
+
+        else if (position === "GK") {
+
+            rating =
+                72
+                + Math.min(spm * 1.7, 13)
+                + Math.min(cpm * 8, 7)
+                + Math.min(mpm * 10, 5);
+
+        }
+
+
+        /* ------------------------------
+           MATCH CONSISTENCY
+
+           More matches = more reliable.
+        ------------------------------ */
+
+        if (matches === 1) {
+
+            rating -= 4;
+
+        }
+
+        else if (matches === 2) {
+
+            rating -= 2.5;
+
+        }
+
+        else if (matches === 3) {
+
+            rating -= 1.5;
+
+        }
+
+        else if (matches >= 5 && matches < 10) {
+
+            rating += 0.5;
+
+        }
+
+        else if (matches >= 10) {
+
+            rating += 1;
+
+        }
+
+
+        /* ------------------------------
+           SMALL CONSISTENCY BONUS
+
+           Prevents one-stat players from
+           becoming unrealistically high.
+        ------------------------------ */
+
+        const activeStats =
+            (goals > 0 ? 1 : 0) +
+            (assists > 0 ? 1 : 0) +
+            (tackles > 0 ? 1 : 0) +
+            (saves > 0 ? 1 : 0) +
+            (motm > 0 ? 1 : 0) +
+            (clean > 0 ? 1 : 0);
+
+
+        if (activeStats >= 3) {
+
+            rating += 1;
+
+        }
+
+
+        /* ------------------------------
+           ROUND
+        ------------------------------ */
+
+        rating = Math.round(rating);
+
+
+        /* ------------------------------
+           LIMIT
+
+           99 is intentionally impossible
+           through normal stats.
+        ------------------------------ */
+
+        if (rating > 98) {
+
+            rating = 98;
+
+        }
+
+
+        if (rating < 60) {
+
+            rating = 60;
+
+        }
+
+
+        /* ------------------------------
+           RATING STATUS
+        ------------------------------ */
+
+        let status;
+
+
+        if (rating >= 97) {
+
+            status = "LEGENDARY";
+
+        }
+
+        else if (rating >= 94) {
+
+            status = "WORLD CLASS";
+
+        }
+
+        else if (rating >= 90) {
+
+            status = "ELITE";
+
+        }
+
+        else if (rating >= 86) {
+
+            status = "VERY GOOD";
+
+        }
+
+        else if (rating >= 81) {
+
+            status = "GOOD";
+
+        }
+
+        else if (rating >= 76) {
+
+            status = "SOLID";
+
+        }
+
+        else if (rating >= 70) {
+
+            status = "AVERAGE";
+
+        }
+
+        else {
+
+            status = "DEVELOPING";
+
+        }
+
+
+        /* ------------------------------
+           POSITION NAME
+        ------------------------------ */
+
+        const positionNames = {
+
+            FW: "Forward",
+
+            MID: "Midfielder",
+
+            DEF: "Defender",
+
+            GK: "Goalkeeper"
+
+        };
+
+
+        /* ------------------------------
+           DISPLAY
+        ------------------------------ */
+
         document
-        .getElementById("frcName")
-        .value
-        .trim() || "Player";
+            .getElementById("rexResultName")
+            .textContent = name;
 
 
-    const position =
         document
-        .getElementById("frcPosition")
-        .value;
-
-
-    const matches =
-        Math.max(
-            1,
-            Number(
-                document
-                .getElementById("frcMatches")
-                .value
-            ) || 1
-        );
-
-
-    const goals =
-        Math.max(
-            0,
-            Number(
-                document
-                .getElementById("frcGoals")
-                .value
-            ) || 0
-        );
-
-
-    const assists =
-        Math.max(
-            0,
-            Number(
-                document
-                .getElementById("frcAssists")
-                .value
-            ) || 0
-        );
-
-
-    const tackles =
-        Math.max(
-            0,
-            Number(
-                document
-                .getElementById("frcTackles")
-                .value
-            ) || 0
-        );
+            .getElementById("rexResultPosition")
+            .textContent =
+            positionNames[position];
 
 
-    const saves =
-        Math.max(
-            0,
-            Number(
-                document
-                .getElementById("frcSaves")
-                .value
-            ) || 0
-        );
-
+        document
+            .getElementById("rexRating")
+            .textContent = rating;
 
-    const motm =
-        Math.max(
-            0,
-            Number(
-                document
-                .getElementById("frcMotm")
-                .value
-            ) || 0
-        );
 
-
-    const clean =
-        Math.max(
-            0,
-            Number(
-                document
-                .getElementById("frcClean")
-                .value
-            ) || 0
-        );
+        document
+            .getElementById("rexStatus")
+            .textContent = status;
 
 
-    /* ============================= */
-    /* PER MATCH STATS */
-    /* ============================= */
+        document
+            .getElementById("rexBMatches")
+            .textContent = matches;
 
-    const goalsPM =
-        goals / matches;
 
-    const assistsPM =
-        assists / matches;
+        document
+            .getElementById("rexBGoals")
+            .textContent =
+            gpm.toFixed(2);
 
-    const tacklesPM =
-        tackles / matches;
 
-    const savesPM =
-        saves / matches;
+        document
+            .getElementById("rexBAssists")
+            .textContent =
+            apm.toFixed(2);
 
-    const motmPM =
-        motm / matches;
 
-    const cleanPM =
-        clean / matches;
+        document
+            .getElementById("rexBMOTM")
+            .textContent = motm;
 
 
-    let rating = 75;
+        document
+            .getElementById("rexBarNumber")
+            .textContent = rating;
 
 
-    /* ============================= */
-    /* FORWARD */
-    /* ============================= */
+        /* ------------------------------
+           ANIMATE BAR
+        ------------------------------ */
 
-    if (position === "FW") {
+        document
+            .getElementById("rexBarFill")
+            .style.width =
+            rating + "%";
 
-        rating =
-            75
 
-            + Math.min(
-                goalsPM * 18,
-                10
-            )
+        /* ------------------------------
+           SHOW RESULT
+        ------------------------------ */
 
-            + Math.min(
-                assistsPM * 12,
-                7
-            )
+        document
+            .getElementById("rexResult")
+            .style.display = "block";
 
-            + Math.min(
-                motmPM * 20,
-                5
-            )
+    });
 
-            + Math.min(
-                tacklesPM * 0.8,
-                2
-            );
-
-    }
-
-
-    /* ============================= */
-    /* MIDFIELDER */
-    /* ============================= */
-
-    else if (position === "MID") {
-
-        rating =
-            75
-
-            + Math.min(
-                goalsPM * 13,
-                7
-            )
-
-            + Math.min(
-                assistsPM * 16,
-                8
-            )
-
-            + Math.min(
-                tacklesPM * 3,
-                6
-            )
-
-            + Math.min(
-                motmPM * 20,
-                5
-            );
-
-    }
-
-
-    /* ============================= */
-    /* DEFENDER */
-    /* ============================= */
-
-    else if (position === "DEF") {
-
-        rating =
-            75
-
-            + Math.min(
-                goalsPM * 10,
-                5
-            )
-
-            + Math.min(
-                assistsPM * 8,
-                4
-            )
-
-            + Math.min(
-                tacklesPM * 4,
-                9
-            )
-
-            + Math.min(
-                cleanPM * 15,
-                7
-            )
-
-            + Math.min(
-                motmPM * 20,
-                5
-            );
-
-    }
-
-
-    /* ============================= */
-    /* GOALKEEPER */
-    /* ============================= */
-
-    else if (position === "GK") {
-
-        rating =
-            75
-
-            + Math.min(
-                savesPM * 2.5,
-                12
-            )
-
-            + Math.min(
-                cleanPM * 15,
-                7
-            )
-
-            + Math.min(
-                motmPM * 20,
-                5
-            );
-
-    }
-
-
-    /* ============================= */
-    /* MATCH SAMPLE ADJUSTMENT */
-    /* ============================= */
-
-    /*
-       A player with only 1-2 matches
-       shouldn't automatically receive
-       a huge rating.
-    */
-
-    if (matches === 1) {
-
-        rating -= 3;
-
-    }
-
-    else if (matches <= 3) {
-
-        rating -= 1.5;
-
-    }
-
-    else if (matches >= 10) {
-
-        rating += 1;
-
-    }
-
-
-    /* ============================= */
-    /* ROUND RATING */
-    /* ============================= */
-
-    rating = Math.round(rating);
-
-
-    /* ============================= */
-    /* REALISTIC LIMIT */
-    /* ============================= */
-
-    if (rating > 98) {
-
-        rating = 98;
-
-    }
-
-
-    if (rating < 60) {
-
-        rating = 60;
-
-    }
-
-
-    /* ============================= */
-    /* RATING LEVEL */
-    /* ============================= */
-
-    let level;
-
-
-    if (rating >= 97) {
-
-        level = "LEGENDARY";
-
-    }
-
-    else if (rating >= 94) {
-
-        level = "WORLD CLASS";
-
-    }
-
-    else if (rating >= 90) {
-
-        level = "ELITE";
-
-    }
-
-    else if (rating >= 85) {
-
-        level = "VERY GOOD";
-
-    }
-
-    else if (rating >= 80) {
-
-        level = "GOOD";
-
-    }
-
-    else if (rating >= 75) {
-
-        level = "DECENT";
-
-    }
-
-    else if (rating >= 70) {
-
-        level = "AVERAGE";
-
-    }
-
-    else {
-
-        level = "DEVELOPING";
-
-    }
-
-
-    /* ============================= */
-    /* DISPLAY */
-    /* ============================= */
-
-    document
-        .getElementById("frcPlayer")
-        .textContent =
-        name + " • " + position;
-
-
-    document
-        .getElementById("frcRating")
-        .textContent =
-        rating;
-
-
-    document
-        .getElementById("frcLevel")
-        .textContent =
-        level;
-
-
-    document
-        .getElementById("frcResult")
-        .style.display =
-        "block";
-
-});
+})();
 
 </script>
 
