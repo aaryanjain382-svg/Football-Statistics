@@ -1144,5 +1144,237 @@ body {
 
 </div>
 
+    <style>
+.rating-calculator {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    background: #171717;
+    border: 1px solid #333;
+    border-radius: 18px;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.rating-calculator h2 {
+    text-align: center;
+    color: #b88ae8;
+    margin-bottom: 20px;
+}
+
+.rating-calculator label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: bold;
+}
+
+.rating-calculator input,
+.rating-calculator select {
+    width: 100%;
+    padding: 11px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #242424;
+    color: white;
+    font-size: 15px;
+}
+
+.rating-calculator button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 13px;
+    border: none;
+    border-radius: 9px;
+    background: #9b6bd3;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.rating-calculator button:hover {
+    transform: translateY(-2px);
+}
+
+.rating-result {
+    display: none;
+    text-align: center;
+    margin-top: 25px;
+    padding: 20px;
+    background: #222;
+    border-radius: 14px;
+}
+
+.rating-number {
+    font-size: 60px;
+    font-weight: bold;
+    color: #c49bea;
+}
+
+.rating-result p {
+    margin: 5px;
+}
+</style>
+
+
+<div class="rating-calculator">
+
+    <h2>⚽ Player Rating Calculator</h2>
+
+    <label>Player Name</label>
+    <input type="text" id="rcName" placeholder="Enter player name">
+
+    <label>Position</label>
+    <select id="rcPosition">
+        <option value="FW">Forward</option>
+        <option value="MID">Midfielder</option>
+        <option value="DEF">Defender</option>
+        <option value="GK">Goalkeeper</option>
+    </select>
+
+    <label>Goals</label>
+    <input type="number" id="rcGoals" min="0" value="0">
+
+    <label>Assists</label>
+    <input type="number" id="rcAssists" min="0" value="0">
+
+    <label>Tackles</label>
+    <input type="number" id="rcTackles" min="0" value="0">
+
+    <label>Saves</label>
+    <input type="number" id="rcSaves" min="0" value="0">
+
+    <label>MOTM</label>
+    <input type="number" id="rcMotm" min="0" value="0">
+
+    <label>Clean Sheets</label>
+    <input type="number" id="rcCleanSheets" min="0" value="0">
+
+    <button onclick="calculatePlayerRating()">
+        Calculate Rating
+    </button>
+
+    <div class="rating-result" id="rcResult">
+
+        <p id="rcPlayerName"></p>
+
+        <div class="rating-number" id="rcRating">
+            0
+        </div>
+
+        <p>OVERALL RATING</p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function calculatePlayerRating() {
+
+    const name =
+        document.getElementById("rcName").value || "Player";
+
+    const position =
+        document.getElementById("rcPosition").value;
+
+    const goals =
+        Number(document.getElementById("rcGoals").value);
+
+    const assists =
+        Number(document.getElementById("rcAssists").value);
+
+    const tackles =
+        Number(document.getElementById("rcTackles").value);
+
+    const saves =
+        Number(document.getElementById("rcSaves").value);
+
+    const motm =
+        Number(document.getElementById("rcMotm").value);
+
+    const cleanSheets =
+        Number(document.getElementById("rcCleanSheets").value);
+
+
+    let rating;
+
+
+    /* FORWARD */
+
+    if (position === "FW") {
+
+        rating =
+            60 +
+            (goals * 4) +
+            (assists * 2.5) +
+            (motm * 3) +
+            (tackles * 0.3);
+
+    }
+
+
+    /* MIDFIELDER */
+
+    else if (position === "MID") {
+
+        rating =
+            60 +
+            (goals * 3) +
+            (assists * 3) +
+            (tackles * 1) +
+            (motm * 3);
+
+    }
+
+
+    /* DEFENDER */
+
+    else if (position === "DEF") {
+
+        rating =
+            60 +
+            (goals * 2.5) +
+            (assists * 1.5) +
+            (tackles * 2) +
+            (cleanSheets * 2) +
+            (motm * 3);
+
+    }
+
+
+    /* GOALKEEPER */
+
+    else if (position === "GK") {
+
+        rating =
+            60 +
+            (saves * 1.2) +
+            (cleanSheets * 3) +
+            (motm * 3);
+
+    }
+
+
+    /* LIMIT BETWEEN 1 AND 99 */
+
+    rating = Math.round(
+        Math.min(99, Math.max(1, rating))
+    );
+
+
+    document.getElementById("rcPlayerName").innerText =
+        name + " • " + position;
+
+    document.getElementById("rcRating").innerText =
+        rating;
+
+    document.getElementById("rcResult").style.display =
+        "block";
+}
+
+</script>
+
 </body>
 </html>
