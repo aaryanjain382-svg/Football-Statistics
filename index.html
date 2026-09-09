@@ -1144,1853 +1144,910 @@ body {
 
 </div>
 
-<!-- ================================
-     FOOTBALL RATING CALCULATOR
-================================ -->
+<!-- =========================================================
+     PREMIUM FOOTBALL MARKET
+     Reads your existing .stats-table
+     No API • No squad builder • No rating calculation
+========================================================= -->
 
-<div class="rex-rating">
+<section class="pfm-market">
 
-    <div class="rex-rating-header">
-        <span class="rex-rating-icon">⚽</span>
+    <div class="pfm-topbar">
         <div>
-            <h2>Player Rating Calculator</h2>
-            <p>Calculate a realistic match-based rating</p>
+            <span class="pfm-eyebrow">PLAYER MARKET</span>
+            <h1>Football Market</h1>
+            <p>Track the value of every player throughout the season.</p>
+        </div>
+
+        <div class="pfm-season">
+            <span>SEASON</span>
+            <strong>2026</strong>
         </div>
     </div>
 
-    <div class="rex-form">
+    <!-- MARKET OVERVIEW -->
+    <div class="pfm-overview">
 
-        <div class="rex-field">
-            <label>Player Name</label>
-            <input type="text" id="rexPlayerName" placeholder="e.g. Harkabir">
+        <div class="pfm-stat">
+            <span>Total Market Value</span>
+            <strong id="pfmTotalValue">—</strong>
+            <small>All registered players</small>
         </div>
 
-        <div class="rex-field">
-            <label>Position</label>
-            <select id="rexPosition">
-                <option value="FW">⚡ Forward</option>
-                <option value="MID">🎯 Midfielder</option>
-                <option value="DEF">🛡 Defender</option>
-                <option value="GK">🧤 Goalkeeper</option>
-            </select>
+        <div class="pfm-stat">
+            <span>Most Valuable</span>
+            <strong id="pfmMostValuable">—</strong>
+            <small id="pfmMostValuablePrice">—</small>
         </div>
 
-        <div class="rex-stats">
-
-            <div class="rex-field">
-                <label>Matches</label>
-                <input type="number" id="rexMatches" min="1" value="1">
-            </div>
-
-            <div class="rex-field">
-                <label>Goals</label>
-                <input type="number" id="rexGoals" min="0" value="0">
-            </div>
-
-            <div class="rex-field">
-                <label>Assists</label>
-                <input type="number" id="rexAssists" min="0" value="0">
-            </div>
-
-            <div class="rex-field">
-                <label>Tackles</label>
-                <input type="number" id="rexTackles" min="0" value="0">
-            </div>
-
-            <div class="rex-field">
-                <label>Saves</label>
-                <input type="number" id="rexSaves" min="0" value="0">
-            </div>
-
-            <div class="rex-field">
-                <label>MOTM</label>
-                <input type="number" id="rexMOTM" min="0" value="0">
-            </div>
-
-            <div class="rex-field">
-                <label>Clean Sheets</label>
-                <input type="number" id="rexClean" min="0" value="0">
-            </div>
-
+        <div class="pfm-stat">
+            <span>Highest Rated</span>
+            <strong id="pfmHighestRated">—</strong>
+            <small id="pfmHighestRatedPrice">—</small>
         </div>
 
-        <button type="button" id="rexCalculate">
-            Calculate Rating
-        </button>
+        <div class="pfm-stat">
+            <span>Players</span>
+            <strong id="pfmPlayerCount">0</strong>
+            <small>In the market</small>
+        </div>
 
     </div>
 
+    <!-- FEATURED PLAYER -->
+    <div class="pfm-feature">
 
-    <!-- RESULT -->
-
-    <div class="rex-result" id="rexResult">
-
-        <div class="rex-result-top">
-
-            <div>
-                <span class="rex-result-label">PLAYER</span>
-                <h3 id="rexResultName">Player</h3>
-                <span id="rexResultPosition">Forward</span>
-            </div>
-
-            <div class="rex-rating-number" id="rexRating">
-                0
-            </div>
-
+        <div class="pfm-feature-label">
+            <span>01</span>
+            MARKET LEADER
         </div>
 
-        <div class="rex-rating-status" id="rexStatus">
-            -
-        </div>
+        <div class="pfm-feature-content">
 
+            <div class="pfm-feature-player">
+                <div class="pfm-feature-avatar" id="pfmFeatureAvatar">A</div>
 
-        <div class="rex-breakdown">
-
-            <div>
-                <span>Matches</span>
-                <strong id="rexBMatches">0</strong>
+                <div>
+                    <span id="pfmFeaturePosition">ST</span>
+                    <h2 id="pfmFeatureName">—</h2>
+                    <p>Most valuable player</p>
+                </div>
             </div>
 
-            <div>
-                <span>G/M</span>
-                <strong id="rexBGoals">0</strong>
-            </div>
-
-            <div>
-                <span>A/M</span>
-                <strong id="rexBAssists">0</strong>
-            </div>
-
-            <div>
-                <span>MOTM</span>
-                <strong id="rexBMOTM">0</strong>
-            </div>
-
-        </div>
-
-        <div class="rex-bar">
-
-            <div class="rex-bar-title">
-                <span>Overall Performance</span>
-                <span id="rexBarNumber">0</span>
-            </div>
-
-            <div class="rex-bar-background">
-                <div class="rex-bar-fill" id="rexBarFill"></div>
+            <div class="pfm-feature-price">
+                <small>MARKET VALUE</small>
+                <strong id="pfmFeaturePrice">—</strong>
+                <span>▲ Market leader</span>
             </div>
 
         </div>
 
     </div>
 
-</div>
-
-
-<style>
-
-/* ================================
-   CONTAINER
-================================ */
-
-.rex-rating {
-
-    width: 100%;
-    max-width: 620px;
-
-    margin: 40px auto;
-
-    padding: 26px;
-
-    box-sizing: border-box;
-
-    background: #111111;
-
-    color: #ffffff;
-
-    border: 1px solid #292929;
-
-    border-radius: 22px;
-
-    font-family: Arial, sans-serif;
-
-}
-
-
-/* ================================
-   HEADER
-================================ */
-
-.rex-rating-header {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    margin-bottom: 25px;
-
-}
-
-
-.rex-rating-icon {
-
-    width: 52px;
-    height: 52px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background: #211a29;
-
-    border: 1px solid #443451;
-
-    border-radius: 14px;
-
-    font-size: 25px;
-
-}
-
-
-.rex-rating-header h2 {
-
-    margin: 0;
-
-    font-size: 23px;
-
-}
-
-
-.rex-rating-header p {
-
-    margin: 5px 0 0;
-
-    color: #8f8f8f;
-
-    font-size: 13px;
-
-}
-
-
-/* ================================
-   FORM
-================================ */
-
-.rex-field {
-
-    margin-bottom: 15px;
-
-}
-
-
-.rex-field label {
-
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #cfcfcf;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-}
-
-
-.rex-field input,
-.rex-field select {
-
-    width: 100%;
-
-    height: 44px;
-
-    padding: 0 13px;
-
-    box-sizing: border-box;
-
-    background: #1c1c1c;
-
-    border: 1px solid #343434;
-
-    border-radius: 9px;
-
-    color: white;
-
-    outline: none;
-
-    font-size: 14px;
-
-}
-
-
-.rex-field input:focus,
-.rex-field select:focus {
-
-    border-color: #a66bd3;
-
-}
-
-
-/* ================================
-   STATS
-================================ */
-
-.rex-stats {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 0 12px;
-
-}
-
-
-/* ================================
-   BUTTON
-================================ */
-
-#rexCalculate {
-
-    width: 100%;
-
-    height: 47px;
-
-    margin-top: 8px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background: #9562c9;
-
-    color: white;
-
-    font-size: 15px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-
-}
-
-
-#rexCalculate:hover {
-
-    background: #a875dc;
-
-    transform: translateY(-2px);
-
-}
-
-
-#rexCalculate:active {
-
-    transform: translateY(0);
-
-}
-
-
-/* ================================
-   RESULT
-================================ */
-
-.rex-result {
-
-    display: none;
-
-    margin-top: 25px;
-
-    padding: 22px;
-
-    background: #181818;
-
-    border: 1px solid #303030;
-
-    border-radius: 17px;
-
-}
-
-
-.rex-result-top {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-}
-
-
-.rex-result-label {
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
-    color: #777;
-
-}
-
-
-.rex-result h3 {
-
-    margin: 5px 0 4px;
-
-    font-size: 21px;
-
-}
-
-
-#rexResultPosition {
-
-    color: #9b9b9b;
-
-    font-size: 13px;
-
-}
-
-
-.rex-rating-number {
-
-    font-size: 65px;
-
-    line-height: 1;
-
-    font-weight: 800;
-
-    color: #bf91e8;
-
-}
-
-
-.rex-rating-status {
-
-    display: inline-block;
-
-    margin-top: 15px;
-
-    padding: 6px 11px;
-
-    background: #261c30;
-
-    border-radius: 20px;
-
-    color: #c59ae9;
-
-    font-size: 11px;
-
-    font-weight: bold;
-
-    letter-spacing: 1px;
-
-}
-
-
-/* ================================
-   BREAKDOWN
-================================ */
-
-.rex-breakdown {
-
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 8px;
-
-    margin-top: 20px;
-
-}
-
-
-.rex-breakdown div {
-
-    padding: 12px 5px;
-
-    text-align: center;
-
-    background: #202020;
-
-    border-radius: 9px;
-
-}
-
-
-.rex-breakdown span {
-
-    display: block;
-
-    color: #777;
-
-    font-size: 10px;
-
-}
-
-
-.rex-breakdown strong {
-
-    display: block;
-
-    margin-top: 5px;
-
-    font-size: 15px;
-
-}
-
-
-/* ================================
-   BAR
-================================ */
-
-.rex-bar {
-
-    margin-top: 20px;
-
-}
-
-
-.rex-bar-title {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-bottom: 7px;
-
-    color: #aaa;
-
-    font-size: 12px;
-
-}
-
-
-.rex-bar-background {
-
-    width: 100%;
-
-    height: 7px;
-
-    background: #292929;
-
-    border-radius: 10px;
-
-    overflow: hidden;
-
-}
-
-
-.rex-bar-fill {
-
-    width: 0%;
-
-    height: 100%;
-
-    background: #a56ed2;
-
-    border-radius: 10px;
-
-    transition: width 0.7s ease;
-
-}
-
-
-/* ================================
-   MOBILE
-================================ */
-
-@media (max-width: 520px) {
-
-    .rex-rating {
-
-        margin: 25px 10px;
-
-        padding: 19px;
-
-        width: calc(100% - 20px);
-
-    }
-
-
-    .rex-rating-header h2 {
-
-        font-size: 20px;
-
-    }
-
-
-    .rex-stats {
-
-        grid-template-columns: 1fr;
-
-    }
-
-
-    .rex-breakdown {
-
-        grid-template-columns: repeat(2, 1fr);
-
-    }
-
-
-    .rex-rating-number {
-
-        font-size: 52px;
-
-    }
-
-}
-
-</style>
-
-
-<script>
-
-/* ==========================================
-   REXOLE FOOTBALL RATING CALCULATOR
-========================================== */
-
-(function () {
-
-    "use strict";
-
-
-    const button =
-        document.getElementById("rexCalculate");
-
-
-    button.addEventListener("click", function () {
-
-
-        /* ------------------------------
-           GET INPUTS
-        ------------------------------ */
-
-        const name =
-            document
-            .getElementById("rexPlayerName")
-            .value
-            .trim() || "Player";
-
-
-        const position =
-            document
-            .getElementById("rexPosition")
-            .value;
-
-
-        const matches =
-            Math.max(
-                1,
-                parseFloat(
-                    document
-                    .getElementById("rexMatches")
-                    .value
-                ) || 1
-            );
-
-
-        const goals =
-            Math.max(
-                0,
-                parseFloat(
-                    document
-                    .getElementById("rexGoals")
-                    .value
-                ) || 0
-            );
-
-
-        const assists =
-            Math.max(
-                0,
-                parseFloat(
-                    document
-                    .getElementById("rexAssists")
-                    .value
-                ) || 0
-            );
-
-
-        const tackles =
-            Math.max(
-                0,
-                parseFloat(
-                    document
-                    .getElementById("rexTackles")
-                    .value
-                ) || 0
-            );
-
-
-        const saves =
-            Math.max(
-                0,
-                parseFloat(
-                    document
-                    .getElementById("rexSaves")
-                    .value
-                ) || 0
-            );
-
-
-        const motm =
-            Math.max(
-                0,
-                parseFloat(
-                    document
-                    .getElementById("rexMOTM")
-                    .value
-                ) || 0
-            );
-
-
-        const clean =
-            Math.max(
-                0,
-                parseFloat(
-                    document
-                    .getElementById("rexClean")
-                    .value
-                ) || 0
-            );
-
-
-        /* ------------------------------
-           PER MATCH
-        ------------------------------ */
-
-        const gpm = goals / matches;
-        const apm = assists / matches;
-        const tpm = tackles / matches;
-        const spm = saves / matches;
-        const mpm = motm / matches;
-        const cpm = clean / matches;
-
-
-        let rating = 70;
-
-
-        /* ------------------------------
-           POSITION FORMULA
-
-           The formula is deliberately
-           conservative so 99 is rare.
-        ------------------------------ */
-
-        if (position === "FW") {
-
-            rating =
-                72
-                + Math.min(gpm * 12, 13)
-                + Math.min(apm * 8, 7)
-                + Math.min(mpm * 10, 5)
-                + Math.min(tpm * 0.5, 2);
-
-        }
-
-
-        else if (position === "MID") {
-
-            rating =
-                72
-                + Math.min(gpm * 9, 9)
-                + Math.min(apm * 10, 9)
-                + Math.min(tpm * 1.5, 6)
-                + Math.min(mpm * 10, 5);
-
-        }
-
-
-        else if (position === "DEF") {
-
-            rating =
-                72
-                + Math.min(gpm * 7, 5)
-                + Math.min(apm * 5, 4)
-                + Math.min(tpm * 2, 10)
-                + Math.min(cpm * 8, 7)
-                + Math.min(mpm * 10, 5);
-
-        }
-
-
-        else if (position === "GK") {
-
-            rating =
-                72
-                + Math.min(spm * 1.7, 13)
-                + Math.min(cpm * 8, 7)
-                + Math.min(mpm * 10, 5);
-
-        }
-
-
-        /* ------------------------------
-           MATCH CONSISTENCY
-
-           More matches = more reliable.
-        ------------------------------ */
-
-        if (matches === 1) {
-
-            rating -= 4;
-
-        }
-
-        else if (matches === 2) {
-
-            rating -= 2.5;
-
-        }
-
-        else if (matches === 3) {
-
-            rating -= 1.5;
-
-        }
-
-        else if (matches >= 5 && matches < 10) {
-
-            rating += 0.5;
-
-        }
-
-        else if (matches >= 10) {
-
-            rating += 1;
-
-        }
-
-
-        /* ------------------------------
-           SMALL CONSISTENCY BONUS
-
-           Prevents one-stat players from
-           becoming unrealistically high.
-        ------------------------------ */
-
-        const activeStats =
-            (goals > 0 ? 1 : 0) +
-            (assists > 0 ? 1 : 0) +
-            (tackles > 0 ? 1 : 0) +
-            (saves > 0 ? 1 : 0) +
-            (motm > 0 ? 1 : 0) +
-            (clean > 0 ? 1 : 0);
-
-
-        if (activeStats >= 3) {
-
-            rating += 1;
-
-        }
-
-
-        /* ------------------------------
-           ROUND
-        ------------------------------ */
-
-        rating = Math.round(rating);
-
-
-        /* ------------------------------
-           LIMIT
-
-           99 is intentionally impossible
-           through normal stats.
-        ------------------------------ */
-
-        if (rating > 98) {
-
-            rating = 98;
-
-        }
-
-
-        if (rating < 60) {
-
-            rating = 60;
-
-        }
-
-
-        /* ------------------------------
-           RATING STATUS
-        ------------------------------ */
-
-        let status;
-
-
-        if (rating >= 97) {
-
-            status = "LEGENDARY";
-
-        }
-
-        else if (rating >= 94) {
-
-            status = "WORLD CLASS";
-
-        }
-
-        else if (rating >= 90) {
-
-            status = "ELITE";
-
-        }
-
-        else if (rating >= 86) {
-
-            status = "VERY GOOD";
-
-        }
-
-        else if (rating >= 81) {
-
-            status = "GOOD";
-
-        }
-
-        else if (rating >= 76) {
-
-            status = "SOLID";
-
-        }
-
-        else if (rating >= 70) {
-
-            status = "AVERAGE";
-
-        }
-
-        else {
-
-            status = "DEVELOPING";
-
-        }
-
-
-        /* ------------------------------
-           POSITION NAME
-        ------------------------------ */
-
-        const positionNames = {
-
-            FW: "Forward",
-
-            MID: "Midfielder",
-
-            DEF: "Defender",
-
-            GK: "Goalkeeper"
-
-        };
-
-
-        /* ------------------------------
-           DISPLAY
-        ------------------------------ */
-
-        document
-            .getElementById("rexResultName")
-            .textContent = name;
-
-
-        document
-            .getElementById("rexResultPosition")
-            .textContent =
-            positionNames[position];
-
-
-        document
-            .getElementById("rexRating")
-            .textContent = rating;
-
-
-        document
-            .getElementById("rexStatus")
-            .textContent = status;
-
-
-        document
-            .getElementById("rexBMatches")
-            .textContent = matches;
-
-
-        document
-            .getElementById("rexBGoals")
-            .textContent =
-            gpm.toFixed(2);
-
-
-        document
-            .getElementById("rexBAssists")
-            .textContent =
-            apm.toFixed(2);
-
-
-        document
-            .getElementById("rexBMOTM")
-            .textContent = motm;
-
-
-        document
-            .getElementById("rexBarNumber")
-            .textContent = rating;
-
-
-        /* ------------------------------
-           ANIMATE BAR
-        ------------------------------ */
-
-        document
-            .getElementById("rexBarFill")
-            .style.width =
-            rating + "%";
-
-
-        /* ------------------------------
-           SHOW RESULT
-        ------------------------------ */
-
-        document
-            .getElementById("rexResult")
-            .style.display = "block";
-
-    });
-
-})();
-
-</script>
-
-<!-- ============================================================
-     EFC FANTASY FOOTBALL + 8 PLAYER SQUAD BUILDER
-     CONNECTED DIRECTLY TO .stats-table
-     NO API
-============================================================ -->
-
-<div id="efcFantasy">
-
-    <!-- HEADER -->
-    <div class="efc-fantasy-header">
-
-        <div>
-            <div class="efc-overline">ELITE FOOTBALL COUNCIL</div>
-            <h2>Fantasy Football</h2>
-            <p>Build your 8-player team from the live EFC statistics.</p>
+    <!-- CONTROLS -->
+    <div class="pfm-controls">
+
+        <div class="pfm-search">
+            <span>⌕</span>
+            <input
+                type="text"
+                id="pfmSearch"
+                placeholder="Search player..."
+                oninput="pfmRender()"
+            >
         </div>
 
-        <div class="efc-money">
-            <span>BUDGET</span>
-            <strong id="efcTopBudget">100.0M</strong>
-        </div>
+        <div class="pfm-filters">
 
-    </div>
+            <button class="pfm-filter active" onclick="pfmSetFilter('ALL',this)">
+                ALL
+            </button>
 
+            <button class="pfm-filter" onclick="pfmSetFilter('GK',this)">
+                GK
+            </button>
 
-    <!-- MARKET -->
-    <div class="efc-fantasy-panel">
+            <button class="pfm-filter" onclick="pfmSetFilter('DEF',this)">
+                DEF
+            </button>
 
-        <div class="efc-panel-heading">
+            <button class="pfm-filter" onclick="pfmSetFilter('MID',this)">
+                MID
+            </button>
 
-            <div>
-                <h3>Player Market</h3>
-                <p>Prices automatically react when your stats change.</p>
-            </div>
-
-            <select id="efcFilter">
-                <option value="ALL">All</option>
-                <option value="GK">Goalkeepers</option>
-                <option value="DEF">Defenders</option>
-                <option value="MID">Midfielders</option>
-                <option value="FWD">Forwards</option>
-            </select>
-
-        </div>
-
-        <div id="efcMarket" class="efc-market"></div>
-
-    </div>
-
-
-    <!-- SQUAD -->
-    <div class="efc-fantasy-panel">
-
-        <div class="efc-panel-heading">
-
-            <div>
-                <h3>My Fantasy XI</h3>
-                <p>Fantasy squad: 1 GK · 2 DEF · 2 MID · 3 FWD</p>
-            </div>
-
-            <button id="efcClearSquad">
-                Clear
+            <button class="pfm-filter" onclick="pfmSetFilter('ST',this)">
+                FWD
             </button>
 
         </div>
 
-
-        <!-- SQUAD REQUIREMENTS -->
-        <div class="efc-requirements">
-
-            <div>
-                <span>GK</span>
-                <b id="efcGKCount">0/1</b>
-            </div>
-
-            <div>
-                <span>DEF</span>
-                <b id="efcDEFCount">0/2</b>
-            </div>
-
-            <div>
-                <span>MID</span>
-                <b id="efcMIDCount">0/2</b>
-            </div>
-
-            <div>
-                <span>FWD</span>
-                <b id="efcFWDCount">0/3</b>
-            </div>
-
-        </div>
-
-
-        <!-- SQUAD SUMMARY -->
-        <div class="efc-summary">
-
-            <div>
-                <span>SQUAD</span>
-                <strong>
-                    <span id="efcSquadCount">0</span>/8
-                </strong>
-            </div>
-
-            <div>
-                <span>VALUE</span>
-                <strong id="efcSquadValue">0.0M</strong>
-            </div>
-
-            <div>
-                <span>REMAINING</span>
-                <strong id="efcRemaining">100.0M</strong>
-            </div>
-
-            <div>
-                <span>POINTS</span>
-                <strong id="efcTotalPoints">0</strong>
-            </div>
-
-        </div>
-
-
-        <!-- SQUAD CARDS -->
-        <div id="efcSquad" class="efc-squad"></div>
-
-
-        <!-- CAPTAIN -->
-        <div class="efc-captain">
-            <span>Captain</span>
-            <strong id="efcCaptainName">Not selected</strong>
-            <small>Captain earns 2× fantasy points</small>
-        </div>
+        <select id="pfmSort" onchange="pfmRender()">
+            <option value="price">Highest Value</option>
+            <option value="rating">Highest Rating</option>
+            <option value="goals">Most Goals</option>
+            <option value="assists">Most Assists</option>
+            <option value="matches">Most Matches</option>
+            <option value="name">Name</option>
+        </select>
 
     </div>
 
+    <!-- MARKET TABLE -->
+    <div class="pfm-table-wrap">
 
-    <!-- MARKET INFO -->
-    <div class="efc-fantasy-panel">
-
-        <div class="efc-panel-heading">
+        <div class="pfm-table-heading">
             <div>
-                <h3>Fantasy Points</h3>
-                <p>Calculated directly from your EFC stats.</p>
+                <span>PLAYER VALUES</span>
+                <h2>Market Rankings</h2>
             </div>
+
+            <span class="pfm-live">
+                <i></i> LIVE MARKET
+            </span>
         </div>
 
-        <div class="efc-rules">
+        <table class="pfm-table">
 
-            <div>
-                <b>FC Rating</b>
-                <span>Core player value</span>
-            </div>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>PLAYER</th>
+                    <th>POS</th>
+                    <th>FC RATING</th>
+                    <th>GOALS</th>
+                    <th>ASSISTS</th>
+                    <th>MOTM</th>
+                    <th>MARKET VALUE</th>
+                </tr>
+            </thead>
 
-            <div>
-                <b>Goals</b>
-                <span>Major attacking points</span>
-            </div>
+            <tbody id="pfmPlayers">
+            </tbody>
 
-            <div>
-                <b>Assists</b>
-                <span>Creative points</span>
-            </div>
-
-            <div>
-                <b>Saves</b>
-                <span>Goalkeeper points</span>
-            </div>
-
-            <div>
-                <b>MOTM</b>
-                <span>Performance bonus</span>
-            </div>
-
-            <div>
-                <b>Matches</b>
-                <span>Consistency factor</span>
-            </div>
-
-        </div>
-
-        <div class="efc-live">
-            ● MARKET CONNECTED TO YOUR STATS TABLE
-        </div>
+        </table>
 
     </div>
 
-</div>
+    <div class="pfm-footer">
+        <span>PLAYER MARKET</span>
+        <span>Values are calculated independently from official FC ratings.</span>
+    </div>
+
+</section>
 
 
 <style>
 
-/* ============================================================
-   MAIN
-============================================================ */
+/* =========================================================
+   PREMIUM FOOTBALL MARKET
+========================================================= */
 
-#efcFantasy {
-    width: min(1100px, 92%);
-    margin: 45px auto;
-    color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-#efcFantasy * {
+.pfm-market,
+.pfm-market * {
     box-sizing: border-box;
 }
 
+.pfm-market {
+    --navy: #071827;
+    --navy2: #0c2438;
+    --blue: #123b5d;
+    --gold: #d5a84c;
+    --green: #16845b;
+    --red: #b94a48;
+    --cream: #f4f1e8;
+    --white: #ffffff;
+    --text: #102333;
+    --muted: #71808c;
+    --line: #dfe3e5;
 
-/* ============================================================
-   HEADER
-============================================================ */
+    margin: 50px auto;
+    max-width: 1400px;
+    padding: 0 25px;
 
-.efc-fantasy-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
 
-    padding: 26px;
-
-    background: linear-gradient(
-        135deg,
-        #17151d,
-        #100f14
-    );
-
-    border: 1px solid #29252f;
-    border-radius: 20px;
+    color: var(--text);
 }
 
-.efc-overline {
-    color: #bd72ff;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 7px;
-}
+/* TOP */
 
-.efc-fantasy-header h2 {
-    margin: 0;
-    font-size: 30px;
-}
-
-.efc-fantasy-header p {
-    margin: 7px 0 0;
-    color: #898591;
-    font-size: 13px;
-}
-
-.efc-money {
-    min-width: 130px;
-    padding: 13px 18px;
-    text-align: center;
-
-    background: #251733;
-    border: 1px solid #4d3262;
-    border-radius: 13px;
-}
-
-.efc-money span {
-    display: block;
-    color: #91889c;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-}
-
-.efc-money strong {
-    display: block;
-    margin-top: 5px;
-    color: #c88cf1;
-    font-size: 21px;
-}
-
-
-/* ============================================================
-   PANELS
-============================================================ */
-
-.efc-fantasy-panel {
-    margin-top: 20px;
-    padding: 22px;
-
-    background: #121116;
-
-    border: 1px solid #28252e;
-    border-radius: 19px;
-}
-
-.efc-panel-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-
-    margin-bottom: 20px;
-}
-
-.efc-panel-heading h3 {
-    margin: 0;
-    font-size: 19px;
-}
-
-.efc-panel-heading p {
-    margin: 5px 0 0;
-    color: #77727e;
-    font-size: 12px;
-}
-
-#efcFilter {
-    height: 39px;
-    padding: 0 13px;
-
-    background: #1c1a20;
-    color: #ffffff;
-
-    border: 1px solid #37323d;
-    border-radius: 8px;
-
-    outline: none;
-}
-
-#efcClearSquad {
-    padding: 9px 15px;
-
-    background: transparent;
-    color: #aaa5b0;
-
-    border: 1px solid #38333e;
-    border-radius: 8px;
-
-    cursor: pointer;
-}
-
-#efcClearSquad:hover {
+.pfm-topbar {
+    background: var(--navy);
     color: white;
-    border-color: #9a62bd;
-}
 
+    padding: 42px 45px;
 
-/* ============================================================
-   MARKET
-============================================================ */
-
-.efc-market {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.efc-player-card {
-    padding: 17px;
-
-    background: #19171d;
-    border: 1px solid #29262f;
-    border-radius: 15px;
-
-    transition: 0.2s ease;
-}
-
-.efc-player-card:hover {
-    transform: translateY(-2px);
-    border-color: #654274;
-}
-
-.efc-player-top {
     display: flex;
     justify-content: space-between;
-    gap: 12px;
+    align-items: center;
+
+    border-radius: 4px 4px 0 0;
 }
 
-.efc-player-name {
-    font-size: 16px;
-    font-weight: 750;
+.pfm-eyebrow {
+    display: block;
+
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    font-weight: 800;
+
+    color: #a9c0cf;
+
+    margin-bottom: 10px;
 }
 
-.efc-player-position {
-    margin-top: 4px;
-    color: #817b88;
+.pfm-topbar h1 {
+    margin: 0;
+
+    font-size: clamp(32px, 5vw, 54px);
+    line-height: .95;
+
+    letter-spacing: -2px;
+    font-weight: 850;
+}
+
+.pfm-topbar p {
+    margin: 15px 0 0;
+
+    color: #aebdc7;
+    font-size: 14px;
+}
+
+.pfm-season {
+    text-align: right;
+
+    border-left: 1px solid rgba(255,255,255,.2);
+    padding-left: 35px;
+}
+
+.pfm-season span {
+    display: block;
+
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #8fa5b5;
+}
+
+.pfm-season strong {
+    display: block;
+
+    font-size: 38px;
+    color: var(--gold);
+
+    line-height: 1;
+    margin-top: 6px;
+}
+
+/* OVERVIEW */
+
+.pfm-overview {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+
+    border: 1px solid var(--line);
+    border-top: none;
+
+    background: white;
+}
+
+.pfm-stat {
+    padding: 25px 28px;
+
+    border-right: 1px solid var(--line);
+}
+
+.pfm-stat:last-child {
+    border-right: none;
+}
+
+.pfm-stat span {
+    display: block;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+
+    color: var(--muted);
+}
+
+.pfm-stat strong {
+    display: block;
+
+    font-size: 27px;
+
+    margin: 8px 0 3px;
+
+    color: var(--navy);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pfm-stat small {
+    color: #929ba1;
     font-size: 11px;
 }
 
-.efc-price-area {
-    text-align: right;
-}
+/* FEATURE */
 
-.efc-price {
-    color: #c58beb;
-    font-size: 20px;
-    font-weight: 800;
-}
+.pfm-feature {
+    margin-top: 20px;
 
-.efc-change-up {
-    color: #22d77d;
-    font-size: 10px;
-    font-weight: bold;
-    margin-top: 3px;
-}
+    background:
+        linear-gradient(
+            90deg,
+            var(--navy) 0%,
+            var(--navy2) 65%,
+            #163b57 100%
+        );
 
-.efc-change-down {
-    color: #ff5d68;
-    font-size: 10px;
-    font-weight: bold;
-    margin-top: 3px;
-}
-
-.efc-change-same {
-    color: #77727c;
-    font-size: 10px;
-    margin-top: 3px;
-}
-
-
-/* ============================================================
-   MARKET STATS
-============================================================ */
-
-.efc-player-stats {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 6px;
-    margin-top: 15px;
-}
-
-.efc-market-stat {
-    padding: 8px 3px;
-
-    background: #211f25;
-    border-radius: 8px;
-
-    text-align: center;
-}
-
-.efc-market-stat span {
-    display: block;
-    color: #6d6873;
-    font-size: 8px;
-}
-
-.efc-market-stat strong {
-    display: block;
-    margin-top: 4px;
-    font-size: 12px;
-}
-
-.efc-r {
-    color: white;
-}
-
-.efc-g {
-    color: #20d97a;
-}
-
-.efc-a {
-    color: #619bff;
-}
-
-.efc-s {
-    color: #29baff;
-}
-
-.efc-m {
-    color: #ffd21a;
-}
-
-
-/* ============================================================
-   ADD BUTTON
-============================================================ */
-
-.efc-add-player {
-    width: 100%;
-    height: 38px;
-
-    margin-top: 13px;
-
-    border: none;
-    border-radius: 9px;
-
-    background: #8f5bc0;
     color: white;
 
-    font-weight: 700;
-    cursor: pointer;
+    padding: 25px 32px;
 
-    transition: 0.2s;
-}
+    border-radius: 4px;
 
-.efc-add-player:hover {
-    background: #a96bd3;
-    transform: translateY(-1px);
-}
-
-.efc-add-player:disabled {
-    background: #302d34;
-    color: #706c74;
-    cursor: not-allowed;
-    transform: none;
-}
-
-
-/* ============================================================
-   REQUIREMENTS
-============================================================ */
-
-.efc-requirements {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-bottom: 12px;
-}
-
-.efc-requirements div {
-    padding: 11px;
-
-    background: #1a181e;
-    border: 1px solid #29262e;
-    border-radius: 9px;
-
-    text-align: center;
-}
-
-.efc-requirements span {
-    display: block;
-    color: #706b75;
-    font-size: 9px;
-}
-
-.efc-requirements b {
-    display: block;
-    margin-top: 4px;
-    font-size: 14px;
-}
-
-
-/* ============================================================
-   SUMMARY
-============================================================ */
-
-.efc-summary {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 9px;
-    margin-bottom: 18px;
-}
-
-.efc-summary div {
-    padding: 13px;
-
-    background: #1a181e;
-    border: 1px solid #29262e;
-    border-radius: 10px;
-}
-
-.efc-summary span {
-    color: #6f6a74;
-    font-size: 9px;
-}
-
-.efc-summary strong {
-    display: block;
-    margin-top: 5px;
-    font-size: 17px;
-}
-
-
-/* ============================================================
-   SQUAD
-============================================================ */
-
-.efc-squad {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.efc-squad-card {
     position: relative;
-
-    min-height: 145px;
-    padding: 15px;
-
-    background: linear-gradient(
-        145deg,
-        #21182a,
-        #17141b
-    );
-
-    border: 1px solid #392d43;
-    border-radius: 14px;
+    overflow: hidden;
 }
 
-.efc-squad-card.efc-captain-card {
-    border-color: #b46de5;
-}
+.pfm-feature::after {
+    content: "01";
 
-.efc-squad-card h4 {
-    margin: 0;
-    padding-right: 20px;
-    font-size: 14px;
-}
-
-.efc-squad-position {
-    display: block;
-    margin-top: 4px;
-    color: #87808f;
-    font-size: 10px;
-}
-
-.efc-squad-price {
-    display: block;
-    margin-top: 14px;
-    color: #c78cec;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-.efc-squad-points {
-    display: block;
-    margin-top: 4px;
-    color: #2bd985;
-    font-size: 10px;
-}
-
-.efc-remove {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    right: 25px;
+    bottom: -35px;
 
-    width: 23px;
-    height: 23px;
+    font-size: 170px;
+    font-weight: 900;
 
-    border: none;
+    color: rgba(255,255,255,.025);
+}
+
+.pfm-feature-label {
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color: #9eb2c0;
+}
+
+.pfm-feature-label span {
+    color: var(--gold);
+    margin-right: 8px;
+}
+
+.pfm-feature-content {
+    margin-top: 17px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pfm-feature-player {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.pfm-feature-avatar {
+    width: 65px;
+    height: 65px;
+
+    display: grid;
+    place-items: center;
+
     border-radius: 50%;
 
-    background: #302c34;
-    color: #aaa;
+    background: #173c57;
+    border: 1px solid rgba(255,255,255,.15);
 
-    cursor: pointer;
+    color: var(--gold);
+
+    font-size: 24px;
+    font-weight: 900;
 }
 
-.efc-remove:hover {
-    background: #542d37;
-    color: #ff6973;
+.pfm-feature-player > div:last-child > span {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #91a8b8;
+    font-weight: 800;
 }
 
-.efc-captain-button {
-    width: 100%;
-    height: 29px;
+.pfm-feature-player h2 {
+    margin: 3px 0;
 
-    margin-top: 10px;
-
-    background: transparent;
-    color: #aaa;
-
-    border: 1px solid #49414f;
-    border-radius: 7px;
-
-    font-size: 9px;
-    cursor: pointer;
+    font-size: 27px;
 }
 
-.efc-captain-button:hover {
-    color: #d29bf0;
-    border-color: #a66bcf;
-}
+.pfm-feature-player p {
+    margin: 0;
 
-
-/* ============================================================
-   EMPTY
-============================================================ */
-
-.efc-empty {
-    grid-column: 1 / -1;
-
-    padding: 40px 20px;
-
-    text-align: center;
-
-    color: #69646d;
-
-    border: 1px dashed #39353e;
-    border-radius: 13px;
-}
-
-
-/* ============================================================
-   CAPTAIN
-============================================================ */
-
-.efc-captain {
-    margin-top: 15px;
-    padding: 13px 15px;
-
-    background: #1a171e;
-    border: 1px solid #302a35;
-    border-radius: 10px;
-}
-
-.efc-captain span {
-    color: #77717d;
-    font-size: 11px;
-}
-
-.efc-captain strong {
-    color: #c78cec;
-    margin-left: 7px;
-    font-size: 13px;
-}
-
-.efc-captain small {
-    display: block;
-    margin-top: 4px;
-    color: #66616a;
-    font-size: 9px;
-}
-
-
-/* ============================================================
-   RULES
-============================================================ */
-
-.efc-rules {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 9px;
-}
-
-.efc-rules div {
-    padding: 13px;
-    background: #1a181e;
-    border-radius: 10px;
-}
-
-.efc-rules b {
-    display: block;
+    color: #91a8b8;
     font-size: 12px;
 }
 
-.efc-rules span {
+.pfm-feature-price {
+    text-align: right;
+    position: relative;
+    z-index: 2;
+}
+
+.pfm-feature-price small {
     display: block;
-    margin-top: 4px;
-    color: #706b75;
-    font-size: 10px;
+
+    font-size: 9px;
+    letter-spacing: 2px;
+
+    color: #8da3b2;
 }
 
-.efc-live {
-    margin-top: 16px;
-    color: #28d883;
+.pfm-feature-price strong {
+    display: block;
+
+    color: var(--gold);
+
+    font-size: 37px;
+
+    margin: 2px 0;
+}
+
+.pfm-feature-price span {
+    font-size: 11px;
+    color: #68c49c;
+}
+
+/* CONTROLS */
+
+.pfm-controls {
+    margin-top: 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+.pfm-search {
+    flex: 1;
+    min-width: 200px;
+
+    height: 46px;
+
+    border: 1px solid var(--line);
+    background: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 15px;
+}
+
+.pfm-search span {
+    font-size: 25px;
+    color: #83909a;
+    margin-right: 9px;
+}
+
+.pfm-search input {
+    border: none;
+    outline: none;
+
+    width: 100%;
+
+    font-size: 13px;
+
+    color: var(--text);
+}
+
+.pfm-search input::placeholder {
+    color: #a2abb1;
+}
+
+.pfm-filters {
+    display: flex;
+    gap: 4px;
+}
+
+.pfm-filter {
+    height: 46px;
+
+    border: 1px solid var(--line);
+    background: white;
+
+    padding: 0 15px;
+
     font-size: 10px;
-    font-weight: bold;
-    letter-spacing: .5px;
+    font-weight: 850;
+
+    letter-spacing: 1px;
+
+    color: #687681;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.pfm-filter:hover {
+    border-color: var(--navy);
+    color: var(--navy);
+}
+
+.pfm-filter.active {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
+}
+
+#pfmSort {
+    height: 46px;
+
+    border: 1px solid var(--line);
+    background: white;
+
+    padding: 0 13px;
+
+    outline: none;
+
+    color: var(--text);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+/* TABLE */
+
+.pfm-table-wrap {
+    margin-top: 20px;
+
+    background: white;
+
+    border: 1px solid var(--line);
+}
+
+.pfm-table-heading {
+    padding: 23px 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.pfm-table-heading > div > span {
+    font-size: 9px;
+    letter-spacing: 2px;
+    font-weight: 850;
+    color: var(--gold);
+}
+
+.pfm-table-heading h2 {
+    margin: 4px 0 0;
+
+    font-size: 22px;
+
+    color: var(--navy);
+}
+
+.pfm-live {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 1.5px;
+
+    color: var(--green);
+}
+
+.pfm-live i {
+    width: 7px;
+    height: 7px;
+
+    background: var(--green);
+
+    border-radius: 50%;
+}
+
+/* TABLE */
+
+.pfm-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pfm-table th {
+    text-align: left;
+
+    padding: 14px 18px;
+
+    background: #f7f8f8;
+
+    color: #84909a;
+
+    font-size: 9px;
+    font-weight: 850;
+
+    letter-spacing: 1.2px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.pfm-table td {
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #edf0f1;
+
+    font-size: 13px;
+}
+
+.pfm-table tbody tr {
+    transition: background .18s ease;
+}
+
+.pfm-table tbody tr:hover {
+    background: #f8faf9;
+}
+
+.pfm-rank {
+    width: 40px;
+
+    color: #9aa3a9;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.pfm-player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pfm-avatar {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: var(--navy);
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: 850;
+}
+
+.pfm-player-name {
+    font-weight: 800;
+    color: var(--navy);
+}
+
+.pfm-player-sub {
+    display: block;
+
+    font-size: 9px;
+
+    margin-top: 2px;
+
+    color: #98a1a7;
+}
+
+.pfm-position {
+    display: inline-block;
+
+    min-width: 34px;
+
+    text-align: center;
+
+    padding: 5px 7px;
+
+    border-radius: 2px;
+
+    background: #edf2f4;
+
+    color: #516675;
+
+    font-size: 9px;
+    font-weight: 850;
+}
+
+.pfm-rating {
+    font-weight: 850;
+    color: var(--navy);
+}
+
+.pfm-price {
+    font-size: 16px !important;
+    font-weight: 900;
+
+    color: var(--navy);
+
+    white-space: nowrap;
+}
+
+.pfm-price::before {
+    content: "€ ";
+    color: var(--gold);
+}
+
+.pfm-goal,
+.pfm-assist,
+.pfm-motm {
+    font-weight: 700;
+}
+
+.pfm-empty {
+    padding: 50px !important;
+
+    text-align: center;
+
+    color: #8c979e;
+}
+
+/* FOOTER */
+
+.pfm-footer {
+    padding: 15px 3px;
+
+    display: flex;
+    justify-content: space-between;
+
+    color: #8a959c;
+
+    font-size: 9px;
+
+    letter-spacing: .8px;
+}
+
+.pfm-footer span:first-child {
+    font-weight: 850;
+    color: var(--navy);
 }
 
 
-/* ============================================================
+/* =========================================================
    MOBILE
-============================================================ */
+========================================================= */
 
-@media (max-width: 760px) {
+@media (max-width: 850px) {
 
-    #efcFantasy {
-        width: calc(100% - 20px);
+    .pfm-market {
+        padding: 0 12px;
+        margin-top: 25px;
     }
 
-    .efc-fantasy-header {
+    .pfm-topbar {
+        padding: 30px 23px;
+    }
+
+    .pfm-topbar h1 {
+        font-size: 35px;
+    }
+
+    .pfm-season {
+        display: none;
+    }
+
+    .pfm-overview {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .pfm-stat:nth-child(2) {
+        border-right: none;
+    }
+
+    .pfm-stat:nth-child(3),
+    .pfm-stat:nth-child(4) {
+        border-top: 1px solid var(--line);
+    }
+
+    .pfm-feature-content {
         align-items: flex-start;
-        flex-direction: column;
+        gap: 20px;
     }
 
-    .efc-money {
+    .pfm-feature-price {
+        text-align: left;
+    }
+
+    .pfm-feature-price strong {
+        font-size: 27px;
+    }
+
+    .pfm-table-wrap {
+        overflow-x: auto;
+    }
+
+    .pfm-table {
+        min-width: 800px;
+    }
+
+    .pfm-controls {
+        align-items: stretch;
+    }
+
+    .pfm-search {
         width: 100%;
+        flex-basis: 100%;
     }
 
-    .efc-market {
-        grid-template-columns: 1fr;
-    }
-
-    .efc-squad {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .efc-summary {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .efc-requirements {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .efc-rules {
-        grid-template-columns: repeat(2, 1fr);
+    .pfm-filters {
+        overflow-x: auto;
+        max-width: 100%;
     }
 
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
 
-    .efc-fantasy-panel {
-        padding: 15px;
+    .pfm-stat {
+        padding: 20px 16px;
     }
 
-    .efc-panel-heading {
-        align-items: flex-start;
+    .pfm-stat strong {
+        font-size: 21px;
+    }
+
+    .pfm-feature {
+        padding: 22px 18px;
+    }
+
+    .pfm-feature-player {
+        gap: 11px;
+    }
+
+    .pfm-feature-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .pfm-feature-player h2 {
+        font-size: 20px;
+    }
+
+    .pfm-feature-price strong {
+        font-size: 22px;
+    }
+
+    .pfm-footer {
         flex-direction: column;
+        gap: 7px;
     }
 
-    #efcFilter {
-        width: 100%;
-    }
+}
 
-    .efc-player-stats {
-        grid-template-columns: repeat(5, 1fr);
-    }
 
-    .efc-squad {
-        grid-template-columns: 1fr 1fr;
-    }
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
-    .efc-rules {
-        grid-template-columns: 1fr;
-    }
+@media (prefers-reduced-motion: reduce) {
 
-    .efc-fantasy-header h2 {
-        font-size: 25px;
+    .pfm-table tbody tr,
+    .pfm-filter {
+        transition: none;
     }
 
 }
@@ -3000,960 +2057,270 @@ body {
 
 <script>
 
+/* =========================================================
+   PLAYER MARKET ENGINE
+   Reads existing .stats-table
+========================================================= */
+
 (function () {
 
-    "use strict";
+    let pfmPlayers = [];
+    let pfmFilter = "ALL";
 
+    /*
+       Change this number if you want the whole market
+       to have a different price level.
 
-    /* ========================================================
-       SETTINGS
-    ======================================================== */
+       Example:
+       1 = current prices
+       1.2 = prices 20% higher
+       0.8 = prices 20% lower
+    */
 
-    const BUDGET = 100.0;
+    const PRICE_SCALE = 1;
 
-    const MAX_SQUAD = 8;
+    function pfmReadTable() {
 
-    const FORMATION = {
-        GK: 1,
-        DEF: 2,
-        MID: 2,
-        FWD: 3
-    };
-
-
-    let players = [];
-
-    let squad = [];
-
-    let captain = null;
-
-
-    /* ========================================================
-       STORAGE
-    ======================================================== */
-
-    function loadData() {
-
-        try {
-
-            const savedSquad =
-                JSON.parse(
-                    localStorage.getItem(
-                        "efcFantasySquad"
-                    )
-                );
-
-            if (Array.isArray(savedSquad)) {
-
-                squad = savedSquad;
-
-            }
-
-        } catch (e) {
-
-            squad = [];
-
-        }
-
-
-        captain =
-            localStorage.getItem(
-                "efcFantasyCaptain"
-            ) || null;
-
-    }
-
-
-    function saveData() {
-
-        localStorage.setItem(
-            "efcFantasySquad",
-            JSON.stringify(squad)
-        );
-
-        localStorage.setItem(
-            "efcFantasyCaptain",
-            captain || ""
-        );
-
-    }
-
-
-    /* ========================================================
-       NUMBER
-    ======================================================== */
-
-    function number(value) {
-
-        const n =
-            parseFloat(
-                String(value)
-                    .replace(/,/g, "")
-                    .replace(/[^\d.-]/g, "")
-            );
-
-        return Number.isFinite(n)
-            ? Math.max(0, n)
-            : 0;
-
-    }
-
-
-    /* ========================================================
-       POSITION
-    ======================================================== */
-
-    function getPosition(position) {
-
-        const p =
-            String(position)
-                .toUpperCase()
-                .trim();
-
-
-        if (p === "GK") {
-
-            return "GK";
-
-        }
-
-
-        if (
-            p === "CB" ||
-            p === "LB" ||
-            p === "RB" ||
-            p === "LWB" ||
-            p === "RWB"
-        ) {
-
-            return "DEF";
-
-        }
-
-
-        if (
-            p === "CM" ||
-            p === "CDM" ||
-            p === "CAM" ||
-            p === "LM" ||
-            p === "RM"
-        ) {
-
-            return "MID";
-
-        }
-
-
-        if (
-            p === "ST" ||
-            p === "CF" ||
-            p === "LW" ||
-            p === "RW"
-        ) {
-
-            return "FWD";
-
-        }
-
-
-        return "MID";
-
-    }
-
-
-    /* ========================================================
-       READ YOUR ACTUAL STATS TABLE
-    ======================================================== */
-
-    function readPlayers() {
-
-        const table =
-            document.querySelector(
-                ".stats-table"
-            );
-
+        const table = document.querySelector(".stats-table");
 
         if (!table) {
-
-            console.error(
-                "EFC Fantasy: .stats-table was not found."
-            );
-
             return [];
-
         }
 
+        const rows = table.querySelectorAll("tbody tr");
 
-        const rows =
-            table.querySelectorAll(
-                "tbody tr"
-            );
-
-
-        const result = [];
-
+        const players = [];
 
         rows.forEach(function (row, index) {
 
-            const cells =
-                row.querySelectorAll("td");
+            const cells = row.querySelectorAll("td");
 
+            if (cells.length < 8) return;
 
-            if (cells.length < 7) {
-
-                return;
-
-            }
-
-
-            /* PLAYER */
-
-            const strong =
-                cells[0].querySelector(
-                    ".player-info strong"
-                );
-
-
-            const name =
-                strong
-                    ? strong.textContent.trim()
-                    : cells[0].textContent.trim();
-
-
-            if (!name) {
-
-                return;
-
-            }
-
-
-            /* POSITION */
-
-            const positionElement =
-                cells[1].querySelector(
-                    ".position"
-                );
-
+            const playerName =
+                cells[0]?.querySelector("strong")?.textContent.trim()
+                || cells[0]?.textContent.trim();
 
             const position =
-                positionElement
-                    ? positionElement.textContent.trim()
-                    : cells[1].textContent.trim();
-
-
-            /* STATS */
+                cells[1]?.textContent.trim().toUpperCase() || "";
 
             const matches =
-                number(
-                    cells[2].textContent
-                );
-
+                parseInt(cells[2]?.textContent.trim()) || 0;
 
             const goals =
-                number(
-                    cells[3].textContent
-                );
-
+                parseInt(cells[3]?.textContent.trim()) || 0;
 
             const assists =
-                number(
-                    cells[4].textContent
-                );
-
+                parseInt(cells[4]?.textContent.trim()) || 0;
 
             const saves =
-                number(
-                    cells[5].textContent
-                );
+                parseInt(cells[5]?.textContent.trim()) || 0;
 
+            const ratingText =
+                cells[6]?.textContent.trim() || "0";
 
             const rating =
-                number(
-                    cells[6].textContent
-                );
-
-
-            /*
-             * Your table has MOTM at column 8
-             * because:
-             *
-             * 0 PLAYER
-             * 1 POSITION
-             * 2 MATCHES
-             * 3 GOALS
-             * 4 ASSISTS
-             * 5 SAVES
-             * 6 FC RATING
-             * 7 ATTRIBUTE
-             * 8 MOTM
-             */
+                parseInt(ratingText.replace(/[^\d]/g, "")) || 0;
 
             const motm =
-                number(
-                    cells[8]
-                        ? cells[8].textContent
-                        : 0
-                );
+                parseInt(cells[8]?.textContent.trim()) || 0;
 
+            if (!playerName) return;
 
             /*
-             * Yellow and red are also read,
-             * so disciplinary changes can affect
-             * fantasy value.
-             */
+                PRICE ONLY
 
-            const yellow =
-                number(
-                    cells[9]
-                        ? cells[9].textContent
-                        : 0
-                );
+                Rating is READ from the table.
+                It is NOT changed or recalculated.
 
+                Price uses rating + performance statistics
+                to create an independent market value.
+            */
 
-            const red =
-                number(
-                    cells[10]
-                        ? cells[10].textContent
-                        : 0
-                );
+            let price =
+                4 +
+                (rating * 0.85) +
+                (goals * 0.65) +
+                (assists * 0.40) +
+                (motm * 1.10) +
+                (saves * 0.18) +
+                (matches * 0.12);
 
+            /* Position multiplier */
 
-            const id =
-                name
-                    .toLowerCase()
-                    .replace(/[^a-z0-9]+/g, "-");
+            if (position.includes("GK")) {
+                price *= 0.92;
+            }
 
+            if (
+                position.includes("DEF") ||
+                position.includes("CB") ||
+                position.includes("LB") ||
+                position.includes("RB")
+            ) {
+                price *= 0.96;
+            }
 
-            result.push({
+            if (
+                position.includes("MID") ||
+                position.includes("CM") ||
+                position.includes("CAM") ||
+                position.includes("CDM")
+            ) {
+                price *= 1.00;
+            }
 
-                id: id,
+            if (
+                position.includes("ST") ||
+                position.includes("FW") ||
+                position.includes("FWD")
+            ) {
+                price *= 1.04;
+            }
 
-                name: name,
+            price *= PRICE_SCALE;
 
+            players.push({
+                name: playerName,
                 position: position,
-
-                type:
-                    getPosition(position),
-
                 matches: matches,
-
                 goals: goals,
-
                 assists: assists,
-
                 saves: saves,
-
                 rating: rating,
-
                 motm: motm,
-
-                yellow: yellow,
-
-                red: red
-
+                price: Math.round(price * 10) / 10
             });
 
         });
 
-
-        return result;
+        return players;
 
     }
 
 
-    /* ========================================================
-       PRICE CALCULATOR
-       
-       This is intentionally NOT based only on rating.
+    function pfmPositionGroup(position) {
 
-       That means a 96-rated player doesn't automatically
-       become 99-rated or receive an absurd fantasy price.
-    ======================================================== */
+        position = position.toUpperCase();
 
-    function calculatePrice(player) {
-
-        const matches =
-            Math.max(
-                1,
-                player.matches
-            );
-
-
-        const gpm =
-            player.goals / matches;
-
-
-        const apm =
-            player.assists / matches;
-
-
-        const spm =
-            player.saves / matches;
-
-
-        const motmRate =
-            player.motm / matches;
-
-
-        /*
-         * BASE VALUE FROM FC RATING
-         */
-
-        let price =
-            3.0 +
-            Math.max(
-                0,
-                player.rating - 80
-            ) * 0.42;
-
-
-        /*
-         * FORWARDS
-         */
-
-        if (player.type === "FWD") {
-
-            price +=
-                Math.min(
-                    gpm * 2.4,
-                    5.0
-                );
-
-            price +=
-                Math.min(
-                    apm * 1.7,
-                    2.5
-                );
-
-        }
-
-
-        /*
-         * MIDFIELDERS
-         */
-
-        if (player.type === "MID") {
-
-            price +=
-                Math.min(
-                    gpm * 1.8,
-                    3.2
-                );
-
-            price +=
-                Math.min(
-                    apm * 2.1,
-                    3.5
-                );
-
-        }
-
-
-        /*
-         * DEFENDERS
-         */
-
-        if (player.type === "DEF") {
-
-            price +=
-                Math.min(
-                    gpm * 1.4,
-                    2.0
-                );
-
-            price +=
-                Math.min(
-                    apm * 1.3,
-                    1.7
-                );
-
-            price +=
-                Math.min(
-                    spm * 0.10,
-                    1.5
-                );
-
-        }
-
-
-        /*
-         * GOALKEEPERS
-         */
-
-        if (player.type === "GK") {
-
-            price +=
-                Math.min(
-                    spm * 0.22,
-                    6.0
-                );
-
-            price +=
-                Math.min(
-                    gpm * 0.7,
-                    1.0
-                );
-
-        }
-
-
-        /*
-         * MOTM
-         */
-
-        price +=
-            Math.min(
-                motmRate * 2.2,
-                2.2
-            );
-
-
-        /*
-         * DISCIPLINE
-         */
-
-        price -=
-            Math.min(
-                player.yellow * 0.03,
-                0.6
-            );
-
-
-        price -=
-            Math.min(
-                player.red * 0.35,
-                1.5
-            );
-
-
-        /*
-         * MATCH SAMPLE
-         */
-
-        if (matches < 3) {
-
-            price *= 0.88;
-
-        }
-
-        else if (matches < 5) {
-
-            price *= 0.94;
-
-        }
-
-        else if (matches >= 10) {
-
-            price *= 1.03;
-
-        }
-
-
-        /*
-         * ROUND TO 0.1M
-         */
-
-        price =
-            Math.round(
-                price * 10
-            ) / 10;
-
-
-        /*
-         * MARKET LIMITS
-         */
-
-        price =
-            Math.max(
-                3.0,
-                price
-            );
-
-
-        price =
-            Math.min(
-                20.0,
-                price
-            );
-
-
-        return price;
-
-    }
-
-
-    /* ========================================================
-       FANTASY POINTS
-    ======================================================== */
-
-    function fantasyPoints(player) {
-
-        const matches =
-            Math.max(
-                1,
-                player.matches
-            );
-
-
-        const gpm =
-            player.goals / matches;
-
-
-        const apm =
-            player.assists / matches;
-
-
-        const spm =
-            player.saves / matches;
-
-
-        const motmRate =
-            player.motm / matches;
-
-
-        let points =
-            player.rating * 0.55;
-
-
-        /*
-         * ATTACK
-         */
-
-        if (player.type === "FWD") {
-
-            points +=
-                gpm * 45;
-
-            points +=
-                apm * 25;
-
-        }
-
-
-        /*
-         * MID
-         */
-
-        if (player.type === "MID") {
-
-            points +=
-                gpm * 38;
-
-            points +=
-                apm * 30;
-
-        }
-
-
-        /*
-         * DEF
-         */
-
-        if (player.type === "DEF") {
-
-            points +=
-                gpm * 32;
-
-            points +=
-                apm * 22;
-
-        }
-
-
-        /*
-         * GK
-         */
-
-        if (player.type === "GK") {
-
-            points +=
-                spm * 9;
-
-        }
-
-
-        /*
-         * MOTM
-         */
-
-        points +=
-            motmRate * 18;
-
-
-        /*
-         * DISCIPLINE
-         */
-
-        points -=
-            player.yellow * 0.4;
-
-        points -=
-            player.red * 5;
-
-
-        return Math.max(
-            0,
-            Math.round(points)
-        );
-
-    }
-
-
-    /* ========================================================
-       PRICE HISTORY
-       
-       IMPORTANT:
-       
-       Price is only saved as the new market price when
-       the actual stats change.
-
-       Rendering the page does NOT repeatedly reset the
-       previous price.
-    ======================================================== */
-
-    function getPriceHistoryKey(id) {
-
-        return "efcFantasyPrice_" + id;
-
-    }
-
-
-    function getStatsKey(player) {
-
-        return [
-
-            player.matches,
-
-            player.goals,
-
-            player.assists,
-
-            player.saves,
-
-            player.rating,
-
-            player.motm,
-
-            player.yellow,
-
-            player.red
-
-        ].join("|");
-
-    }
-
-
-    function updateMarketHistory(player) {
-
-        const price =
-            calculatePrice(player);
-
-
-        const priceKey =
-            getPriceHistoryKey(
-                player.id
-            );
-
-
-        const statsKey =
-            "efcFantasyStats_" +
-            player.id;
-
-
-        const oldPrice =
-            parseFloat(
-                localStorage.getItem(
-                    priceKey
-                )
-            );
-
-
-        const oldStats =
-            localStorage.getItem(
-                statsKey
-            );
-
-
-        /*
-         * FIRST TIME PLAYER
-         */
-
-        if (!Number.isFinite(oldPrice)) {
-
-            localStorage.setItem(
-                priceKey,
-                price
-            );
-
-            localStorage.setItem(
-                statsKey,
-                getStatsKey(player)
-            );
-
-            return {
-                price: price,
-                change: 0
-            };
-
-        }
-
-
-        /*
-         * STATS HAVE CHANGED
-         */
+        if (position.includes("GK")) return "GK";
 
         if (
-            oldStats !==
-            getStatsKey(player)
+            position.includes("DEF") ||
+            position.includes("CB") ||
+            position.includes("LB") ||
+            position.includes("RB")
         ) {
-
-            const change =
-                Math.round(
-                    (price - oldPrice) * 10
-                ) / 10;
-
-
-            /*
-             * Save the NEW price.
-             */
-
-            localStorage.setItem(
-                priceKey,
-                price
-            );
-
-
-            localStorage.setItem(
-                statsKey,
-                getStatsKey(player)
-            );
-
-
-            return {
-
-                price: price,
-
-                change: change
-
-            };
-
+            return "DEF";
         }
 
+        if (
+            position.includes("MID") ||
+            position.includes("CM") ||
+            position.includes("CAM") ||
+            position.includes("CDM")
+        ) {
+            return "MID";
+        }
 
-        /*
-         * STATS HAVE NOT CHANGED
-         */
+        return "ST";
+    }
 
-        return {
 
-            price: oldPrice,
+    function pfmMoney(value) {
 
-            change: 0
-
-        };
+        return value.toFixed(1) + "M";
 
     }
 
 
-    /* ========================================================
-       ESCAPE HTML
-    ======================================================== */
+    function pfmInitials(name) {
 
-    function safe(value) {
+        const parts = name.trim().split(/\s+/);
 
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+        if (parts.length === 1) {
+            return parts[0].substring(0, 2).toUpperCase();
+        }
+
+        return (
+            parts[0][0] +
+            parts[parts.length - 1][0]
+        ).toUpperCase();
 
     }
 
 
-    /* ========================================================
-       CHANGE DISPLAY
-    ======================================================== */
+    function pfmRender() {
 
-    function changeHTML(change) {
+        pfmPlayers = pfmReadTable();
 
-        if (change > 0) {
+        const search =
+            document
+                .getElementById("pfmSearch")
+                ?.value
+                .toLowerCase()
+                .trim() || "";
 
-            return `
-                <div class="efc-change-up">
-                    ▲ +${change.toFixed(1)}M
-                </div>
-            `;
+        const sort =
+            document.getElementById("pfmSort")?.value
+            || "price";
 
-        }
+        let filtered = pfmPlayers.filter(function (player) {
 
+            const matchesSearch =
+                player.name
+                    .toLowerCase()
+                    .includes(search);
 
-        if (change < 0) {
+            const matchesFilter =
+                pfmFilter === "ALL"
+                || pfmPositionGroup(player.position) === pfmFilter;
 
-            return `
-                <div class="efc-change-down">
-                    ▼ ${change.toFixed(1)}M
-                </div>
-            `;
+            return matchesSearch && matchesFilter;
 
-        }
-
-
-        return `
-            <div class="efc-change-same">
-                — Stable
-            </div>
-        `;
-
-    }
+        });
 
 
-    /* ========================================================
-       MARKET RENDER
-    ======================================================== */
+        filtered.sort(function (a, b) {
 
-    function renderMarket() {
+            if (sort === "price")
+                return b.price - a.price;
 
-        const market =
-            document.getElementById(
-                "efcMarket"
-            );
-
-
-        const filter =
-            document.getElementById(
-                "efcFilter"
-            ).value;
-
-
-        let visible =
-            players.filter(
-                function (player) {
-
-                    return (
-                        filter === "ALL" ||
-                        player.type === filter
-                    );
-
-                }
-            );
-
-
-        visible.sort(
-            function (a, b) {
-
+            if (sort === "rating")
                 return b.rating - a.rating;
 
-            }
-        );
+            if (sort === "goals")
+                return b.goals - a.goals;
+
+            if (sort === "assists")
+                return b.assists - a.assists;
+
+            if (sort === "matches")
+                return b.matches - a.matches;
+
+            if (sort === "name")
+                return a.name.localeCompare(b.name);
+
+            return 0;
+
+        });
 
 
-        if (!visible.length) {
+        const tbody =
+            document.getElementById("pfmPlayers");
 
-            market.innerHTML = `
-                <div class="efc-empty">
-                    No players found.
-                </div>
+        if (!tbody) return;
+
+        tbody.innerHTML = "";
+
+        if (!filtered.length) {
+
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="pfm-empty">
+                        No players found.
+                    </td>
+                </tr>
             `;
 
             return;
@@ -3961,899 +2328,225 @@ body {
         }
 
 
-        market.innerHTML =
-            visible.map(
-                function (player) {
+        filtered.forEach(function (player, index) {
 
-                    const marketData =
-                        updateMarketHistory(
-                            player
-                        );
+            const tr = document.createElement("tr");
 
+            tr.innerHTML = `
 
-                    const points =
-                        fantasyPoints(
-                            player
-                        );
+                <td class="pfm-rank">
+                    ${String(index + 1).padStart(2,"0")}
+                </td>
 
+                <td>
 
-                    const selected =
-                        squad.includes(
-                            player.id
-                        );
+                    <div class="pfm-player">
 
+                        <div class="pfm-avatar">
+                            ${pfmInitials(player.name)}
+                        </div>
 
-                    const squadFull =
-                        squad.length >=
-                        MAX_SQUAD;
+                        <div>
 
+                            <span class="pfm-player-name">
+                                ${player.name}
+                            </span>
 
-                    return `
-
-                        <div class="efc-player-card">
-
-                            <div class="efc-player-top">
-
-                                <div>
-
-                                    <div class="efc-player-name">
-                                        ${safe(player.name)}
-                                    </div>
-
-                                    <div class="efc-player-position">
-                                        ${safe(player.position)}
-                                        · ${player.type}
-                                    </div>
-
-                                </div>
-
-                                <div class="efc-price-area">
-
-                                    <div class="efc-price">
-                                        ${marketData.price.toFixed(1)}M
-                                    </div>
-
-                                    ${changeHTML(
-                                        marketData.change
-                                    )}
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="efc-player-stats">
-
-                                <div class="efc-market-stat">
-                                    <span>RAT</span>
-                                    <strong class="efc-r">
-                                        ${player.rating}
-                                    </strong>
-                                </div>
-
-                                <div class="efc-market-stat">
-                                    <span>G</span>
-                                    <strong class="efc-g">
-                                        ${player.goals}
-                                    </strong>
-                                </div>
-
-                                <div class="efc-market-stat">
-                                    <span>A</span>
-                                    <strong class="efc-a">
-                                        ${player.assists}
-                                    </strong>
-                                </div>
-
-                                <div class="efc-market-stat">
-                                    <span>S</span>
-                                    <strong class="efc-s">
-                                        ${player.saves}
-                                    </strong>
-                                </div>
-
-                                <div class="efc-market-stat">
-                                    <span>PTS</span>
-                                    <strong class="efc-m">
-                                        ${points}
-                                    </strong>
-                                </div>
-
-                            </div>
-
-
-                            <button
-                                class="efc-add-player"
-                                onclick="
-                                    window.efcAddPlayer(
-                                        '${player.id}'
-                                    )
-                                "
-                                ${
-                                    selected ||
-                                    squadFull
-                                        ? "disabled"
-                                        : ""
-                                }
-                            >
-
-                                ${
-                                    selected
-                                        ? "In Squad"
-                                        : squadFull
-                                            ? "Squad Full"
-                                            : "Add to Squad"
-                                }
-
-                            </button>
+                            <span class="pfm-player-sub">
+                                ${player.matches} matches
+                            </span>
 
                         </div>
 
-                    `;
+                    </div>
 
-                }
-            ).join("");
+                </td>
 
-    }
+                <td>
+                    <span class="pfm-position">
+                        ${pfmPositionGroup(player.position)}
+                    </span>
+                </td>
 
+                <td class="pfm-rating">
+                    ${player.rating}
+                </td>
 
-    /* ========================================================
-       POSITION COUNTS
-    ======================================================== */
+                <td class="pfm-goal">
+                    ${player.goals}
+                </td>
 
-    function getPositionCounts() {
+                <td class="pfm-assist">
+                    ${player.assists}
+                </td>
 
-        const counts = {
+                <td class="pfm-motm">
+                    ${player.motm}
+                </td>
 
-            GK: 0,
-            DEF: 0,
-            MID: 0,
-            FWD: 0
+                <td class="pfm-price">
+                    ${pfmMoney(player.price)}
+                </td>
 
-        };
-
-
-        squad.forEach(
-            function (id) {
-
-                const player =
-                    players.find(
-                        p => p.id === id
-                    );
-
-
-                if (player) {
-
-                    counts[
-                        player.type
-                    ]++;
-
-                }
-
-            }
-        );
-
-
-        return counts;
-
-    }
-
-
-    /* ========================================================
-       ADD PLAYER
-    ======================================================== */
-
-    window.efcAddPlayer =
-        function (id) {
-
-            const player =
-                players.find(
-                    p => p.id === id
-                );
-
-
-            if (!player) return;
-
-
-            if (
-                squad.includes(id)
-            ) {
-
-                return;
-
-            }
-
-
-            if (
-                squad.length >=
-                MAX_SQUAD
-            ) {
-
-                alert(
-                    "Your squad already has 8 players."
-                );
-
-                return;
-
-            }
-
-
-            const counts =
-                getPositionCounts();
-
-
-            if (
-                counts[player.type] >=
-                FORMATION[player.type]
-            ) {
-
-                alert(
-                    "You already have the maximum " +
-                    player.type +
-                    " players for this formation."
-                );
-
-                return;
-
-            }
-
-
-            const price =
-                calculatePrice(player);
-
-
-            const value =
-                getSquadValue();
-
-
-            if (
-                value + price >
-                BUDGET
-            ) {
-
-                alert(
-                    "Not enough budget for this player."
-                );
-
-                return;
-
-            }
-
-
-            squad.push(id);
-
-
-            /*
-             * Automatically make the first player
-             * captain.
-             */
-
-            if (!captain) {
-
-                captain = id;
-
-            }
-
-
-            saveData();
-
-            renderAll();
-
-        };
-
-
-    /* ========================================================
-       REMOVE PLAYER
-    ======================================================== */
-
-    window.efcRemovePlayer =
-        function (id) {
-
-            squad =
-                squad.filter(
-                    playerId =>
-                        playerId !== id
-                );
-
-
-            if (
-                captain === id
-            ) {
-
-                captain =
-                    squad.length
-                        ? squad[0]
-                        : null;
-
-            }
-
-
-            saveData();
-
-            renderAll();
-
-        };
-
-
-    /* ========================================================
-       MAKE CAPTAIN
-    ======================================================== */
-
-    window.efcMakeCaptain =
-        function (id) {
-
-            if (
-                !squad.includes(id)
-            ) {
-
-                return;
-
-            }
-
-
-            captain = id;
-
-            saveData();
-
-            renderSquad();
-
-        };
-
-
-    /* ========================================================
-       SQUAD VALUE
-    ======================================================== */
-
-    function getSquadValue() {
-
-        return squad.reduce(
-            function (total, id) {
-
-                const player =
-                    players.find(
-                        p => p.id === id
-                    );
-
-
-                if (!player) {
-
-                    return total;
-
-                }
-
-
-                return (
-                    total +
-                    calculatePrice(player)
-                );
-
-            },
-            0
-        );
-
-    }
-
-
-    /* ========================================================
-       TOTAL POINTS
-    ======================================================== */
-
-    function getTotalPoints() {
-
-        return squad.reduce(
-            function (total, id) {
-
-                const player =
-                    players.find(
-                        p => p.id === id
-                    );
-
-
-                if (!player) {
-
-                    return total;
-
-                }
-
-
-                let points =
-                    fantasyPoints(
-                        player
-                    );
-
-
-                if (
-                    captain === id
-                ) {
-
-                    points *= 2;
-
-                }
-
-
-                return total + points;
-
-            },
-            0
-        );
-
-    }
-
-
-    /* ========================================================
-       RENDER SQUAD
-    ======================================================== */
-
-    function renderSquad() {
-
-        const container =
-            document.getElementById(
-                "efcSquad"
-            );
-
-
-        const counts =
-            getPositionCounts();
-
-
-        document.getElementById(
-            "efcGKCount"
-        ).textContent =
-            counts.GK + "/1";
-
-
-        document.getElementById(
-            "efcDEFCount"
-        ).textContent =
-            counts.DEF + "/2";
-
-
-        document.getElementById(
-            "efcMIDCount"
-        ).textContent =
-            counts.MID + "/2";
-
-
-        document.getElementById(
-            "efcFWDCount"
-        ).textContent =
-            counts.FWD + "/3";
-
-
-        document.getElementById(
-            "efcSquadCount"
-        ).textContent =
-            squad.length;
-
-
-        const value =
-            getSquadValue();
-
-
-        document.getElementById(
-            "efcSquadValue"
-        ).textContent =
-            value.toFixed(1) + "M";
-
-
-        document.getElementById(
-            "efcRemaining"
-        ).textContent =
-            Math.max(
-                0,
-                BUDGET - value
-            ).toFixed(1) + "M";
-
-
-        document.getElementById(
-            "efcTotalPoints"
-        ).textContent =
-            getTotalPoints();
-
-
-        const captainPlayer =
-            players.find(
-                p => p.id === captain
-            );
-
-
-        document.getElementById(
-            "efcCaptainName"
-        ).textContent =
-            captainPlayer
-                ? captainPlayer.name
-                : "Not selected";
-
-
-        if (!squad.length) {
-
-            container.innerHTML = `
-                <div class="efc-empty">
-                    <strong>Your squad is empty.</strong>
-                    <br>
-                    Add players from the market.
-                </div>
             `;
 
-            return;
+            tbody.appendChild(tr);
 
-        }
-
-
-        container.innerHTML =
-            squad.map(
-                function (id) {
-
-                    const player =
-                        players.find(
-                            p => p.id === id
-                        );
+        });
 
 
-                    if (!player) {
-
-                        return "";
-
-                    }
-
-
-                    const price =
-                        calculatePrice(
-                            player
-                        );
-
-
-                    let points =
-                        fantasyPoints(
-                            player
-                        );
-
-
-                    const isCaptain =
-                        captain === id;
-
-
-                    if (isCaptain) {
-
-                        points *= 2;
-
-                    }
-
-
-                    return `
-
-                        <div class="
-                            efc-squad-card
-                            ${
-                                isCaptain
-                                    ? "efc-captain-card"
-                                    : ""
-                            }
-                        ">
-
-                            <button
-                                class="efc-remove"
-                                onclick="
-                                    window.efcRemovePlayer(
-                                        '${player.id}'
-                                    )
-                                "
-                            >
-                                ×
-                            </button>
-
-
-                            ${
-                                isCaptain
-                                    ? `
-                                        <div style="
-                                            position:absolute;
-                                            top:10px;
-                                            right:38px;
-                                            color:#c88cf0;
-                                            font-size:8px;
-                                            font-weight:bold;
-                                        ">
-                                            CAPTAIN
-                                        </div>
-                                    `
-                                    : ""
-                            }
-
-
-                            <h4>
-                                ${safe(player.name)}
-                            </h4>
-
-
-                            <span class="efc-squad-position">
-                                ${safe(player.position)}
-                            </span>
-
-
-                            <span class="efc-squad-price">
-                                ${price.toFixed(1)}M
-                            </span>
-
-
-                            <span class="efc-squad-points">
-                                ${points} fantasy points
-                            </span>
-
-
-                            <button
-                                class="efc-captain-button"
-                                onclick="
-                                    window.efcMakeCaptain(
-                                        '${player.id}'
-                                    )
-                                "
-                            >
-
-                                ${
-                                    isCaptain
-                                        ? "★ Captain"
-                                        : "Make Captain"
-                                }
-
-                            </button>
-
-                        </div>
-
-                    `;
-
-                }
-            ).join("");
+        pfmUpdateOverview();
 
     }
 
 
-    /* ========================================================
-       RENDER ALL
-    ======================================================== */
+    function pfmUpdateOverview() {
 
-    function renderAll() {
-
-        players =
-            readPlayers();
+        if (!pfmPlayers.length) return;
 
 
-        /*
-         * Remove deleted players automatically.
-         */
-
-        squad =
-            squad.filter(
-                id =>
-                    players.some(
-                        p => p.id === id
-                    )
+        const total =
+            pfmPlayers.reduce(
+                (sum, player) => sum + player.price,
+                0
             );
 
 
-        /*
-         * Fix captain if player disappeared.
-         */
+        const mostValuable =
+            [...pfmPlayers].sort(
+                (a,b) => b.price - a.price
+            )[0];
+
+
+        const highestRated =
+            [...pfmPlayers].sort(
+                (a,b) => b.rating - a.rating
+            )[0];
+
+
+        document.getElementById("pfmTotalValue")
+            .textContent = pfmMoney(total);
+
+        document.getElementById("pfmMostValuable")
+            .textContent = mostValuable.name;
+
+        document.getElementById("pfmMostValuablePrice")
+            .textContent = pfmMoney(mostValuable.price);
+
+        document.getElementById("pfmHighestRated")
+            .textContent = highestRated.name;
+
+        document.getElementById("pfmHighestRatedPrice")
+            .textContent =
+                "Rating " + highestRated.rating +
+                " • " +
+                pfmMoney(highestRated.price);
+
+        document.getElementById("pfmPlayerCount")
+            .textContent = pfmPlayers.length;
+
+
+        /* FEATURED PLAYER */
+
+        document.getElementById("pfmFeatureName")
+            .textContent = mostValuable.name;
+
+        document.getElementById("pfmFeaturePosition")
+            .textContent =
+                pfmPositionGroup(mostValuable.position);
+
+        document.getElementById("pfmFeatureAvatar")
+            .textContent =
+                pfmInitials(mostValuable.name);
+
+        document.getElementById("pfmFeaturePrice")
+            .textContent =
+                pfmMoney(mostValuable.price);
+
+    }
+
+
+    window.pfmSetFilter = function (filter, button) {
+
+        pfmFilter = filter;
+
+        document
+            .querySelectorAll(".pfm-filter")
+            .forEach(function (btn) {
+
+                btn.classList.remove("active");
+
+            });
+
+        button.classList.add("active");
+
+        pfmRender();
+
+    };
+
+
+    /* INITIAL */
+
+    function pfmStart() {
+
+        pfmRender();
+
+    }
+
+    if (document.readyState === "loading") {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            pfmStart
+        );
+
+    } else {
+
+        pfmStart();
+
+    }
+
+
+    /* Automatically detect table changes */
+
+    const existingTable =
+        document.querySelector(".stats-table");
+
+    if (existingTable) {
+
+        const observer =
+            new MutationObserver(function () {
+
+                pfmRender();
+
+            });
+
+        observer.observe(existingTable, {
+            childList: true,
+            subtree: true,
+            characterData: true
+        });
+
+    }
+
+
+    /* Backup refresh */
+
+    setInterval(function () {
+
+        const fresh =
+            pfmReadTable();
 
         if (
-            captain &&
-            !squad.includes(captain)
+            JSON.stringify(fresh) !==
+            JSON.stringify(pfmPlayers)
         ) {
 
-            captain =
-                squad.length
-                    ? squad[0]
-                    : null;
+            pfmRender();
 
         }
 
-
-        saveData();
-
-
-        renderMarket();
-
-        renderSquad();
-
-
-        document.getElementById(
-            "efcTopBudget"
-        ).textContent =
-            BUDGET.toFixed(1) + "M";
-
-    }
-
-
-    /* ========================================================
-       FILTER
-    ======================================================== */
-
-    document.getElementById(
-        "efcFilter"
-    ).addEventListener(
-        "change",
-        renderMarket
-    );
-
-
-    /* ========================================================
-       CLEAR
-    ======================================================== */
-
-    document.getElementById(
-        "efcClearSquad"
-    ).addEventListener(
-        "click",
-        function () {
-
-            if (!squad.length) {
-
-                return;
-
-            }
-
-
-            if (
-                !confirm(
-                    "Clear your entire fantasy squad?"
-                )
-            ) {
-
-                return;
-
-            }
-
-
-            squad = [];
-
-            captain = null;
-
-            saveData();
-
-            renderAll();
-
-        }
-    );
-
-
-    /* ========================================================
-       LOAD
-    ======================================================== */
-
-    loadData();
-
-
-    /* ========================================================
-       FIRST RENDER
-    ======================================================== */
-
-    renderAll();
-
-
-    /* ========================================================
-       AUTOMATIC STATS UPDATE
-       
-       Watches YOUR existing .stats-table.
-
-       If you change:
-       - Matches
-       - Goals
-       - Assists
-       - Saves
-       - FC Rating
-       - MOTM
-       - Yellow
-       - Red
-
-       the fantasy market recalculates automatically.
-    ======================================================== */
-
-    let refreshTimer = null;
-
-
-    const observer =
-        new MutationObserver(
-            function () {
-
-                clearTimeout(
-                    refreshTimer
-                );
-
-
-                refreshTimer =
-                    setTimeout(
-                        function () {
-
-                            renderAll();
-
-                        },
-                        300
-                    );
-
-            }
-        );
-
-
-    const statsTable =
-        document.querySelector(
-            ".stats-table"
-        );
-
-
-    if (statsTable) {
-
-        observer.observe(
-            statsTable,
-            {
-                subtree: true,
-                childList: true,
-                characterData: true
-            }
-        );
-
-    }
-
-
-    /* ========================================================
-       BACKUP CHECK
-    ======================================================== */
-
-    let lastSignature = "";
-
-
-    function getTableSignature() {
-
-        const table =
-            document.querySelector(
-                ".stats-table"
-            );
-
-
-        if (!table) {
-
-            return "";
-
-        }
-
-
-        return table.innerText;
-
-    }
-
-
-    lastSignature =
-        getTableSignature();
-
-
-    setInterval(
-        function () {
-
-            const current =
-                getTableSignature();
-
-
-            if (
-                current &&
-                current !==
-                lastSignature
-            ) {
-
-                lastSignature =
-                    current;
-
-                renderAll();
-
-            }
-
-        },
-        1000
-    );
-
-
-})();
-
-</script>
-    );
+    }, 1500);
 
 
 })();
