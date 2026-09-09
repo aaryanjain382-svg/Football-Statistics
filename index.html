@@ -2169,5 +2169,2159 @@ body {
 
 </script>
 
+    <!-- =========================================================
+     FANTASY FOOTBALL + 8 PLAYER SQUAD BUILDER
+     Reads your EXISTING football stats table automatically.
+     NO API REQUIRED.
+========================================================= -->
+
+<div id="ffFantasyApp">
+
+    <div class="ff-head">
+        <div>
+            <div class="ff-kicker">REXOLE FOOTBALL</div>
+            <h2>Fantasy Football</h2>
+            <p>Build your 8-player squad from the current player stats.</p>
+        </div>
+
+        <div class="ff-budget-box">
+            <span>BUDGET</span>
+            <strong id="ffBudgetTop">100.0M</strong>
+        </div>
+    </div>
+
+
+    <!-- MARKET -->
+    <section class="ff-section">
+
+        <div class="ff-section-title">
+            <div>
+                <h3>Player Market</h3>
+                <p>Prices automatically react to your stats.</p>
+            </div>
+
+            <select id="ffPositionFilter">
+                <option value="ALL">All Positions</option>
+                <option value="GK">GK</option>
+                <option value="DEF">DEF</option>
+                <option value="MID">MID</option>
+                <option value="FWD">FWD</option>
+            </select>
+        </div>
+
+        <div id="ffPlayers" class="ff-players"></div>
+
+    </section>
+
+
+    <!-- SQUAD -->
+    <section class="ff-section">
+
+        <div class="ff-section-title">
+            <div>
+                <h3>My Squad</h3>
+                <p>Select exactly 8 players.</p>
+            </div>
+
+            <button id="ffClear" class="ff-clear">
+                Clear Squad
+            </button>
+        </div>
+
+
+        <div class="ff-squad-info">
+
+            <div>
+                <span>PLAYERS</span>
+                <strong>
+                    <span id="ffSquadCount">0</span>/8
+                </strong>
+            </div>
+
+            <div>
+                <span>SQUAD VALUE</span>
+                <strong id="ffSquadValue">0.0M</strong>
+            </div>
+
+            <div>
+                <span>REMAINING</span>
+                <strong id="ffRemaining">100.0M</strong>
+            </div>
+
+            <div>
+                <span>POINTS</span>
+                <strong id="ffSquadPoints">0</strong>
+            </div>
+
+        </div>
+
+
+        <div id="ffSquad" class="ff-squad"></div>
+
+        <div id="ffCaptainBox" class="ff-captain-box">
+            <span>Captain:</span>
+            <strong id="ffCaptain">Not selected</strong>
+        </div>
+
+    </section>
+
+
+    <!-- HOW PRICES WORK -->
+    <section class="ff-section ff-explanation">
+
+        <h3>How prices work</h3>
+
+        <div class="ff-rules">
+
+            <div>
+                <b>FC Rating</b>
+                <span>Main price factor</span>
+            </div>
+
+            <div>
+                <b>Goals</b>
+                <span>Raises attacking value</span>
+            </div>
+
+            <div>
+                <b>Assists</b>
+                <span>Raises creative value</span>
+            </div>
+
+            <div>
+                <b>Saves</b>
+                <span>Raises GK value</span>
+            </div>
+
+            <div>
+                <b>MOTM</b>
+                <span>Performance premium</span>
+            </div>
+
+            <div>
+                <b>Matches</b>
+                <span>Improves consistency</span>
+            </div>
+
+        </div>
+
+        <p class="ff-live">
+            ● Prices are calculated from your current stats table.
+        </p>
+
+    </section>
+
+</div>
+
+
+<style>
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+#ffFantasyApp {
+    width: 100%;
+    max-width: 1100px;
+    margin: 45px auto;
+    padding: 0 18px;
+    box-sizing: border-box;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#ffFantasyApp * {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.ff-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 26px;
+    margin-bottom: 22px;
+    border: 1px solid #29252f;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #15131a, #100f14);
+}
+
+.ff-kicker {
+    color: #a86be0;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 7px;
+}
+
+.ff-head h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.ff-head p {
+    margin: 7px 0 0;
+    color: #85818c;
+    font-size: 13px;
+}
+
+.ff-budget-box {
+    min-width: 120px;
+    padding: 14px 18px;
+    text-align: center;
+    border-radius: 14px;
+    background: #21172b;
+    border: 1px solid #49305c;
+}
+
+.ff-budget-box span {
+    display: block;
+    color: #92899b;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+}
+
+.ff-budget-box strong {
+    display: block;
+    margin-top: 5px;
+    color: #c18aef;
+    font-size: 21px;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.ff-section {
+    margin-top: 20px;
+    padding: 22px;
+    border: 1px solid #28252d;
+    border-radius: 20px;
+    background: #121116;
+}
+
+.ff-section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.ff-section-title h3 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.ff-section-title p {
+    margin: 5px 0 0;
+    color: #77737e;
+    font-size: 12px;
+}
+
+#ffPositionFilter {
+    height: 40px;
+    padding: 0 13px;
+    border: 1px solid #39333f;
+    border-radius: 9px;
+    background: #1b191f;
+    color: white;
+    outline: none;
+}
+
+
+/* =========================================================
+   PLAYER MARKET
+========================================================= */
+
+.ff-players {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.ff-player {
+    position: relative;
+    padding: 17px;
+    border: 1px solid #29262e;
+    border-radius: 15px;
+    background: #19171d;
+    transition: .2s ease;
+}
+
+.ff-player:hover {
+    transform: translateY(-2px);
+    border-color: #604173;
+}
+
+.ff-player-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.ff-player-name {
+    font-size: 16px;
+    font-weight: 750;
+}
+
+.ff-player-position {
+    margin-top: 4px;
+    color: #817b88;
+    font-size: 11px;
+}
+
+.ff-price {
+    color: #c08bea;
+    font-size: 19px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.ff-price-change {
+    margin-top: 3px;
+    text-align: right;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.ff-up {
+    color: #27d985;
+}
+
+.ff-down {
+    color: #ff6262;
+}
+
+.ff-neutral {
+    color: #777;
+}
+
+.ff-player-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 14px;
+}
+
+.ff-stat {
+    padding: 8px 4px;
+    border-radius: 8px;
+    background: #211f25;
+    text-align: center;
+}
+
+.ff-stat span {
+    display: block;
+    color: #69656e;
+    font-size: 8px;
+}
+
+.ff-stat strong {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+}
+
+.ff-rating {
+    color: #fff;
+}
+
+.ff-goals {
+    color: #27d985;
+}
+
+.ff-assists {
+    color: #609cff;
+}
+
+.ff-motm {
+    color: #ffd21c;
+}
+
+.ff-add {
+    width: 100%;
+    height: 38px;
+    margin-top: 13px;
+    border: 0;
+    border-radius: 9px;
+    background: #8d58bd;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.ff-add:hover {
+    background: #a56bd4;
+    transform: translateY(-1px);
+}
+
+.ff-add:disabled {
+    background: #302d34;
+    color: #777;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* =========================================================
+   SQUAD INFO
+========================================================= */
+
+.ff-squad-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.ff-squad-info div {
+    padding: 14px;
+    border-radius: 11px;
+    background: #1b191f;
+    border: 1px solid #29262e;
+}
+
+.ff-squad-info span {
+    display: block;
+    color: #706b75;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.ff-squad-info strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   SQUAD
+========================================================= */
+
+.ff-squad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.ff-empty {
+    grid-column: 1 / -1;
+    padding: 40px 20px;
+    border: 1px dashed #38343d;
+    border-radius: 13px;
+    text-align: center;
+    color: #65616a;
+}
+
+.ff-squad-player {
+    position: relative;
+    min-height: 130px;
+    padding: 15px;
+    border-radius: 14px;
+    border: 1px solid #342a3b;
+    background: linear-gradient(145deg, #21182a, #17141b);
+}
+
+.ff-squad-player.captain {
+    border-color: #a96ad9;
+}
+
+.ff-squad-player h4 {
+    margin: 0;
+    font-size: 14px;
+    padding-right: 18px;
+}
+
+.ff-squad-player .ff-small-pos {
+    display: block;
+    margin-top: 4px;
+    color: #88818f;
+    font-size: 10px;
+}
+
+.ff-squad-player .ff-small-price {
+    display: block;
+    margin-top: 13px;
+    color: #c28aeb;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.ff-squad-player .ff-small-points {
+    display: block;
+    margin-top: 4px;
+    color: #27d985;
+    font-size: 11px;
+}
+
+.ff-remove {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 22px;
+    height: 22px;
+    border: 0;
+    border-radius: 50%;
+    background: #302b33;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.ff-remove:hover {
+    background: #572e38;
+    color: #ff6c6c;
+}
+
+.ff-captain-btn {
+    width: 100%;
+    margin-top: 10px;
+    height: 30px;
+    border: 1px solid #4b4052;
+    border-radius: 7px;
+    background: transparent;
+    color: #aaa;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.ff-captain-btn:hover {
+    border-color: #aa6ed5;
+    color: #d09aef;
+}
+
+
+/* =========================================================
+   CAPTAIN
+========================================================= */
+
+.ff-captain-box {
+    margin-top: 15px;
+    padding: 13px 15px;
+    border-radius: 10px;
+    background: #1a161e;
+    border: 1px solid #2d2831;
+    color: #777;
+    font-size: 12px;
+}
+
+.ff-captain-box strong {
+    color: #c58ded;
+    margin-left: 5px;
+}
+
+
+/* =========================================================
+   CLEAR
+========================================================= */
+
+.ff-clear {
+    padding: 9px 13px;
+    border: 1px solid #39343e;
+    border-radius: 8px;
+    background: transparent;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.ff-clear:hover {
+    color: #fff;
+    border-color: #79518f;
+}
+
+
+/* =========================================================
+   EXPLANATION
+========================================================= */
+
+.ff-explanation h3 {
+    margin: 0 0 15px;
+}
+
+.ff-rules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+}
+
+.ff-rules div {
+    padding: 13px;
+    border-radius: 10px;
+    background: #1a181e;
+}
+
+.ff-rules b {
+    display: block;
+    font-size: 12px;
+}
+
+.ff-rules span {
+    display: block;
+    margin-top: 4px;
+    color: #706b75;
+    font-size: 10px;
+}
+
+.ff-live {
+    margin: 15px 0 0;
+    color: #32d889;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .ff-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .ff-budget-box {
+        width: 100%;
+    }
+
+    .ff-players {
+        grid-template-columns: 1fr;
+    }
+
+    .ff-squad {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ff-squad-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ff-rules {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    #ffFantasyApp {
+        padding: 0 10px;
+        margin: 25px auto;
+    }
+
+    .ff-section {
+        padding: 15px;
+    }
+
+    .ff-section-title {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #ffPositionFilter {
+        width: 100%;
+    }
+
+    .ff-squad {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ff-rules {
+        grid-template-columns: 1fr;
+    }
+
+    .ff-player-stats {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .ff-head h2 {
+        font-size: 25px;
+    }
+}
+
+</style>
+
+
+<script>
+
+/* =========================================================
+   FANTASY FOOTBALL ENGINE
+========================================================= */
+
+(function () {
+
+    "use strict";
+
+
+    /* -----------------------------------------------------
+       SETTINGS
+    ----------------------------------------------------- */
+
+    const STARTING_BUDGET = 100.0;
+    const MAX_PLAYERS = 8;
+
+    let players = [];
+    let squad = [];
+    let captainId = null;
+
+
+    /* -----------------------------------------------------
+       STORAGE
+    ----------------------------------------------------- */
+
+    function saveSquad() {
+
+        localStorage.setItem(
+            "ffFantasySquad",
+            JSON.stringify(squad)
+        );
+
+        localStorage.setItem(
+            "ffFantasyCaptain",
+            captainId || ""
+        );
+    }
+
+
+    function loadSquad() {
+
+        try {
+
+            const saved =
+                JSON.parse(
+                    localStorage.getItem("ffFantasySquad")
+                );
+
+            if (Array.isArray(saved)) {
+                squad = saved;
+            }
+
+            captainId =
+                localStorage.getItem("ffFantasyCaptain") || null;
+
+        } catch (e) {
+
+            squad = [];
+            captainId = null;
+
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       NORMALIZE POSITION
+    ----------------------------------------------------- */
+
+    function normalizePosition(position) {
+
+        position = String(position || "")
+            .toUpperCase()
+            .trim();
+
+        if (
+            position.includes("GK") ||
+            position.includes("KEEP")
+        ) {
+            return "GK";
+        }
+
+        if (
+            position.includes("CB") ||
+            position.includes("LB") ||
+            position.includes("RB") ||
+            position.includes("DEF")
+        ) {
+            return "DEF";
+        }
+
+        if (
+            position.includes("CM") ||
+            position.includes("CDM") ||
+            position.includes("CAM") ||
+            position.includes("LM") ||
+            position.includes("RM") ||
+            position.includes("MID")
+        ) {
+            return "MID";
+        }
+
+        if (
+            position.includes("ST") ||
+            position.includes("CF") ||
+            position.includes("LW") ||
+            position.includes("RW") ||
+            position.includes("FW") ||
+            position.includes("FWD")
+        ) {
+            return "FWD";
+        }
+
+        return "MID";
+    }
+
+
+    /* -----------------------------------------------------
+       NUMBER
+    ----------------------------------------------------- */
+
+    function num(value) {
+
+        const n = parseFloat(
+            String(value)
+                .replace(/,/g, "")
+                .replace(/[^\d.-]/g, "")
+        );
+
+        return Number.isFinite(n) ? Math.max(0, n) : 0;
+    }
+
+
+    /* -----------------------------------------------------
+       FIND COLUMN
+    ----------------------------------------------------- */
+
+    function findColumn(headers, possibleNames) {
+
+        for (let i = 0; i < headers.length; i++) {
+
+            const h = headers[i]
+                .toLowerCase()
+                .replace(/\s+/g, " ")
+                .trim();
+
+            for (const name of possibleNames) {
+
+                if (h.includes(name)) {
+                    return i;
+                }
+
+            }
+
+        }
+
+        return -1;
+    }
+
+
+    /* -----------------------------------------------------
+       READ EXISTING TABLE
+    ----------------------------------------------------- */
+
+    function readStatsTable() {
+
+        const tables =
+            document.querySelectorAll("table");
+
+        let bestTable = null;
+        let bestScore = 0;
+
+        tables.forEach(table => {
+
+            const firstRow =
+                table.querySelector("tr");
+
+            if (!firstRow) return;
+
+            const cells =
+                firstRow.querySelectorAll("th,td");
+
+            const headers =
+                Array.from(cells).map(cell =>
+                    cell.textContent.trim().toLowerCase()
+                );
+
+            let score = 0;
+
+            [
+                "player",
+                "position",
+                "matches",
+                "goals",
+                "assists",
+                "rating"
+            ].forEach(keyword => {
+
+                if (
+                    headers.some(h =>
+                        h.includes(keyword)
+                    )
+                ) {
+                    score++;
+                }
+
+            });
+
+            if (score > bestScore) {
+
+                bestScore = score;
+                bestTable = table;
+
+            }
+
+        });
+
+
+        if (!bestTable || bestScore < 3) {
+
+            console.warn(
+                "Fantasy Football: Stats table not found."
+            );
+
+            return [];
+
+        }
+
+
+        const rows =
+            bestTable.querySelectorAll("tr");
+
+        if (rows.length < 2) return [];
+
+
+        const headerCells =
+            rows[0].querySelectorAll("th,td");
+
+        const headers =
+            Array.from(headerCells).map(cell =>
+                cell.textContent.trim()
+            );
+
+
+        const playerCol =
+            findColumn(headers, ["player"]);
+
+        const positionCol =
+            findColumn(headers, ["position"]);
+
+        const matchesCol =
+            findColumn(headers, ["matches", "match"]);
+
+        const goalsCol =
+            findColumn(headers, ["goals", "goal"]);
+
+        const assistsCol =
+            findColumn(headers, ["assists", "assist"]);
+
+        const savesCol =
+            findColumn(headers, ["saves", "save"]);
+
+        const ratingCol =
+            findColumn(headers, [
+                "fc rating",
+                "rating"
+            ]);
+
+        const motmCol =
+            findColumn(headers, [
+                "motm",
+                "man of the match"
+            ]);
+
+
+        if (playerCol === -1) {
+
+            console.warn(
+                "Fantasy Football: Player column not found."
+            );
+
+            return [];
+
+        }
+
+
+        const output = [];
+
+
+        for (let i = 1; i < rows.length; i++) {
+
+            const cells =
+                rows[i].querySelectorAll("td");
+
+            if (!cells.length) continue;
+
+
+            function get(col) {
+
+                if (
+                    col < 0 ||
+                    col >= cells.length
+                ) {
+                    return "";
+                }
+
+                return cells[col].textContent.trim();
+
+            }
+
+
+            /*
+             * Some player cells contain:
+             *
+             * Advik Jain
+             * Left Winger
+             *
+             * So take the first meaningful line.
+             */
+
+            const playerText = get(playerCol);
+
+            if (!playerText) continue;
+
+
+            const playerLines =
+                playerText
+                    .split(/\n+/)
+                    .map(x => x.trim())
+                    .filter(Boolean);
+
+
+            let name =
+                playerLines[0] || playerText;
+
+
+            /*
+             * Remove possible rank numbers.
+             */
+
+            name =
+                name.replace(
+                    /^\d+\s*/,
+                    ""
+                ).trim();
+
+
+            const position =
+                get(positionCol);
+
+
+            const player = {
+
+                id:
+                    name
+                        .toLowerCase()
+                        .replace(/[^a-z0-9]+/g, "-"),
+
+                name: name,
+
+                position:
+                    normalizePosition(position),
+
+                originalPosition:
+                    position,
+
+                matches:
+                    num(get(matchesCol)),
+
+                goals:
+                    num(get(goalsCol)),
+
+                assists:
+                    num(get(assistsCol)),
+
+                saves:
+                    num(get(savesCol)),
+
+                rating:
+                    num(get(ratingCol)),
+
+                motm:
+                    num(get(motmCol))
+
+            };
+
+
+            /*
+             * Ignore accidental empty rows.
+             */
+
+            if (
+                player.name &&
+                (
+                    player.matches ||
+                    player.goals ||
+                    player.assists ||
+                    player.saves ||
+                    player.rating ||
+                    player.motm
+                )
+            ) {
+
+                output.push(player);
+
+            }
+
+        }
+
+
+        return output;
+
+    }
+
+
+    /* -----------------------------------------------------
+       PRICE ENGINE
+    ----------------------------------------------------- */
+
+    function calculatePrice(player) {
+
+        /*
+         * Rating creates the main market value.
+         *
+         * 86 rating -> affordable
+         * 90 rating -> strong
+         * 94 rating -> premium
+         * 96 rating -> elite
+         *
+         * Stats then move the price up/down.
+         */
+
+        let price =
+            3.0 +
+            Math.max(0, player.rating - 75) * 0.48;
+
+
+        const matches =
+            Math.max(1, player.matches);
+
+
+        const goalsPerMatch =
+            player.goals / matches;
+
+        const assistsPerMatch =
+            player.assists / matches;
+
+        const savesPerMatch =
+            player.saves / matches;
+
+        const motmPerMatch =
+            player.motm / matches;
+
+
+        /*
+         * ATTACKING
+         */
+
+        if (player.position === "FWD") {
+
+            price +=
+                Math.min(goalsPerMatch * 3.0, 5.5);
+
+            price +=
+                Math.min(assistsPerMatch * 1.8, 2.5);
+
+        }
+
+
+        /*
+         * MIDFIELD
+         */
+
+        else if (player.position === "MID") {
+
+            price +=
+                Math.min(goalsPerMatch * 2.2, 4.0);
+
+            price +=
+                Math.min(assistsPerMatch * 2.5, 3.5);
+
+        }
+
+
+        /*
+         * DEFENCE
+         */
+
+        else if (player.position === "DEF") {
+
+            price +=
+                Math.min(goalsPerMatch * 1.5, 2.5);
+
+            price +=
+                Math.min(assistsPerMatch * 1.4, 1.8);
+
+            /*
+             * Saves can still indicate defensive contribution
+             * in your custom football system.
+             */
+
+            price +=
+                Math.min(
+                    savesPerMatch * 0.15,
+                    2.0
+                );
+
+        }
+
+
+        /*
+         * GOALKEEPER
+         */
+
+        else if (player.position === "GK") {
+
+            price +=
+                Math.min(
+                    savesPerMatch * 0.32,
+                    6.0
+                );
+
+        }
+
+
+        /*
+         * MOTM PREMIUM
+         */
+
+        price +=
+            Math.min(
+                motmPerMatch * 2.0,
+                2.5
+            );
+
+
+        /*
+         * EXPERIENCE / SAMPLE SIZE
+         *
+         * Players with very few matches don't get
+         * an enormous price just from a small sample.
+         */
+
+        if (matches < 3) {
+
+            price *= 0.90;
+
+        }
+        else if (matches < 5) {
+
+            price *= 0.95;
+
+        }
+        else if (matches >= 10) {
+
+            price *= 1.03;
+
+        }
+
+
+        /*
+         * Round to nearest 0.1M
+         */
+
+        price =
+            Math.round(price * 10) / 10;
+
+
+        /*
+         * Reasonable fantasy market boundaries.
+         */
+
+        price =
+            Math.max(2.5, price);
+
+        price =
+            Math.min(25.0, price);
+
+
+        return price;
+
+    }
+
+
+    /* -----------------------------------------------------
+       FANTASY POINTS
+    ----------------------------------------------------- */
+
+    function fantasyPoints(player) {
+
+        const matches =
+            Math.max(1, player.matches);
+
+
+        const gpm =
+            player.goals / matches;
+
+        const apm =
+            player.assists / matches;
+
+        const spm =
+            player.saves / matches;
+
+        const mpm =
+            player.motm / matches;
+
+
+        let points =
+            player.rating * 0.65;
+
+
+        if (player.position === "FWD") {
+
+            points += gpm * 45;
+            points += apm * 25;
+
+        }
+
+        else if (player.position === "MID") {
+
+            points += gpm * 38;
+            points += apm * 30;
+
+        }
+
+        else if (player.position === "DEF") {
+
+            points += gpm * 32;
+            points += apm * 22;
+
+        }
+
+        else if (player.position === "GK") {
+
+            points += spm * 10;
+
+        }
+
+
+        points += mpm * 20;
+
+
+        return Math.round(points);
+
+    }
+
+
+    /* -----------------------------------------------------
+       PRICE CHANGE
+    ----------------------------------------------------- */
+
+    function getPriceChange(player) {
+
+        const currentPrice =
+            calculatePrice(player);
+
+
+        const storageKey =
+            "ffPreviousPrice_" + player.id;
+
+
+        const previous =
+            parseFloat(
+                localStorage.getItem(storageKey)
+            );
+
+
+        /*
+         * First time:
+         * store current price.
+         */
+
+        if (!Number.isFinite(previous)) {
+
+            localStorage.setItem(
+                storageKey,
+                currentPrice
+            );
+
+            return 0;
+
+        }
+
+
+        /*
+         * The previous price is compared with
+         * the newly calculated price.
+         */
+
+        const change =
+            Math.round(
+                (currentPrice - previous) * 10
+            ) / 10;
+
+
+        /*
+         * Save latest price.
+         */
+
+        localStorage.setItem(
+            storageKey,
+            currentPrice
+        );
+
+
+        return change;
+
+    }
+
+
+    /* -----------------------------------------------------
+       PRICE DISPLAY
+    ----------------------------------------------------- */
+
+    function priceChangeHTML(change) {
+
+        if (change > 0) {
+
+            return `
+                <div class="ff-price-change ff-up">
+                    ▲ +${change.toFixed(1)}M
+                </div>
+            `;
+
+        }
+
+
+        if (change < 0) {
+
+            return `
+                <div class="ff-price-change ff-down">
+                    ▼ ${change.toFixed(1)}M
+                </div>
+            `;
+
+        }
+
+
+        return `
+            <div class="ff-price-change ff-neutral">
+                — No change
+            </div>
+        `;
+
+    }
+
+
+    /* -----------------------------------------------------
+       RENDER MARKET
+    ----------------------------------------------------- */
+
+    function renderPlayers() {
+
+        const container =
+            document.getElementById("ffPlayers");
+
+        const filter =
+            document.getElementById(
+                "ffPositionFilter"
+            ).value;
+
+
+        let filtered =
+            players.filter(player => {
+
+                if (filter === "ALL") {
+                    return true;
+                }
+
+                return player.position === filter;
+
+            });
+
+
+        if (!filtered.length) {
+
+            container.innerHTML = `
+                <div class="ff-empty">
+                    No players found in this position.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        /*
+         * Highest rating first.
+         */
+
+        filtered.sort(
+            (a, b) =>
+                b.rating - a.rating
+        );
+
+
+        container.innerHTML =
+            filtered.map(player => {
+
+                const price =
+                    calculatePrice(player);
+
+                const points =
+                    fantasyPoints(player);
+
+                const change =
+                    getPriceChange(player);
+
+                const alreadySelected =
+                    squad.includes(player.id);
+
+                const squadFull =
+                    squad.length >= MAX_PLAYERS;
+
+
+                return `
+
+                    <div class="ff-player">
+
+                        <div class="ff-player-top">
+
+                            <div>
+
+                                <div class="ff-player-name">
+                                    ${escapeHTML(player.name)}
+                                </div>
+
+                                <div class="ff-player-position">
+                                    ${escapeHTML(
+                                        player.originalPosition ||
+                                        player.position
+                                    )}
+                                    · ${player.position}
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div class="ff-price">
+                                    ${price.toFixed(1)}M
+                                </div>
+
+                                ${priceChangeHTML(change)}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="ff-player-stats">
+
+                            <div class="ff-stat">
+                                <span>RATING</span>
+                                <strong class="ff-rating">
+                                    ${player.rating}
+                                </strong>
+                            </div>
+
+                            <div class="ff-stat">
+                                <span>GOALS</span>
+                                <strong class="ff-goals">
+                                    ${player.goals}
+                                </strong>
+                            </div>
+
+                            <div class="ff-stat">
+                                <span>ASSISTS</span>
+                                <strong class="ff-assists">
+                                    ${player.assists}
+                                </strong>
+                            </div>
+
+                            <div class="ff-stat">
+                                <span>POINTS</span>
+                                <strong class="ff-motm">
+                                    ${points}
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="ff-add"
+                            onclick="window.ffAddPlayer('${player.id}')"
+                            ${alreadySelected || squadFull ? "disabled" : ""}
+                        >
+                            ${
+                                alreadySelected
+                                    ? "In Squad"
+                                    : squadFull
+                                        ? "Squad Full"
+                                        : "Add to Squad"
+                            }
+                        </button>
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+    }
+
+
+    /* -----------------------------------------------------
+       ADD PLAYER
+    ----------------------------------------------------- */
+
+    window.ffAddPlayer = function (id) {
+
+        const player =
+            players.find(
+                p => p.id === id
+            );
+
+        if (!player) return;
+
+
+        if (squad.includes(id)) {
+
+            return;
+
+        }
+
+
+        if (squad.length >= MAX_PLAYERS) {
+
+            alert(
+                "Your squad already has 8 players."
+            );
+
+            return;
+
+        }
+
+
+        const price =
+            calculatePrice(player);
+
+
+        const currentValue =
+            getSquadValue();
+
+
+        if (
+            currentValue + price >
+            STARTING_BUDGET + 0.0001
+        ) {
+
+            alert(
+                "Not enough budget for this player."
+            );
+
+            return;
+
+        }
+
+
+        squad.push(id);
+
+        saveSquad();
+
+        renderAll();
+
+    };
+
+
+    /* -----------------------------------------------------
+       REMOVE PLAYER
+    ----------------------------------------------------- */
+
+    window.ffRemovePlayer = function (id) {
+
+        squad =
+            squad.filter(
+                playerId =>
+                    playerId !== id
+            );
+
+
+        if (captainId === id) {
+
+            captainId = null;
+
+        }
+
+
+        saveSquad();
+
+        renderAll();
+
+    };
+
+
+    /* -----------------------------------------------------
+       CAPTAIN
+    ----------------------------------------------------- */
+
+    window.ffCaptain = function (id) {
+
+        if (!squad.includes(id)) return;
+
+        captainId = id;
+
+        saveSquad();
+
+        renderSquad();
+
+    };
+
+
+    /* -----------------------------------------------------
+       SQUAD VALUE
+    ----------------------------------------------------- */
+
+    function getSquadValue() {
+
+        return squad.reduce(
+            (total, id) => {
+
+                const player =
+                    players.find(
+                        p => p.id === id
+                    );
+
+                if (!player) return total;
+
+                return total +
+                    calculatePrice(player);
+
+            },
+            0
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       SQUAD POINTS
+    ----------------------------------------------------- */
+
+    function getSquadPoints() {
+
+        return squad.reduce(
+            (total, id) => {
+
+                const player =
+                    players.find(
+                        p => p.id === id
+                    );
+
+                if (!player) return total;
+
+
+                let points =
+                    fantasyPoints(player);
+
+
+                if (id === captainId) {
+
+                    points *= 2;
+
+                }
+
+
+                return total + points;
+
+            },
+            0
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       RENDER SQUAD
+    ----------------------------------------------------- */
+
+    function renderSquad() {
+
+        const container =
+            document.getElementById(
+                "ffSquad"
+            );
+
+
+        document.getElementById(
+            "ffSquadCount"
+        ).textContent =
+            squad.length;
+
+
+        const value =
+            getSquadValue();
+
+
+        document.getElementById(
+            "ffSquadValue"
+        ).textContent =
+            value.toFixed(1) + "M";
+
+
+        document.getElementById(
+            "ffRemaining"
+        ).textContent =
+            Math.max(
+                0,
+                STARTING_BUDGET - value
+            ).toFixed(1) + "M";
+
+
+        document.getElementById(
+            "ffSquadPoints"
+        ).textContent =
+            getSquadPoints();
+
+
+        if (!squad.length) {
+
+            container.innerHTML = `
+                <div class="ff-empty">
+                    <strong>No players selected</strong>
+                    <br>
+                    <span>
+                        Add players from the market above.
+                    </span>
+                </div>
+            `;
+
+        }
+        else {
+
+            container.innerHTML =
+                squad.map(id => {
+
+                    const player =
+                        players.find(
+                            p => p.id === id
+                        );
+
+                    if (!player) return "";
+
+
+                    const price =
+                        calculatePrice(player);
+
+                    const points =
+                        fantasyPoints(player);
+
+                    const isCaptain =
+                        id === captainId;
+
+
+                    return `
+
+                        <div class="
+                            ff-squad-player
+                            ${isCaptain ? "captain" : ""}
+                        ">
+
+                            ${
+                                isCaptain
+                                    ? `
+                                        <div style="
+                                            position:absolute;
+                                            top:8px;
+                                            right:37px;
+                                            color:#c58ded;
+                                            font-size:9px;
+                                            font-weight:bold;
+                                        ">
+                                            CAP
+                                        </div>
+                                    `
+                                    : ""
+                            }
+
+
+                            <button
+                                class="ff-remove"
+                                onclick="window.ffRemovePlayer('${player.id}')"
+                                title="Remove"
+                            >
+                                ×
+                            </button>
+
+
+                            <h4>
+                                ${escapeHTML(player.name)}
+                            </h4>
+
+                            <span class="ff-small-pos">
+                                ${escapeHTML(
+                                    player.originalPosition ||
+                                    player.position
+                                )}
+                            </span>
+
+                            <span class="ff-small-price">
+                                ${price.toFixed(1)}M
+                            </span>
+
+                            <span class="ff-small-points">
+                                ${
+                                    isCaptain
+                                        ? points * 2
+                                        : points
+                                }
+                                fantasy points
+                            </span>
+
+
+                            <button
+                                class="ff-captain-btn"
+                                onclick="window.ffCaptain('${player.id}')"
+                            >
+                                ${
+                                    isCaptain
+                                        ? "★ Captain"
+                                        : "Make Captain"
+                                }
+                            </button>
+
+                        </div>
+
+                    `;
+
+                }).join("");
+
+        }
+
+
+        document.getElementById(
+            "ffCaptain"
+        ).textContent =
+            captainId
+                ? (
+                    players.find(
+                        p => p.id === captainId
+                    )?.name || "Not selected"
+                )
+                : "Not selected";
+
+    }
+
+
+    /* -----------------------------------------------------
+       ESCAPE HTML
+    ----------------------------------------------------- */
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* -----------------------------------------------------
+       RENDER EVERYTHING
+    ----------------------------------------------------- */
+
+    function renderAll() {
+
+        players =
+            readStatsTable();
+
+        /*
+         * Remove players that no longer exist.
+         */
+
+        squad =
+            squad.filter(id =>
+                players.some(
+                    p => p.id === id
+                )
+            );
+
+
+        if (
+            captainId &&
+            !squad.includes(captainId)
+        ) {
+
+            captainId = null;
+
+        }
+
+
+        renderPlayers();
+        renderSquad();
+
+
+        document.getElementById(
+            "ffBudgetTop"
+        ).textContent =
+            STARTING_BUDGET.toFixed(1) + "M";
+
+    }
+
+
+    /* -----------------------------------------------------
+       POSITION FILTER
+    ----------------------------------------------------- */
+
+    document.getElementById(
+        "ffPositionFilter"
+    ).addEventListener(
+        "change",
+        renderPlayers
+    );
+
+
+    /* -----------------------------------------------------
+       CLEAR SQUAD
+    ----------------------------------------------------- */
+
+    document.getElementById(
+        "ffClear"
+    ).addEventListener(
+        "click",
+        function () {
+
+            if (!squad.length) return;
+
+
+            const confirmClear =
+                confirm(
+                    "Clear your entire fantasy squad?"
+                );
+
+
+            if (!confirmClear) return;
+
+
+            squad = [];
+            captainId = null;
+
+            saveSquad();
+
+            renderAll();
+
+        }
+    );
+
+
+    /* -----------------------------------------------------
+       LOAD SAVED SQUAD
+    ----------------------------------------------------- */
+
+    loadSquad();
+
+
+    /* -----------------------------------------------------
+       INITIAL LOAD
+    ----------------------------------------------------- */
+
+    renderAll();
+
+
+    /* =====================================================
+       AUTOMATIC STATS DETECTION
+       
+       This is the important part.
+
+       Whenever your existing stats table changes,
+       the fantasy market recalculates.
+    ===================================================== */
+
+    let updateTimer = null;
+
+    const observer =
+        new MutationObserver(
+            function () {
+
+                clearTimeout(updateTimer);
+
+                updateTimer =
+                    setTimeout(
+                        function () {
+
+                            renderAll();
+
+                        },
+                        350
+                    );
+
+            }
+        );
+
+
+    /*
+     * Watch the whole page because your existing
+     * stats may be updated by JavaScript.
+     */
+
+    observer.observe(
+        document.body,
+        {
+            childList: true,
+            subtree: true,
+            characterData: true
+        }
+    );
+
+
+    /*
+     * Also check periodically.
+     *
+     * This catches stats changed through
+     * unusual scripts that don't trigger the
+     * normal DOM mutation events.
+     */
+
+    let previousTableSignature = "";
+
+
+    function tableSignature() {
+
+        const tables =
+            document.querySelectorAll("table");
+
+        let text = "";
+
+        tables.forEach(table => {
+
+            text += table.innerText + "||";
+
+        });
+
+        return text;
+
+    }
+
+
+    setInterval(
+        function () {
+
+            const signature =
+                tableSignature();
+
+
+            if (
+                signature &&
+                signature !==
+                previousTableSignature
+            ) {
+
+                previousTableSignature =
+                    signature;
+
+                renderAll();
+
+            }
+
+        },
+        1500
+    );
+
+
+})();
+
+</script>
+
 </body>
 </html>
