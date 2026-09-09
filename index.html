@@ -2169,683 +2169,830 @@ body {
 
 </script>
 
-    <!-- =========================================================
-     FANTASY FOOTBALL + 8 PLAYER SQUAD BUILDER
-     Reads your EXISTING football stats table automatically.
-     NO API REQUIRED.
-========================================================= -->
+<!-- ============================================================
+     EFC FANTASY FOOTBALL + 8 PLAYER SQUAD BUILDER
+     CONNECTED DIRECTLY TO .stats-table
+     NO API
+============================================================ -->
 
-<div id="ffFantasyApp">
+<div id="efcFantasy">
 
-    <div class="ff-head">
+    <!-- HEADER -->
+    <div class="efc-fantasy-header">
+
         <div>
-            <div class="ff-kicker">REXOLE FOOTBALL</div>
+            <div class="efc-overline">ELITE FOOTBALL COUNCIL</div>
             <h2>Fantasy Football</h2>
-            <p>Build your 8-player squad from the current player stats.</p>
+            <p>Build your 8-player team from the live EFC statistics.</p>
         </div>
 
-        <div class="ff-budget-box">
+        <div class="efc-money">
             <span>BUDGET</span>
-            <strong id="ffBudgetTop">100.0M</strong>
+            <strong id="efcTopBudget">100.0M</strong>
         </div>
+
     </div>
 
 
     <!-- MARKET -->
-    <section class="ff-section">
+    <div class="efc-fantasy-panel">
 
-        <div class="ff-section-title">
+        <div class="efc-panel-heading">
+
             <div>
                 <h3>Player Market</h3>
-                <p>Prices automatically react to your stats.</p>
+                <p>Prices automatically react when your stats change.</p>
             </div>
 
-            <select id="ffPositionFilter">
-                <option value="ALL">All Positions</option>
-                <option value="GK">GK</option>
-                <option value="DEF">DEF</option>
-                <option value="MID">MID</option>
-                <option value="FWD">FWD</option>
+            <select id="efcFilter">
+                <option value="ALL">All</option>
+                <option value="GK">Goalkeepers</option>
+                <option value="DEF">Defenders</option>
+                <option value="MID">Midfielders</option>
+                <option value="FWD">Forwards</option>
             </select>
+
         </div>
 
-        <div id="ffPlayers" class="ff-players"></div>
+        <div id="efcMarket" class="efc-market"></div>
 
-    </section>
+    </div>
 
 
     <!-- SQUAD -->
-    <section class="ff-section">
+    <div class="efc-fantasy-panel">
 
-        <div class="ff-section-title">
+        <div class="efc-panel-heading">
+
             <div>
-                <h3>My Squad</h3>
-                <p>Select exactly 8 players.</p>
+                <h3>My Fantasy XI</h3>
+                <p>Fantasy squad: 1 GK · 2 DEF · 2 MID · 3 FWD</p>
             </div>
 
-            <button id="ffClear" class="ff-clear">
-                Clear Squad
+            <button id="efcClearSquad">
+                Clear
             </button>
+
         </div>
 
 
-        <div class="ff-squad-info">
+        <!-- SQUAD REQUIREMENTS -->
+        <div class="efc-requirements">
 
             <div>
-                <span>PLAYERS</span>
+                <span>GK</span>
+                <b id="efcGKCount">0/1</b>
+            </div>
+
+            <div>
+                <span>DEF</span>
+                <b id="efcDEFCount">0/2</b>
+            </div>
+
+            <div>
+                <span>MID</span>
+                <b id="efcMIDCount">0/2</b>
+            </div>
+
+            <div>
+                <span>FWD</span>
+                <b id="efcFWDCount">0/3</b>
+            </div>
+
+        </div>
+
+
+        <!-- SQUAD SUMMARY -->
+        <div class="efc-summary">
+
+            <div>
+                <span>SQUAD</span>
                 <strong>
-                    <span id="ffSquadCount">0</span>/8
+                    <span id="efcSquadCount">0</span>/8
                 </strong>
             </div>
 
             <div>
-                <span>SQUAD VALUE</span>
-                <strong id="ffSquadValue">0.0M</strong>
+                <span>VALUE</span>
+                <strong id="efcSquadValue">0.0M</strong>
             </div>
 
             <div>
                 <span>REMAINING</span>
-                <strong id="ffRemaining">100.0M</strong>
+                <strong id="efcRemaining">100.0M</strong>
             </div>
 
             <div>
                 <span>POINTS</span>
-                <strong id="ffSquadPoints">0</strong>
+                <strong id="efcTotalPoints">0</strong>
             </div>
 
         </div>
 
 
-        <div id="ffSquad" class="ff-squad"></div>
+        <!-- SQUAD CARDS -->
+        <div id="efcSquad" class="efc-squad"></div>
 
-        <div id="ffCaptainBox" class="ff-captain-box">
-            <span>Captain:</span>
-            <strong id="ffCaptain">Not selected</strong>
+
+        <!-- CAPTAIN -->
+        <div class="efc-captain">
+            <span>Captain</span>
+            <strong id="efcCaptainName">Not selected</strong>
+            <small>Captain earns 2× fantasy points</small>
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- HOW PRICES WORK -->
-    <section class="ff-section ff-explanation">
+    <!-- MARKET INFO -->
+    <div class="efc-fantasy-panel">
 
-        <h3>How prices work</h3>
+        <div class="efc-panel-heading">
+            <div>
+                <h3>Fantasy Points</h3>
+                <p>Calculated directly from your EFC stats.</p>
+            </div>
+        </div>
 
-        <div class="ff-rules">
+        <div class="efc-rules">
 
             <div>
                 <b>FC Rating</b>
-                <span>Main price factor</span>
+                <span>Core player value</span>
             </div>
 
             <div>
                 <b>Goals</b>
-                <span>Raises attacking value</span>
+                <span>Major attacking points</span>
             </div>
 
             <div>
                 <b>Assists</b>
-                <span>Raises creative value</span>
+                <span>Creative points</span>
             </div>
 
             <div>
                 <b>Saves</b>
-                <span>Raises GK value</span>
+                <span>Goalkeeper points</span>
             </div>
 
             <div>
                 <b>MOTM</b>
-                <span>Performance premium</span>
+                <span>Performance bonus</span>
             </div>
 
             <div>
                 <b>Matches</b>
-                <span>Improves consistency</span>
+                <span>Consistency factor</span>
             </div>
 
         </div>
 
-        <p class="ff-live">
-            ● Prices are calculated from your current stats table.
-        </p>
+        <div class="efc-live">
+            ● MARKET CONNECTED TO YOUR STATS TABLE
+        </div>
 
-    </section>
+    </div>
 
 </div>
 
 
 <style>
 
-/* =========================================================
+/* ============================================================
    MAIN
-========================================================= */
+============================================================ */
 
-#ffFantasyApp {
-    width: 100%;
-    max-width: 1100px;
+#efcFantasy {
+    width: min(1100px, 92%);
     margin: 45px auto;
-    padding: 0 18px;
-    box-sizing: border-box;
-    color: #fff;
+    color: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#ffFantasyApp * {
+#efcFantasy * {
     box-sizing: border-box;
 }
 
 
-/* =========================================================
+/* ============================================================
    HEADER
-========================================================= */
+============================================================ */
 
-.ff-head {
+.efc-fantasy-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+
     padding: 26px;
-    margin-bottom: 22px;
+
+    background: linear-gradient(
+        135deg,
+        #17151d,
+        #100f14
+    );
+
     border: 1px solid #29252f;
-    border-radius: 22px;
-    background: linear-gradient(135deg, #15131a, #100f14);
+    border-radius: 20px;
 }
 
-.ff-kicker {
-    color: #a86be0;
+.efc-overline {
+    color: #bd72ff;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 2px;
     margin-bottom: 7px;
 }
 
-.ff-head h2 {
+.efc-fantasy-header h2 {
     margin: 0;
     font-size: 30px;
 }
 
-.ff-head p {
+.efc-fantasy-header p {
     margin: 7px 0 0;
-    color: #85818c;
+    color: #898591;
     font-size: 13px;
 }
 
-.ff-budget-box {
-    min-width: 120px;
-    padding: 14px 18px;
+.efc-money {
+    min-width: 130px;
+    padding: 13px 18px;
     text-align: center;
-    border-radius: 14px;
-    background: #21172b;
-    border: 1px solid #49305c;
+
+    background: #251733;
+    border: 1px solid #4d3262;
+    border-radius: 13px;
 }
 
-.ff-budget-box span {
+.efc-money span {
     display: block;
-    color: #92899b;
+    color: #91889c;
     font-size: 9px;
     letter-spacing: 1.5px;
 }
 
-.ff-budget-box strong {
+.efc-money strong {
     display: block;
     margin-top: 5px;
-    color: #c18aef;
+    color: #c88cf1;
     font-size: 21px;
 }
 
 
-/* =========================================================
-   SECTIONS
-========================================================= */
+/* ============================================================
+   PANELS
+============================================================ */
 
-.ff-section {
+.efc-fantasy-panel {
     margin-top: 20px;
     padding: 22px;
-    border: 1px solid #28252d;
-    border-radius: 20px;
+
     background: #121116;
+
+    border: 1px solid #28252e;
+    border-radius: 19px;
 }
 
-.ff-section-title {
+.efc-panel-heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 15px;
+
     margin-bottom: 20px;
 }
 
-.ff-section-title h3 {
+.efc-panel-heading h3 {
     margin: 0;
     font-size: 19px;
 }
 
-.ff-section-title p {
+.efc-panel-heading p {
     margin: 5px 0 0;
-    color: #77737e;
+    color: #77727e;
     font-size: 12px;
 }
 
-#ffPositionFilter {
-    height: 40px;
+#efcFilter {
+    height: 39px;
     padding: 0 13px;
-    border: 1px solid #39333f;
-    border-radius: 9px;
-    background: #1b191f;
-    color: white;
+
+    background: #1c1a20;
+    color: #ffffff;
+
+    border: 1px solid #37323d;
+    border-radius: 8px;
+
     outline: none;
 }
 
+#efcClearSquad {
+    padding: 9px 15px;
 
-/* =========================================================
-   PLAYER MARKET
-========================================================= */
+    background: transparent;
+    color: #aaa5b0;
 
-.ff-players {
+    border: 1px solid #38333e;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+#efcClearSquad:hover {
+    color: white;
+    border-color: #9a62bd;
+}
+
+
+/* ============================================================
+   MARKET
+============================================================ */
+
+.efc-market {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
 }
 
-.ff-player {
-    position: relative;
+.efc-player-card {
     padding: 17px;
-    border: 1px solid #29262e;
-    border-radius: 15px;
+
     background: #19171d;
-    transition: .2s ease;
+    border: 1px solid #29262f;
+    border-radius: 15px;
+
+    transition: 0.2s ease;
 }
 
-.ff-player:hover {
+.efc-player-card:hover {
     transform: translateY(-2px);
-    border-color: #604173;
+    border-color: #654274;
 }
 
-.ff-player-top {
+.efc-player-top {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
 }
 
-.ff-player-name {
+.efc-player-name {
     font-size: 16px;
     font-weight: 750;
 }
 
-.ff-player-position {
+.efc-player-position {
     margin-top: 4px;
     color: #817b88;
     font-size: 11px;
 }
 
-.ff-price {
-    color: #c08bea;
-    font-size: 19px;
-    font-weight: 800;
-    white-space: nowrap;
-}
-
-.ff-price-change {
-    margin-top: 3px;
+.efc-price-area {
     text-align: right;
+}
+
+.efc-price {
+    color: #c58beb;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.efc-change-up {
+    color: #22d77d;
     font-size: 10px;
-    font-weight: 700;
+    font-weight: bold;
+    margin-top: 3px;
 }
 
-.ff-up {
-    color: #27d985;
+.efc-change-down {
+    color: #ff5d68;
+    font-size: 10px;
+    font-weight: bold;
+    margin-top: 3px;
 }
 
-.ff-down {
-    color: #ff6262;
+.efc-change-same {
+    color: #77727c;
+    font-size: 10px;
+    margin-top: 3px;
 }
 
-.ff-neutral {
-    color: #777;
-}
 
-.ff-player-stats {
+/* ============================================================
+   MARKET STATS
+============================================================ */
+
+.efc-player-stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 6px;
-    margin-top: 14px;
+    margin-top: 15px;
 }
 
-.ff-stat {
-    padding: 8px 4px;
-    border-radius: 8px;
+.efc-market-stat {
+    padding: 8px 3px;
+
     background: #211f25;
+    border-radius: 8px;
+
     text-align: center;
 }
 
-.ff-stat span {
+.efc-market-stat span {
     display: block;
-    color: #69656e;
+    color: #6d6873;
     font-size: 8px;
 }
 
-.ff-stat strong {
+.efc-market-stat strong {
     display: block;
-    margin-top: 3px;
+    margin-top: 4px;
     font-size: 12px;
 }
 
-.ff-rating {
-    color: #fff;
+.efc-r {
+    color: white;
 }
 
-.ff-goals {
-    color: #27d985;
+.efc-g {
+    color: #20d97a;
 }
 
-.ff-assists {
-    color: #609cff;
+.efc-a {
+    color: #619bff;
 }
 
-.ff-motm {
-    color: #ffd21c;
+.efc-s {
+    color: #29baff;
 }
 
-.ff-add {
+.efc-m {
+    color: #ffd21a;
+}
+
+
+/* ============================================================
+   ADD BUTTON
+============================================================ */
+
+.efc-add-player {
     width: 100%;
     height: 38px;
+
     margin-top: 13px;
-    border: 0;
+
+    border: none;
     border-radius: 9px;
-    background: #8d58bd;
+
+    background: #8f5bc0;
     color: white;
+
     font-weight: 700;
     cursor: pointer;
-    transition: .2s;
+
+    transition: 0.2s;
 }
 
-.ff-add:hover {
-    background: #a56bd4;
+.efc-add-player:hover {
+    background: #a96bd3;
     transform: translateY(-1px);
 }
 
-.ff-add:disabled {
+.efc-add-player:disabled {
     background: #302d34;
-    color: #777;
+    color: #706c74;
     cursor: not-allowed;
     transform: none;
 }
 
 
-/* =========================================================
-   SQUAD INFO
-========================================================= */
+/* ============================================================
+   REQUIREMENTS
+============================================================ */
 
-.ff-squad-info {
+.efc-requirements {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 18px;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
-.ff-squad-info div {
-    padding: 14px;
-    border-radius: 11px;
-    background: #1b191f;
+.efc-requirements div {
+    padding: 11px;
+
+    background: #1a181e;
     border: 1px solid #29262e;
+    border-radius: 9px;
+
+    text-align: center;
 }
 
-.ff-squad-info span {
+.efc-requirements span {
     display: block;
     color: #706b75;
     font-size: 9px;
-    letter-spacing: 1px;
 }
 
-.ff-squad-info strong {
+.efc-requirements b {
+    display: block;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   SUMMARY
+============================================================ */
+
+.efc-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
+    margin-bottom: 18px;
+}
+
+.efc-summary div {
+    padding: 13px;
+
+    background: #1a181e;
+    border: 1px solid #29262e;
+    border-radius: 10px;
+}
+
+.efc-summary span {
+    color: #6f6a74;
+    font-size: 9px;
+}
+
+.efc-summary strong {
     display: block;
     margin-top: 5px;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 
-/* =========================================================
+/* ============================================================
    SQUAD
-========================================================= */
+============================================================ */
 
-.ff-squad {
+.efc-squad {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
-.ff-empty {
-    grid-column: 1 / -1;
-    padding: 40px 20px;
-    border: 1px dashed #38343d;
-    border-radius: 13px;
-    text-align: center;
-    color: #65616a;
-}
-
-.ff-squad-player {
+.efc-squad-card {
     position: relative;
-    min-height: 130px;
+
+    min-height: 145px;
     padding: 15px;
+
+    background: linear-gradient(
+        145deg,
+        #21182a,
+        #17141b
+    );
+
+    border: 1px solid #392d43;
     border-radius: 14px;
-    border: 1px solid #342a3b;
-    background: linear-gradient(145deg, #21182a, #17141b);
 }
 
-.ff-squad-player.captain {
-    border-color: #a96ad9;
+.efc-squad-card.efc-captain-card {
+    border-color: #b46de5;
 }
 
-.ff-squad-player h4 {
+.efc-squad-card h4 {
     margin: 0;
+    padding-right: 20px;
     font-size: 14px;
-    padding-right: 18px;
 }
 
-.ff-squad-player .ff-small-pos {
+.efc-squad-position {
     display: block;
     margin-top: 4px;
-    color: #88818f;
+    color: #87808f;
     font-size: 10px;
 }
 
-.ff-squad-player .ff-small-price {
+.efc-squad-price {
     display: block;
-    margin-top: 13px;
-    color: #c28aeb;
+    margin-top: 14px;
+    color: #c78cec;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: bold;
 }
 
-.ff-squad-player .ff-small-points {
+.efc-squad-points {
     display: block;
     margin-top: 4px;
-    color: #27d985;
+    color: #2bd985;
+    font-size: 10px;
+}
+
+.efc-remove {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    width: 23px;
+    height: 23px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #302c34;
+    color: #aaa;
+
+    cursor: pointer;
+}
+
+.efc-remove:hover {
+    background: #542d37;
+    color: #ff6973;
+}
+
+.efc-captain-button {
+    width: 100%;
+    height: 29px;
+
+    margin-top: 10px;
+
+    background: transparent;
+    color: #aaa;
+
+    border: 1px solid #49414f;
+    border-radius: 7px;
+
+    font-size: 9px;
+    cursor: pointer;
+}
+
+.efc-captain-button:hover {
+    color: #d29bf0;
+    border-color: #a66bcf;
+}
+
+
+/* ============================================================
+   EMPTY
+============================================================ */
+
+.efc-empty {
+    grid-column: 1 / -1;
+
+    padding: 40px 20px;
+
+    text-align: center;
+
+    color: #69646d;
+
+    border: 1px dashed #39353e;
+    border-radius: 13px;
+}
+
+
+/* ============================================================
+   CAPTAIN
+============================================================ */
+
+.efc-captain {
+    margin-top: 15px;
+    padding: 13px 15px;
+
+    background: #1a171e;
+    border: 1px solid #302a35;
+    border-radius: 10px;
+}
+
+.efc-captain span {
+    color: #77717d;
     font-size: 11px;
 }
 
-.ff-remove {
-    position: absolute;
-    top: 9px;
-    right: 9px;
-    width: 22px;
-    height: 22px;
-    border: 0;
-    border-radius: 50%;
-    background: #302b33;
-    color: #aaa;
-    cursor: pointer;
+.efc-captain strong {
+    color: #c78cec;
+    margin-left: 7px;
+    font-size: 13px;
 }
 
-.ff-remove:hover {
-    background: #572e38;
-    color: #ff6c6c;
-}
-
-.ff-captain-btn {
-    width: 100%;
-    margin-top: 10px;
-    height: 30px;
-    border: 1px solid #4b4052;
-    border-radius: 7px;
-    background: transparent;
-    color: #aaa;
-    font-size: 10px;
-    cursor: pointer;
-}
-
-.ff-captain-btn:hover {
-    border-color: #aa6ed5;
-    color: #d09aef;
+.efc-captain small {
+    display: block;
+    margin-top: 4px;
+    color: #66616a;
+    font-size: 9px;
 }
 
 
-/* =========================================================
-   CAPTAIN
-========================================================= */
+/* ============================================================
+   RULES
+============================================================ */
 
-.ff-captain-box {
-    margin-top: 15px;
-    padding: 13px 15px;
-    border-radius: 10px;
-    background: #1a161e;
-    border: 1px solid #2d2831;
-    color: #777;
-    font-size: 12px;
-}
-
-.ff-captain-box strong {
-    color: #c58ded;
-    margin-left: 5px;
-}
-
-
-/* =========================================================
-   CLEAR
-========================================================= */
-
-.ff-clear {
-    padding: 9px 13px;
-    border: 1px solid #39343e;
-    border-radius: 8px;
-    background: transparent;
-    color: #aaa;
-    cursor: pointer;
-}
-
-.ff-clear:hover {
-    color: #fff;
-    border-color: #79518f;
-}
-
-
-/* =========================================================
-   EXPLANATION
-========================================================= */
-
-.ff-explanation h3 {
-    margin: 0 0 15px;
-}
-
-.ff-rules {
+.efc-rules {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 9px;
 }
 
-.ff-rules div {
+.efc-rules div {
     padding: 13px;
-    border-radius: 10px;
     background: #1a181e;
+    border-radius: 10px;
 }
 
-.ff-rules b {
+.efc-rules b {
     display: block;
     font-size: 12px;
 }
 
-.ff-rules span {
+.efc-rules span {
     display: block;
     margin-top: 4px;
     color: #706b75;
     font-size: 10px;
 }
 
-.ff-live {
-    margin: 15px 0 0;
-    color: #32d889;
+.efc-live {
+    margin-top: 16px;
+    color: #28d883;
     font-size: 10px;
+    font-weight: bold;
+    letter-spacing: .5px;
 }
 
 
-/* =========================================================
+/* ============================================================
    MOBILE
-========================================================= */
+============================================================ */
 
 @media (max-width: 760px) {
 
-    .ff-head {
+    #efcFantasy {
+        width: calc(100% - 20px);
+    }
+
+    .efc-fantasy-header {
         align-items: flex-start;
         flex-direction: column;
     }
 
-    .ff-budget-box {
+    .efc-money {
         width: 100%;
     }
 
-    .ff-players {
+    .efc-market {
         grid-template-columns: 1fr;
     }
 
-    .ff-squad {
+    .efc-squad {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .ff-squad-info {
+    .efc-summary {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .ff-rules {
+    .efc-requirements {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .efc-rules {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }
 
+@media (max-width: 450px) {
 
-@media (max-width: 480px) {
-
-    #ffFantasyApp {
-        padding: 0 10px;
-        margin: 25px auto;
-    }
-
-    .ff-section {
+    .efc-fantasy-panel {
         padding: 15px;
     }
 
-    .ff-section-title {
+    .efc-panel-heading {
         align-items: flex-start;
         flex-direction: column;
     }
 
-    #ffPositionFilter {
+    #efcFilter {
         width: 100%;
     }
 
-    .ff-squad {
+    .efc-player-stats {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .efc-squad {
         grid-template-columns: 1fr 1fr;
     }
 
-    .ff-rules {
+    .efc-rules {
         grid-template-columns: 1fr;
     }
 
-    .ff-player-stats {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    .ff-head h2 {
+    .efc-fantasy-header h2 {
         font-size: 25px;
     }
+
 }
 
 </style>
@@ -2853,227 +3000,183 @@ body {
 
 <script>
 
-/* =========================================================
-   FANTASY FOOTBALL ENGINE
-========================================================= */
-
 (function () {
 
     "use strict";
 
 
-    /* -----------------------------------------------------
+    /* ========================================================
        SETTINGS
-    ----------------------------------------------------- */
+    ======================================================== */
 
-    const STARTING_BUDGET = 100.0;
-    const MAX_PLAYERS = 8;
+    const BUDGET = 100.0;
+
+    const MAX_SQUAD = 8;
+
+    const FORMATION = {
+        GK: 1,
+        DEF: 2,
+        MID: 2,
+        FWD: 3
+    };
+
 
     let players = [];
+
     let squad = [];
-    let captainId = null;
+
+    let captain = null;
 
 
-    /* -----------------------------------------------------
+    /* ========================================================
        STORAGE
-    ----------------------------------------------------- */
+    ======================================================== */
 
-    function saveSquad() {
-
-        localStorage.setItem(
-            "ffFantasySquad",
-            JSON.stringify(squad)
-        );
-
-        localStorage.setItem(
-            "ffFantasyCaptain",
-            captainId || ""
-        );
-    }
-
-
-    function loadSquad() {
+    function loadData() {
 
         try {
 
-            const saved =
+            const savedSquad =
                 JSON.parse(
-                    localStorage.getItem("ffFantasySquad")
+                    localStorage.getItem(
+                        "efcFantasySquad"
+                    )
                 );
 
-            if (Array.isArray(saved)) {
-                squad = saved;
-            }
+            if (Array.isArray(savedSquad)) {
 
-            captainId =
-                localStorage.getItem("ffFantasyCaptain") || null;
+                squad = savedSquad;
+
+            }
 
         } catch (e) {
 
             squad = [];
-            captainId = null;
 
         }
+
+
+        captain =
+            localStorage.getItem(
+                "efcFantasyCaptain"
+            ) || null;
+
     }
 
 
-    /* -----------------------------------------------------
-       NORMALIZE POSITION
-    ----------------------------------------------------- */
+    function saveData() {
 
-    function normalizePosition(position) {
-
-        position = String(position || "")
-            .toUpperCase()
-            .trim();
-
-        if (
-            position.includes("GK") ||
-            position.includes("KEEP")
-        ) {
-            return "GK";
-        }
-
-        if (
-            position.includes("CB") ||
-            position.includes("LB") ||
-            position.includes("RB") ||
-            position.includes("DEF")
-        ) {
-            return "DEF";
-        }
-
-        if (
-            position.includes("CM") ||
-            position.includes("CDM") ||
-            position.includes("CAM") ||
-            position.includes("LM") ||
-            position.includes("RM") ||
-            position.includes("MID")
-        ) {
-            return "MID";
-        }
-
-        if (
-            position.includes("ST") ||
-            position.includes("CF") ||
-            position.includes("LW") ||
-            position.includes("RW") ||
-            position.includes("FW") ||
-            position.includes("FWD")
-        ) {
-            return "FWD";
-        }
-
-        return "MID";
-    }
-
-
-    /* -----------------------------------------------------
-       NUMBER
-    ----------------------------------------------------- */
-
-    function num(value) {
-
-        const n = parseFloat(
-            String(value)
-                .replace(/,/g, "")
-                .replace(/[^\d.-]/g, "")
+        localStorage.setItem(
+            "efcFantasySquad",
+            JSON.stringify(squad)
         );
 
-        return Number.isFinite(n) ? Math.max(0, n) : 0;
+        localStorage.setItem(
+            "efcFantasyCaptain",
+            captain || ""
+        );
+
     }
 
 
-    /* -----------------------------------------------------
-       FIND COLUMN
-    ----------------------------------------------------- */
+    /* ========================================================
+       NUMBER
+    ======================================================== */
 
-    function findColumn(headers, possibleNames) {
+    function number(value) {
 
-        for (let i = 0; i < headers.length; i++) {
+        const n =
+            parseFloat(
+                String(value)
+                    .replace(/,/g, "")
+                    .replace(/[^\d.-]/g, "")
+            );
 
-            const h = headers[i]
-                .toLowerCase()
-                .replace(/\s+/g, " ")
+        return Number.isFinite(n)
+            ? Math.max(0, n)
+            : 0;
+
+    }
+
+
+    /* ========================================================
+       POSITION
+    ======================================================== */
+
+    function getPosition(position) {
+
+        const p =
+            String(position)
+                .toUpperCase()
                 .trim();
 
-            for (const name of possibleNames) {
 
-                if (h.includes(name)) {
-                    return i;
-                }
+        if (p === "GK") {
 
-            }
+            return "GK";
 
         }
 
-        return -1;
+
+        if (
+            p === "CB" ||
+            p === "LB" ||
+            p === "RB" ||
+            p === "LWB" ||
+            p === "RWB"
+        ) {
+
+            return "DEF";
+
+        }
+
+
+        if (
+            p === "CM" ||
+            p === "CDM" ||
+            p === "CAM" ||
+            p === "LM" ||
+            p === "RM"
+        ) {
+
+            return "MID";
+
+        }
+
+
+        if (
+            p === "ST" ||
+            p === "CF" ||
+            p === "LW" ||
+            p === "RW"
+        ) {
+
+            return "FWD";
+
+        }
+
+
+        return "MID";
+
     }
 
 
-    /* -----------------------------------------------------
-       READ EXISTING TABLE
-    ----------------------------------------------------- */
+    /* ========================================================
+       READ YOUR ACTUAL STATS TABLE
+    ======================================================== */
 
-    function readStatsTable() {
+    function readPlayers() {
 
-        const tables =
-            document.querySelectorAll("table");
-
-        let bestTable = null;
-        let bestScore = 0;
-
-        tables.forEach(table => {
-
-            const firstRow =
-                table.querySelector("tr");
-
-            if (!firstRow) return;
-
-            const cells =
-                firstRow.querySelectorAll("th,td");
-
-            const headers =
-                Array.from(cells).map(cell =>
-                    cell.textContent.trim().toLowerCase()
-                );
-
-            let score = 0;
-
-            [
-                "player",
-                "position",
-                "matches",
-                "goals",
-                "assists",
-                "rating"
-            ].forEach(keyword => {
-
-                if (
-                    headers.some(h =>
-                        h.includes(keyword)
-                    )
-                ) {
-                    score++;
-                }
-
-            });
-
-            if (score > bestScore) {
-
-                bestScore = score;
-                bestTable = table;
-
-            }
-
-        });
+        const table =
+            document.querySelector(
+                ".stats-table"
+            );
 
 
-        if (!bestTable || bestScore < 3) {
+        if (!table) {
 
-            console.warn(
-                "Fantasy Football: Stats table not found."
+            console.error(
+                "EFC Fantasy: .stats-table was not found."
             );
 
             return [];
@@ -3082,329 +3185,363 @@ body {
 
 
         const rows =
-            bestTable.querySelectorAll("tr");
-
-        if (rows.length < 2) return [];
-
-
-        const headerCells =
-            rows[0].querySelectorAll("th,td");
-
-        const headers =
-            Array.from(headerCells).map(cell =>
-                cell.textContent.trim()
+            table.querySelectorAll(
+                "tbody tr"
             );
 
 
-        const playerCol =
-            findColumn(headers, ["player"]);
-
-        const positionCol =
-            findColumn(headers, ["position"]);
-
-        const matchesCol =
-            findColumn(headers, ["matches", "match"]);
-
-        const goalsCol =
-            findColumn(headers, ["goals", "goal"]);
-
-        const assistsCol =
-            findColumn(headers, ["assists", "assist"]);
-
-        const savesCol =
-            findColumn(headers, ["saves", "save"]);
-
-        const ratingCol =
-            findColumn(headers, [
-                "fc rating",
-                "rating"
-            ]);
-
-        const motmCol =
-            findColumn(headers, [
-                "motm",
-                "man of the match"
-            ]);
+        const result = [];
 
 
-        if (playerCol === -1) {
-
-            console.warn(
-                "Fantasy Football: Player column not found."
-            );
-
-            return [];
-
-        }
-
-
-        const output = [];
-
-
-        for (let i = 1; i < rows.length; i++) {
+        rows.forEach(function (row, index) {
 
             const cells =
-                rows[i].querySelectorAll("td");
-
-            if (!cells.length) continue;
+                row.querySelectorAll("td");
 
 
-            function get(col) {
+            if (cells.length < 7) {
 
-                if (
-                    col < 0 ||
-                    col >= cells.length
-                ) {
-                    return "";
-                }
-
-                return cells[col].textContent.trim();
+                return;
 
             }
 
 
-            /*
-             * Some player cells contain:
-             *
-             * Advik Jain
-             * Left Winger
-             *
-             * So take the first meaningful line.
-             */
+            /* PLAYER */
 
-            const playerText = get(playerCol);
-
-            if (!playerText) continue;
+            const strong =
+                cells[0].querySelector(
+                    ".player-info strong"
+                );
 
 
-            const playerLines =
-                playerText
-                    .split(/\n+/)
-                    .map(x => x.trim())
-                    .filter(Boolean);
+            const name =
+                strong
+                    ? strong.textContent.trim()
+                    : cells[0].textContent.trim();
 
 
-            let name =
-                playerLines[0] || playerText;
+            if (!name) {
+
+                return;
+
+            }
 
 
-            /*
-             * Remove possible rank numbers.
-             */
+            /* POSITION */
 
-            name =
-                name.replace(
-                    /^\d+\s*/,
-                    ""
-                ).trim();
+            const positionElement =
+                cells[1].querySelector(
+                    ".position"
+                );
 
 
             const position =
-                get(positionCol);
+                positionElement
+                    ? positionElement.textContent.trim()
+                    : cells[1].textContent.trim();
 
 
-            const player = {
+            /* STATS */
 
-                id:
-                    name
-                        .toLowerCase()
-                        .replace(/[^a-z0-9]+/g, "-"),
+            const matches =
+                number(
+                    cells[2].textContent
+                );
 
-                name: name,
 
-                position:
-                    normalizePosition(position),
+            const goals =
+                number(
+                    cells[3].textContent
+                );
 
-                originalPosition:
-                    position,
 
-                matches:
-                    num(get(matchesCol)),
+            const assists =
+                number(
+                    cells[4].textContent
+                );
 
-                goals:
-                    num(get(goalsCol)),
 
-                assists:
-                    num(get(assistsCol)),
+            const saves =
+                number(
+                    cells[5].textContent
+                );
 
-                saves:
-                    num(get(savesCol)),
 
-                rating:
-                    num(get(ratingCol)),
-
-                motm:
-                    num(get(motmCol))
-
-            };
+            const rating =
+                number(
+                    cells[6].textContent
+                );
 
 
             /*
-             * Ignore accidental empty rows.
+             * Your table has MOTM at column 8
+             * because:
+             *
+             * 0 PLAYER
+             * 1 POSITION
+             * 2 MATCHES
+             * 3 GOALS
+             * 4 ASSISTS
+             * 5 SAVES
+             * 6 FC RATING
+             * 7 ATTRIBUTE
+             * 8 MOTM
              */
 
-            if (
-                player.name &&
-                (
-                    player.matches ||
-                    player.goals ||
-                    player.assists ||
-                    player.saves ||
-                    player.rating ||
-                    player.motm
-                )
-            ) {
-
-                output.push(player);
-
-            }
-
-        }
+            const motm =
+                number(
+                    cells[8]
+                        ? cells[8].textContent
+                        : 0
+                );
 
 
-        return output;
+            /*
+             * Yellow and red are also read,
+             * so disciplinary changes can affect
+             * fantasy value.
+             */
+
+            const yellow =
+                number(
+                    cells[9]
+                        ? cells[9].textContent
+                        : 0
+                );
+
+
+            const red =
+                number(
+                    cells[10]
+                        ? cells[10].textContent
+                        : 0
+                );
+
+
+            const id =
+                name
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-");
+
+
+            result.push({
+
+                id: id,
+
+                name: name,
+
+                position: position,
+
+                type:
+                    getPosition(position),
+
+                matches: matches,
+
+                goals: goals,
+
+                assists: assists,
+
+                saves: saves,
+
+                rating: rating,
+
+                motm: motm,
+
+                yellow: yellow,
+
+                red: red
+
+            });
+
+        });
+
+
+        return result;
 
     }
 
 
-    /* -----------------------------------------------------
-       PRICE ENGINE
-    ----------------------------------------------------- */
+    /* ========================================================
+       PRICE CALCULATOR
+       
+       This is intentionally NOT based only on rating.
+
+       That means a 96-rated player doesn't automatically
+       become 99-rated or receive an absurd fantasy price.
+    ======================================================== */
 
     function calculatePrice(player) {
 
-        /*
-         * Rating creates the main market value.
-         *
-         * 86 rating -> affordable
-         * 90 rating -> strong
-         * 94 rating -> premium
-         * 96 rating -> elite
-         *
-         * Stats then move the price up/down.
-         */
-
-        let price =
-            3.0 +
-            Math.max(0, player.rating - 75) * 0.48;
-
-
         const matches =
-            Math.max(1, player.matches);
+            Math.max(
+                1,
+                player.matches
+            );
 
 
-        const goalsPerMatch =
+        const gpm =
             player.goals / matches;
 
-        const assistsPerMatch =
+
+        const apm =
             player.assists / matches;
 
-        const savesPerMatch =
+
+        const spm =
             player.saves / matches;
 
-        const motmPerMatch =
+
+        const motmRate =
             player.motm / matches;
 
 
         /*
-         * ATTACKING
+         * BASE VALUE FROM FC RATING
          */
 
-        if (player.position === "FWD") {
-
-            price +=
-                Math.min(goalsPerMatch * 3.0, 5.5);
-
-            price +=
-                Math.min(assistsPerMatch * 1.8, 2.5);
-
-        }
+        let price =
+            3.0 +
+            Math.max(
+                0,
+                player.rating - 80
+            ) * 0.42;
 
 
         /*
-         * MIDFIELD
+         * FORWARDS
          */
 
-        else if (player.position === "MID") {
-
-            price +=
-                Math.min(goalsPerMatch * 2.2, 4.0);
-
-            price +=
-                Math.min(assistsPerMatch * 2.5, 3.5);
-
-        }
-
-
-        /*
-         * DEFENCE
-         */
-
-        else if (player.position === "DEF") {
-
-            price +=
-                Math.min(goalsPerMatch * 1.5, 2.5);
-
-            price +=
-                Math.min(assistsPerMatch * 1.4, 1.8);
-
-            /*
-             * Saves can still indicate defensive contribution
-             * in your custom football system.
-             */
+        if (player.type === "FWD") {
 
             price +=
                 Math.min(
-                    savesPerMatch * 0.15,
+                    gpm * 2.4,
+                    5.0
+                );
+
+            price +=
+                Math.min(
+                    apm * 1.7,
+                    2.5
+                );
+
+        }
+
+
+        /*
+         * MIDFIELDERS
+         */
+
+        if (player.type === "MID") {
+
+            price +=
+                Math.min(
+                    gpm * 1.8,
+                    3.2
+                );
+
+            price +=
+                Math.min(
+                    apm * 2.1,
+                    3.5
+                );
+
+        }
+
+
+        /*
+         * DEFENDERS
+         */
+
+        if (player.type === "DEF") {
+
+            price +=
+                Math.min(
+                    gpm * 1.4,
                     2.0
                 );
 
-        }
-
-
-        /*
-         * GOALKEEPER
-         */
-
-        else if (player.position === "GK") {
+            price +=
+                Math.min(
+                    apm * 1.3,
+                    1.7
+                );
 
             price +=
                 Math.min(
-                    savesPerMatch * 0.32,
-                    6.0
+                    spm * 0.10,
+                    1.5
                 );
 
         }
 
 
         /*
-         * MOTM PREMIUM
+         * GOALKEEPERS
+         */
+
+        if (player.type === "GK") {
+
+            price +=
+                Math.min(
+                    spm * 0.22,
+                    6.0
+                );
+
+            price +=
+                Math.min(
+                    gpm * 0.7,
+                    1.0
+                );
+
+        }
+
+
+        /*
+         * MOTM
          */
 
         price +=
             Math.min(
-                motmPerMatch * 2.0,
-                2.5
+                motmRate * 2.2,
+                2.2
             );
 
 
         /*
-         * EXPERIENCE / SAMPLE SIZE
-         *
-         * Players with very few matches don't get
-         * an enormous price just from a small sample.
+         * DISCIPLINE
+         */
+
+        price -=
+            Math.min(
+                player.yellow * 0.03,
+                0.6
+            );
+
+
+        price -=
+            Math.min(
+                player.red * 0.35,
+                1.5
+            );
+
+
+        /*
+         * MATCH SAMPLE
          */
 
         if (matches < 3) {
 
-            price *= 0.90;
+            price *= 0.88;
 
         }
+
         else if (matches < 5) {
 
-            price *= 0.95;
+            price *= 0.94;
 
         }
+
         else if (matches >= 10) {
 
             price *= 1.03;
@@ -3413,22 +3550,31 @@ body {
 
 
         /*
-         * Round to nearest 0.1M
+         * ROUND TO 0.1M
          */
 
         price =
-            Math.round(price * 10) / 10;
+            Math.round(
+                price * 10
+            ) / 10;
 
 
         /*
-         * Reasonable fantasy market boundaries.
+         * MARKET LIMITS
          */
 
         price =
-            Math.max(2.5, price);
+            Math.max(
+                3.0,
+                price
+            );
+
 
         price =
-            Math.min(25.0, price);
+            Math.min(
+                20.0,
+                price
+            );
 
 
         return price;
@@ -3436,142 +3582,305 @@ body {
     }
 
 
-    /* -----------------------------------------------------
+    /* ========================================================
        FANTASY POINTS
-    ----------------------------------------------------- */
+    ======================================================== */
 
     function fantasyPoints(player) {
 
         const matches =
-            Math.max(1, player.matches);
+            Math.max(
+                1,
+                player.matches
+            );
 
 
         const gpm =
             player.goals / matches;
 
+
         const apm =
             player.assists / matches;
+
 
         const spm =
             player.saves / matches;
 
-        const mpm =
+
+        const motmRate =
             player.motm / matches;
 
 
         let points =
-            player.rating * 0.65;
+            player.rating * 0.55;
 
 
-        if (player.position === "FWD") {
+        /*
+         * ATTACK
+         */
 
-            points += gpm * 45;
-            points += apm * 25;
+        if (player.type === "FWD") {
 
-        }
+            points +=
+                gpm * 45;
 
-        else if (player.position === "MID") {
-
-            points += gpm * 38;
-            points += apm * 30;
-
-        }
-
-        else if (player.position === "DEF") {
-
-            points += gpm * 32;
-            points += apm * 22;
-
-        }
-
-        else if (player.position === "GK") {
-
-            points += spm * 10;
+            points +=
+                apm * 25;
 
         }
 
 
-        points += mpm * 20;
+        /*
+         * MID
+         */
+
+        if (player.type === "MID") {
+
+            points +=
+                gpm * 38;
+
+            points +=
+                apm * 30;
+
+        }
 
 
-        return Math.round(points);
+        /*
+         * DEF
+         */
+
+        if (player.type === "DEF") {
+
+            points +=
+                gpm * 32;
+
+            points +=
+                apm * 22;
+
+        }
+
+
+        /*
+         * GK
+         */
+
+        if (player.type === "GK") {
+
+            points +=
+                spm * 9;
+
+        }
+
+
+        /*
+         * MOTM
+         */
+
+        points +=
+            motmRate * 18;
+
+
+        /*
+         * DISCIPLINE
+         */
+
+        points -=
+            player.yellow * 0.4;
+
+        points -=
+            player.red * 5;
+
+
+        return Math.max(
+            0,
+            Math.round(points)
+        );
 
     }
 
 
-    /* -----------------------------------------------------
-       PRICE CHANGE
-    ----------------------------------------------------- */
+    /* ========================================================
+       PRICE HISTORY
+       
+       IMPORTANT:
+       
+       Price is only saved as the new market price when
+       the actual stats change.
 
-    function getPriceChange(player) {
+       Rendering the page does NOT repeatedly reset the
+       previous price.
+    ======================================================== */
 
-        const currentPrice =
+    function getPriceHistoryKey(id) {
+
+        return "efcFantasyPrice_" + id;
+
+    }
+
+
+    function getStatsKey(player) {
+
+        return [
+
+            player.matches,
+
+            player.goals,
+
+            player.assists,
+
+            player.saves,
+
+            player.rating,
+
+            player.motm,
+
+            player.yellow,
+
+            player.red
+
+        ].join("|");
+
+    }
+
+
+    function updateMarketHistory(player) {
+
+        const price =
             calculatePrice(player);
 
 
-        const storageKey =
-            "ffPreviousPrice_" + player.id;
+        const priceKey =
+            getPriceHistoryKey(
+                player.id
+            );
 
 
-        const previous =
+        const statsKey =
+            "efcFantasyStats_" +
+            player.id;
+
+
+        const oldPrice =
             parseFloat(
-                localStorage.getItem(storageKey)
+                localStorage.getItem(
+                    priceKey
+                )
+            );
+
+
+        const oldStats =
+            localStorage.getItem(
+                statsKey
             );
 
 
         /*
-         * First time:
-         * store current price.
+         * FIRST TIME PLAYER
          */
 
-        if (!Number.isFinite(previous)) {
+        if (!Number.isFinite(oldPrice)) {
 
             localStorage.setItem(
-                storageKey,
-                currentPrice
+                priceKey,
+                price
             );
 
-            return 0;
+            localStorage.setItem(
+                statsKey,
+                getStatsKey(player)
+            );
+
+            return {
+                price: price,
+                change: 0
+            };
 
         }
 
 
         /*
-         * The previous price is compared with
-         * the newly calculated price.
+         * STATS HAVE CHANGED
          */
 
-        const change =
-            Math.round(
-                (currentPrice - previous) * 10
-            ) / 10;
+        if (
+            oldStats !==
+            getStatsKey(player)
+        ) {
+
+            const change =
+                Math.round(
+                    (price - oldPrice) * 10
+                ) / 10;
+
+
+            /*
+             * Save the NEW price.
+             */
+
+            localStorage.setItem(
+                priceKey,
+                price
+            );
+
+
+            localStorage.setItem(
+                statsKey,
+                getStatsKey(player)
+            );
+
+
+            return {
+
+                price: price,
+
+                change: change
+
+            };
+
+        }
 
 
         /*
-         * Save latest price.
+         * STATS HAVE NOT CHANGED
          */
 
-        localStorage.setItem(
-            storageKey,
-            currentPrice
-        );
+        return {
 
+            price: oldPrice,
 
-        return change;
+            change: 0
+
+        };
 
     }
 
 
-    /* -----------------------------------------------------
-       PRICE DISPLAY
-    ----------------------------------------------------- */
+    /* ========================================================
+       ESCAPE HTML
+    ======================================================== */
 
-    function priceChangeHTML(change) {
+    function safe(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* ========================================================
+       CHANGE DISPLAY
+    ======================================================== */
+
+    function changeHTML(change) {
 
         if (change > 0) {
 
             return `
-                <div class="ff-price-change ff-up">
+                <div class="efc-change-up">
                     ▲ +${change.toFixed(1)}M
                 </div>
             `;
@@ -3582,7 +3891,7 @@ body {
         if (change < 0) {
 
             return `
-                <div class="ff-price-change ff-down">
+                <div class="efc-change-down">
                     ▼ ${change.toFixed(1)}M
                 </div>
             `;
@@ -3591,46 +3900,59 @@ body {
 
 
         return `
-            <div class="ff-price-change ff-neutral">
-                — No change
+            <div class="efc-change-same">
+                — Stable
             </div>
         `;
 
     }
 
 
-    /* -----------------------------------------------------
-       RENDER MARKET
-    ----------------------------------------------------- */
+    /* ========================================================
+       MARKET RENDER
+    ======================================================== */
 
-    function renderPlayers() {
+    function renderMarket() {
 
-        const container =
-            document.getElementById("ffPlayers");
+        const market =
+            document.getElementById(
+                "efcMarket"
+            );
+
 
         const filter =
             document.getElementById(
-                "ffPositionFilter"
+                "efcFilter"
             ).value;
 
 
-        let filtered =
-            players.filter(player => {
+        let visible =
+            players.filter(
+                function (player) {
 
-                if (filter === "ALL") {
-                    return true;
+                    return (
+                        filter === "ALL" ||
+                        player.type === filter
+                    );
+
                 }
-
-                return player.position === filter;
-
-            });
+            );
 
 
-        if (!filtered.length) {
+        visible.sort(
+            function (a, b) {
 
-            container.innerHTML = `
-                <div class="ff-empty">
-                    No players found in this position.
+                return b.rating - a.rating;
+
+            }
+        );
+
+
+        if (!visible.length) {
+
+            market.innerHTML = `
+                <div class="efc-empty">
+                    No players found.
                 </div>
             `;
 
@@ -3639,251 +3961,371 @@ body {
         }
 
 
-        /*
-         * Highest rating first.
-         */
+        market.innerHTML =
+            visible.map(
+                function (player) {
 
-        filtered.sort(
-            (a, b) =>
-                b.rating - a.rating
-        );
-
-
-        container.innerHTML =
-            filtered.map(player => {
-
-                const price =
-                    calculatePrice(player);
-
-                const points =
-                    fantasyPoints(player);
-
-                const change =
-                    getPriceChange(player);
-
-                const alreadySelected =
-                    squad.includes(player.id);
-
-                const squadFull =
-                    squad.length >= MAX_PLAYERS;
+                    const marketData =
+                        updateMarketHistory(
+                            player
+                        );
 
 
-                return `
+                    const points =
+                        fantasyPoints(
+                            player
+                        );
 
-                    <div class="ff-player">
 
-                        <div class="ff-player-top">
+                    const selected =
+                        squad.includes(
+                            player.id
+                        );
 
-                            <div>
 
-                                <div class="ff-player-name">
-                                    ${escapeHTML(player.name)}
+                    const squadFull =
+                        squad.length >=
+                        MAX_SQUAD;
+
+
+                    return `
+
+                        <div class="efc-player-card">
+
+                            <div class="efc-player-top">
+
+                                <div>
+
+                                    <div class="efc-player-name">
+                                        ${safe(player.name)}
+                                    </div>
+
+                                    <div class="efc-player-position">
+                                        ${safe(player.position)}
+                                        · ${player.type}
+                                    </div>
+
                                 </div>
 
-                                <div class="ff-player-position">
-                                    ${escapeHTML(
-                                        player.originalPosition ||
-                                        player.position
+                                <div class="efc-price-area">
+
+                                    <div class="efc-price">
+                                        ${marketData.price.toFixed(1)}M
+                                    </div>
+
+                                    ${changeHTML(
+                                        marketData.change
                                     )}
-                                    · ${player.position}
+
                                 </div>
 
                             </div>
 
-                            <div>
 
-                                <div class="ff-price">
-                                    ${price.toFixed(1)}M
+                            <div class="efc-player-stats">
+
+                                <div class="efc-market-stat">
+                                    <span>RAT</span>
+                                    <strong class="efc-r">
+                                        ${player.rating}
+                                    </strong>
                                 </div>
 
-                                ${priceChangeHTML(change)}
+                                <div class="efc-market-stat">
+                                    <span>G</span>
+                                    <strong class="efc-g">
+                                        ${player.goals}
+                                    </strong>
+                                </div>
+
+                                <div class="efc-market-stat">
+                                    <span>A</span>
+                                    <strong class="efc-a">
+                                        ${player.assists}
+                                    </strong>
+                                </div>
+
+                                <div class="efc-market-stat">
+                                    <span>S</span>
+                                    <strong class="efc-s">
+                                        ${player.saves}
+                                    </strong>
+                                </div>
+
+                                <div class="efc-market-stat">
+                                    <span>PTS</span>
+                                    <strong class="efc-m">
+                                        ${points}
+                                    </strong>
+                                </div>
 
                             </div>
+
+
+                            <button
+                                class="efc-add-player"
+                                onclick="
+                                    window.efcAddPlayer(
+                                        '${player.id}'
+                                    )
+                                "
+                                ${
+                                    selected ||
+                                    squadFull
+                                        ? "disabled"
+                                        : ""
+                                }
+                            >
+
+                                ${
+                                    selected
+                                        ? "In Squad"
+                                        : squadFull
+                                            ? "Squad Full"
+                                            : "Add to Squad"
+                                }
+
+                            </button>
 
                         </div>
 
+                    `;
 
-                        <div class="ff-player-stats">
-
-                            <div class="ff-stat">
-                                <span>RATING</span>
-                                <strong class="ff-rating">
-                                    ${player.rating}
-                                </strong>
-                            </div>
-
-                            <div class="ff-stat">
-                                <span>GOALS</span>
-                                <strong class="ff-goals">
-                                    ${player.goals}
-                                </strong>
-                            </div>
-
-                            <div class="ff-stat">
-                                <span>ASSISTS</span>
-                                <strong class="ff-assists">
-                                    ${player.assists}
-                                </strong>
-                            </div>
-
-                            <div class="ff-stat">
-                                <span>POINTS</span>
-                                <strong class="ff-motm">
-                                    ${points}
-                                </strong>
-                            </div>
-
-                        </div>
-
-
-                        <button
-                            class="ff-add"
-                            onclick="window.ffAddPlayer('${player.id}')"
-                            ${alreadySelected || squadFull ? "disabled" : ""}
-                        >
-                            ${
-                                alreadySelected
-                                    ? "In Squad"
-                                    : squadFull
-                                        ? "Squad Full"
-                                        : "Add to Squad"
-                            }
-                        </button>
-
-                    </div>
-
-                `;
-
-            }).join("");
+                }
+            ).join("");
 
     }
 
 
-    /* -----------------------------------------------------
-       ADD PLAYER
-    ----------------------------------------------------- */
+    /* ========================================================
+       POSITION COUNTS
+    ======================================================== */
 
-    window.ffAddPlayer = function (id) {
+    function getPositionCounts() {
 
-        const player =
-            players.find(
-                p => p.id === id
-            );
+        const counts = {
 
-        if (!player) return;
+            GK: 0,
+            DEF: 0,
+            MID: 0,
+            FWD: 0
 
-
-        if (squad.includes(id)) {
-
-            return;
-
-        }
+        };
 
 
-        if (squad.length >= MAX_PLAYERS) {
-
-            alert(
-                "Your squad already has 8 players."
-            );
-
-            return;
-
-        }
-
-
-        const price =
-            calculatePrice(player);
-
-
-        const currentValue =
-            getSquadValue();
-
-
-        if (
-            currentValue + price >
-            STARTING_BUDGET + 0.0001
-        ) {
-
-            alert(
-                "Not enough budget for this player."
-            );
-
-            return;
-
-        }
-
-
-        squad.push(id);
-
-        saveSquad();
-
-        renderAll();
-
-    };
-
-
-    /* -----------------------------------------------------
-       REMOVE PLAYER
-    ----------------------------------------------------- */
-
-    window.ffRemovePlayer = function (id) {
-
-        squad =
-            squad.filter(
-                playerId =>
-                    playerId !== id
-            );
-
-
-        if (captainId === id) {
-
-            captainId = null;
-
-        }
-
-
-        saveSquad();
-
-        renderAll();
-
-    };
-
-
-    /* -----------------------------------------------------
-       CAPTAIN
-    ----------------------------------------------------- */
-
-    window.ffCaptain = function (id) {
-
-        if (!squad.includes(id)) return;
-
-        captainId = id;
-
-        saveSquad();
-
-        renderSquad();
-
-    };
-
-
-    /* -----------------------------------------------------
-       SQUAD VALUE
-    ----------------------------------------------------- */
-
-    function getSquadValue() {
-
-        return squad.reduce(
-            (total, id) => {
+        squad.forEach(
+            function (id) {
 
                 const player =
                     players.find(
                         p => p.id === id
                     );
 
-                if (!player) return total;
 
-                return total +
-                    calculatePrice(player);
+                if (player) {
+
+                    counts[
+                        player.type
+                    ]++;
+
+                }
+
+            }
+        );
+
+
+        return counts;
+
+    }
+
+
+    /* ========================================================
+       ADD PLAYER
+    ======================================================== */
+
+    window.efcAddPlayer =
+        function (id) {
+
+            const player =
+                players.find(
+                    p => p.id === id
+                );
+
+
+            if (!player) return;
+
+
+            if (
+                squad.includes(id)
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                squad.length >=
+                MAX_SQUAD
+            ) {
+
+                alert(
+                    "Your squad already has 8 players."
+                );
+
+                return;
+
+            }
+
+
+            const counts =
+                getPositionCounts();
+
+
+            if (
+                counts[player.type] >=
+                FORMATION[player.type]
+            ) {
+
+                alert(
+                    "You already have the maximum " +
+                    player.type +
+                    " players for this formation."
+                );
+
+                return;
+
+            }
+
+
+            const price =
+                calculatePrice(player);
+
+
+            const value =
+                getSquadValue();
+
+
+            if (
+                value + price >
+                BUDGET
+            ) {
+
+                alert(
+                    "Not enough budget for this player."
+                );
+
+                return;
+
+            }
+
+
+            squad.push(id);
+
+
+            /*
+             * Automatically make the first player
+             * captain.
+             */
+
+            if (!captain) {
+
+                captain = id;
+
+            }
+
+
+            saveData();
+
+            renderAll();
+
+        };
+
+
+    /* ========================================================
+       REMOVE PLAYER
+    ======================================================== */
+
+    window.efcRemovePlayer =
+        function (id) {
+
+            squad =
+                squad.filter(
+                    playerId =>
+                        playerId !== id
+                );
+
+
+            if (
+                captain === id
+            ) {
+
+                captain =
+                    squad.length
+                        ? squad[0]
+                        : null;
+
+            }
+
+
+            saveData();
+
+            renderAll();
+
+        };
+
+
+    /* ========================================================
+       MAKE CAPTAIN
+    ======================================================== */
+
+    window.efcMakeCaptain =
+        function (id) {
+
+            if (
+                !squad.includes(id)
+            ) {
+
+                return;
+
+            }
+
+
+            captain = id;
+
+            saveData();
+
+            renderSquad();
+
+        };
+
+
+    /* ========================================================
+       SQUAD VALUE
+    ======================================================== */
+
+    function getSquadValue() {
+
+        return squad.reduce(
+            function (total, id) {
+
+                const player =
+                    players.find(
+                        p => p.id === id
+                    );
+
+
+                if (!player) {
+
+                    return total;
+
+                }
+
+
+                return (
+                    total +
+                    calculatePrice(player)
+                );
 
             },
             0
@@ -3892,28 +4334,37 @@ body {
     }
 
 
-    /* -----------------------------------------------------
-       SQUAD POINTS
-    ----------------------------------------------------- */
+    /* ========================================================
+       TOTAL POINTS
+    ======================================================== */
 
-    function getSquadPoints() {
+    function getTotalPoints() {
 
         return squad.reduce(
-            (total, id) => {
+            function (total, id) {
 
                 const player =
                     players.find(
                         p => p.id === id
                     );
 
-                if (!player) return total;
+
+                if (!player) {
+
+                    return total;
+
+                }
 
 
                 let points =
-                    fantasyPoints(player);
+                    fantasyPoints(
+                        player
+                    );
 
 
-                if (id === captainId) {
+                if (
+                    captain === id
+                ) {
 
                     points *= 2;
 
@@ -3929,20 +4380,48 @@ body {
     }
 
 
-    /* -----------------------------------------------------
+    /* ========================================================
        RENDER SQUAD
-    ----------------------------------------------------- */
+    ======================================================== */
 
     function renderSquad() {
 
         const container =
             document.getElementById(
-                "ffSquad"
+                "efcSquad"
             );
 
 
+        const counts =
+            getPositionCounts();
+
+
         document.getElementById(
-            "ffSquadCount"
+            "efcGKCount"
+        ).textContent =
+            counts.GK + "/1";
+
+
+        document.getElementById(
+            "efcDEFCount"
+        ).textContent =
+            counts.DEF + "/2";
+
+
+        document.getElementById(
+            "efcMIDCount"
+        ).textContent =
+            counts.MID + "/2";
+
+
+        document.getElementById(
+            "efcFWDCount"
+        ).textContent =
+            counts.FWD + "/3";
+
+
+        document.getElementById(
+            "efcSquadCount"
         ).textContent =
             squad.length;
 
@@ -3952,252 +4431,284 @@ body {
 
 
         document.getElementById(
-            "ffSquadValue"
+            "efcSquadValue"
         ).textContent =
             value.toFixed(1) + "M";
 
 
         document.getElementById(
-            "ffRemaining"
+            "efcRemaining"
         ).textContent =
             Math.max(
                 0,
-                STARTING_BUDGET - value
+                BUDGET - value
             ).toFixed(1) + "M";
 
 
         document.getElementById(
-            "ffSquadPoints"
+            "efcTotalPoints"
         ).textContent =
-            getSquadPoints();
+            getTotalPoints();
+
+
+        const captainPlayer =
+            players.find(
+                p => p.id === captain
+            );
+
+
+        document.getElementById(
+            "efcCaptainName"
+        ).textContent =
+            captainPlayer
+                ? captainPlayer.name
+                : "Not selected";
 
 
         if (!squad.length) {
 
             container.innerHTML = `
-                <div class="ff-empty">
-                    <strong>No players selected</strong>
+                <div class="efc-empty">
+                    <strong>Your squad is empty.</strong>
                     <br>
-                    <span>
-                        Add players from the market above.
-                    </span>
+                    Add players from the market.
                 </div>
             `;
 
-        }
-        else {
+            return;
 
-            container.innerHTML =
-                squad.map(id => {
+        }
+
+
+        container.innerHTML =
+            squad.map(
+                function (id) {
 
                     const player =
                         players.find(
                             p => p.id === id
                         );
 
-                    if (!player) return "";
+
+                    if (!player) {
+
+                        return "";
+
+                    }
 
 
                     const price =
-                        calculatePrice(player);
+                        calculatePrice(
+                            player
+                        );
 
-                    const points =
-                        fantasyPoints(player);
+
+                    let points =
+                        fantasyPoints(
+                            player
+                        );
+
 
                     const isCaptain =
-                        id === captainId;
+                        captain === id;
+
+
+                    if (isCaptain) {
+
+                        points *= 2;
+
+                    }
 
 
                     return `
 
                         <div class="
-                            ff-squad-player
-                            ${isCaptain ? "captain" : ""}
+                            efc-squad-card
+                            ${
+                                isCaptain
+                                    ? "efc-captain-card"
+                                    : ""
+                            }
                         ">
+
+                            <button
+                                class="efc-remove"
+                                onclick="
+                                    window.efcRemovePlayer(
+                                        '${player.id}'
+                                    )
+                                "
+                            >
+                                ×
+                            </button>
+
 
                             ${
                                 isCaptain
                                     ? `
                                         <div style="
                                             position:absolute;
-                                            top:8px;
-                                            right:37px;
-                                            color:#c58ded;
-                                            font-size:9px;
+                                            top:10px;
+                                            right:38px;
+                                            color:#c88cf0;
+                                            font-size:8px;
                                             font-weight:bold;
                                         ">
-                                            CAP
+                                            CAPTAIN
                                         </div>
                                     `
                                     : ""
                             }
 
 
-                            <button
-                                class="ff-remove"
-                                onclick="window.ffRemovePlayer('${player.id}')"
-                                title="Remove"
-                            >
-                                ×
-                            </button>
-
-
                             <h4>
-                                ${escapeHTML(player.name)}
+                                ${safe(player.name)}
                             </h4>
 
-                            <span class="ff-small-pos">
-                                ${escapeHTML(
-                                    player.originalPosition ||
-                                    player.position
-                                )}
+
+                            <span class="efc-squad-position">
+                                ${safe(player.position)}
                             </span>
 
-                            <span class="ff-small-price">
+
+                            <span class="efc-squad-price">
                                 ${price.toFixed(1)}M
                             </span>
 
-                            <span class="ff-small-points">
-                                ${
-                                    isCaptain
-                                        ? points * 2
-                                        : points
-                                }
-                                fantasy points
+
+                            <span class="efc-squad-points">
+                                ${points} fantasy points
                             </span>
 
 
                             <button
-                                class="ff-captain-btn"
-                                onclick="window.ffCaptain('${player.id}')"
+                                class="efc-captain-button"
+                                onclick="
+                                    window.efcMakeCaptain(
+                                        '${player.id}'
+                                    )
+                                "
                             >
+
                                 ${
                                     isCaptain
                                         ? "★ Captain"
                                         : "Make Captain"
                                 }
+
                             </button>
 
                         </div>
 
                     `;
 
-                }).join("");
-
-        }
-
-
-        document.getElementById(
-            "ffCaptain"
-        ).textContent =
-            captainId
-                ? (
-                    players.find(
-                        p => p.id === captainId
-                    )?.name || "Not selected"
-                )
-                : "Not selected";
+                }
+            ).join("");
 
     }
 
 
-    /* -----------------------------------------------------
-       ESCAPE HTML
-    ----------------------------------------------------- */
-
-    function escapeHTML(value) {
-
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-
-    }
-
-
-    /* -----------------------------------------------------
-       RENDER EVERYTHING
-    ----------------------------------------------------- */
+    /* ========================================================
+       RENDER ALL
+    ======================================================== */
 
     function renderAll() {
 
         players =
-            readStatsTable();
+            readPlayers();
+
 
         /*
-         * Remove players that no longer exist.
+         * Remove deleted players automatically.
          */
 
         squad =
-            squad.filter(id =>
-                players.some(
-                    p => p.id === id
-                )
+            squad.filter(
+                id =>
+                    players.some(
+                        p => p.id === id
+                    )
             );
 
 
+        /*
+         * Fix captain if player disappeared.
+         */
+
         if (
-            captainId &&
-            !squad.includes(captainId)
+            captain &&
+            !squad.includes(captain)
         ) {
 
-            captainId = null;
+            captain =
+                squad.length
+                    ? squad[0]
+                    : null;
 
         }
 
 
-        renderPlayers();
+        saveData();
+
+
+        renderMarket();
+
         renderSquad();
 
 
         document.getElementById(
-            "ffBudgetTop"
+            "efcTopBudget"
         ).textContent =
-            STARTING_BUDGET.toFixed(1) + "M";
+            BUDGET.toFixed(1) + "M";
 
     }
 
 
-    /* -----------------------------------------------------
-       POSITION FILTER
-    ----------------------------------------------------- */
+    /* ========================================================
+       FILTER
+    ======================================================== */
 
     document.getElementById(
-        "ffPositionFilter"
+        "efcFilter"
     ).addEventListener(
         "change",
-        renderPlayers
+        renderMarket
     );
 
 
-    /* -----------------------------------------------------
-       CLEAR SQUAD
-    ----------------------------------------------------- */
+    /* ========================================================
+       CLEAR
+    ======================================================== */
 
     document.getElementById(
-        "ffClear"
+        "efcClearSquad"
     ).addEventListener(
         "click",
         function () {
 
-            if (!squad.length) return;
+            if (!squad.length) {
+
+                return;
+
+            }
 
 
-            const confirmClear =
-                confirm(
+            if (
+                !confirm(
                     "Clear your entire fantasy squad?"
-                );
+                )
+            ) {
 
+                return;
 
-            if (!confirmClear) return;
+            }
 
 
             squad = [];
-            captainId = null;
 
-            saveSquad();
+            captain = null;
+
+            saveData();
 
             renderAll();
 
@@ -4205,117 +4716,143 @@ body {
     );
 
 
-    /* -----------------------------------------------------
-       LOAD SAVED SQUAD
-    ----------------------------------------------------- */
+    /* ========================================================
+       LOAD
+    ======================================================== */
 
-    loadSquad();
+    loadData();
 
 
-    /* -----------------------------------------------------
-       INITIAL LOAD
-    ----------------------------------------------------- */
+    /* ========================================================
+       FIRST RENDER
+    ======================================================== */
 
     renderAll();
 
 
-    /* =====================================================
-       AUTOMATIC STATS DETECTION
+    /* ========================================================
+       AUTOMATIC STATS UPDATE
        
-       This is the important part.
+       Watches YOUR existing .stats-table.
 
-       Whenever your existing stats table changes,
-       the fantasy market recalculates.
-    ===================================================== */
+       If you change:
+       - Matches
+       - Goals
+       - Assists
+       - Saves
+       - FC Rating
+       - MOTM
+       - Yellow
+       - Red
 
-    let updateTimer = null;
+       the fantasy market recalculates automatically.
+    ======================================================== */
+
+    let refreshTimer = null;
+
 
     const observer =
         new MutationObserver(
             function () {
 
-                clearTimeout(updateTimer);
+                clearTimeout(
+                    refreshTimer
+                );
 
-                updateTimer =
+
+                refreshTimer =
                     setTimeout(
                         function () {
 
                             renderAll();
 
                         },
-                        350
+                        300
                     );
 
             }
         );
 
 
-    /*
-     * Watch the whole page because your existing
-     * stats may be updated by JavaScript.
-     */
-
-    observer.observe(
-        document.body,
-        {
-            childList: true,
-            subtree: true,
-            characterData: true
-        }
-    );
+    const statsTable =
+        document.querySelector(
+            ".stats-table"
+        );
 
 
-    /*
-     * Also check periodically.
-     *
-     * This catches stats changed through
-     * unusual scripts that don't trigger the
-     * normal DOM mutation events.
-     */
+    if (statsTable) {
 
-    let previousTableSignature = "";
-
-
-    function tableSignature() {
-
-        const tables =
-            document.querySelectorAll("table");
-
-        let text = "";
-
-        tables.forEach(table => {
-
-            text += table.innerText + "||";
-
-        });
-
-        return text;
+        observer.observe(
+            statsTable,
+            {
+                subtree: true,
+                childList: true,
+                characterData: true
+            }
+        );
 
     }
+
+
+    /* ========================================================
+       BACKUP CHECK
+    ======================================================== */
+
+    let lastSignature = "";
+
+
+    function getTableSignature() {
+
+        const table =
+            document.querySelector(
+                ".stats-table"
+            );
+
+
+        if (!table) {
+
+            return "";
+
+        }
+
+
+        return table.innerText;
+
+    }
+
+
+    lastSignature =
+        getTableSignature();
 
 
     setInterval(
         function () {
 
-            const signature =
-                tableSignature();
+            const current =
+                getTableSignature();
 
 
             if (
-                signature &&
-                signature !==
-                previousTableSignature
+                current &&
+                current !==
+                lastSignature
             ) {
 
-                previousTableSignature =
-                    signature;
+                lastSignature =
+                    current;
 
                 renderAll();
 
             }
 
         },
-        1500
+        1000
+    );
+
+
+})();
+
+</script>
     );
 
 
